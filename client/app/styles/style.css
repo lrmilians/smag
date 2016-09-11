@@ -1,0 +1,152 @@
+
+#main {
+    background-color: transparent !important;
+    background-image: none !important;
+    margin: 0 auto;
+    padding: 0;
+    text-align: left;
+    width: 100%;
+}
+#inner {
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: transparent !important;
+    background-image: none !important;
+    background-origin: padding-box;
+    background-position: 0 0;
+    background-repeat: repeat;
+    background-size: auto auto;
+    margin: auto;
+    max-width: 1153px;
+    min-width: 970px;
+    width: 82%;
+}
+#bg {
+    background: rgba(0, 0, 0, 0) url("../images/isotipo_senescyt.png") no-repeat scroll 0 0;
+    height: 426px;
+    margin-left: -200px;
+    position: absolute;
+    width: 400px;
+    z-index: -1;
+}
+div#header {
+    background-attachment: scroll;
+    background-color: transparent;
+    background-origin: padding-box;
+    background-position: 245px 0;
+    background-repeat: no-repeat;
+    height: 110px;
+    margin: 0;
+}
+#header div#logo-prometeo a {
+    background: transparent url("../images/logo-prometeo.png") no-repeat scroll 10px center;
+    border: medium none !important;
+    display: block;
+    float: right;
+    height: 95px !important;
+    margin: 10px 0 0 !important;
+    text-decoration: none;
+    width: 540px;
+}
+#logo-senescyt a span, #header div#logo-prometeo a span {
+    visibility: hidden;
+}
+
+.redes {
+    background: none repeat scroll 0 0;
+    float: right;
+    list-style: outside none none;
+    margin: 0 !important;
+    padding: 2px 5px 0 !important;
+}
+.redes li {
+    float: right;
+    margin: 5px;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    background-color: #c4e7ff;
+    border-radius: 0px 0px 5px 5px;
+    color: #555;
+}
+#div-loading {
+    background-color: grey;
+    border-radius: 5px;
+    opacity: 0.45;
+    display: none;
+    z-index: 2000;
+}
+
+.ajax-loader {
+    display: block;
+    left: 46.2%;
+    position: absolute;
+    top: 35%;
+    width: 4%;
+}
+.progress-bar-info {
+    background-color: #337ab7;
+
+}
+.progress-bar {
+    line-height: 25px;
+}
+.progress {
+    height: 25px;
+}
+.datepicker {
+    position: absolute;
+    display: none;
+    top: -9999em;
+    left: -9999em;
+}
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    color: #31708f;
+}
+.error {
+    border-color: red;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(250, 120, 137, 0.6);
+    outline: 0 none;
+}
+
+.warning {
+    border-color: yellow;
+}
+
+.iti-flag {background-image: url("../bower_components/intl-tel-input/img/flags.png");}
+.pagination>li>a, .pagination>li>span { border-radius: 50% !important;margin: 0 5px;/*box-shadow: 8px 8px 15px -8px rgba(0, 0, 0, 0.75);*/}
+
+
+@media ( max-width: 585px ) {
+    .input-group span.input-group-btn,.input-group input,.input-group button{
+        display: block;
+        width: 100%;
+        border-radius: 0;
+        margin: 0;
+    }
+    .input-group {
+        position: relative;
+    }
+    .input-group span.data-up{
+        position: absolute;
+        top: 0;
+    }
+    .input-group span.data-dwn{
+        position: absolute;
+        bottom: 0;
+    }
+    .form-control.text-center {
+        margin: 34px 0;
+    }
+    .input-group-btn:last-child>.btn, .input-group-btn:last-child>.btn-group{
+        margin-left:0;
+    }
+
+}
+
+#editor {overflow:scroll; max-height:300px; border-radius: 6px;}
+
+.glyphicon{
+    margin-right: 3px;
+}

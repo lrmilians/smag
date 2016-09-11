@@ -1,0 +1,74 @@
+<div class="jumbotron" style="padding: 10px 25px;">
+    <div ng-controller="balanceSituacionCtrl as bsc" ng-init="bsc.initCtrl()">
+        <div class="panel panel-info" style="margin: 5px 0px 15px 0px;">
+            <div class="panel-heading" style="padding: 0px 10px;">
+                <table width="100%">
+                    <tr>
+                        <td style="width: 60%; text-align: left;"><h4><button type="button" class="btn btn-default btn-success btn-xs" ng-click="bsc.initCtrl()" style="font-size: 12px;" title="Actualizar">
+                            <span class="glyphicon glyphicon-repeat" aria-hidden="true" style="margin: 0;"></span>
+                        </button><span class="glyphicon glyphicon-book" aria-hidden="true" style="margin-left: 6px; margin-right: 6px;"></span><label class="text-primary" style="margin-bottom: 0px;">BALANCE SITUACIÓN</label></h4></td>
+                        <td style="width: 40%; text-align: right;"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel-body" style="padding-top: 0px;">
+                <div class="col-md-5 text-center">
+                    <table class="table table-hover table-striped" style="margin-bottom: 0px;">
+                        <thead>
+                            <tr>
+                                <th style="width: 12%;">Fecha</th>
+                                <th style="width: 22%;">ACTIVO</th>
+                                <th style="width: 22%;">PASIVO</th>
+                                <th style="width: 1%;">.....</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-if="bsc.balances.length === 0">
+                                <td colspan="12">
+                                    <div role="alert" class="alert alert-danger" style="margin-bottom: 0; padding: 5px;">
+                                        <span aria-hidden="true" class="glyphicon glyphicon-exclamation-sign"></span>
+                                        <span class="sr-only">Error:</span>
+                                        {{'No existen registros'}}
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr ng-show="bsc.balances.length !== 0" ng-repeat="balance in bsc.balances" style="text-align: left;" ng-click="bsc.verDetalleBalance(balance.id)" title="Mostrar detalle del Balance" ng-class="balance.id === bsc.balanceDetalle[0].balance_situacion_id ? 'success text-danger' : ''">
+                                <td style="vertical-align: middle;" >{{balance.fecha.substr(0,10)}}</td>
+                                <td style="vertical-align: middle;" >{{balance.activo | currency: '$' }}</td>
+                                <td style="vertical-align: middle;" >{{balance.pasivo | currency: '$' }}</td>
+                                <td style="vertical-align: middle; text-align: right" >
+                                    <span ng-if="balance.id === bsc.balanceDetalle[0].balance_situacion_id" aria-hidden="true" class="glyphicon glyphicon-arrow-right" style="margin: 0 0 0 5px;"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-7 text-center">
+                    <table ng-if="bsc.detalleBalance" class="table table-hover table-striped" style="margin-bottom: 0px;">
+                        <thead>
+                            <tr>
+                                <th style="width: 100%; text-align: center" colspan="3">DETALLE DEL BALANCE</th>
+                            </tr>
+                            <tr>
+                                <th style="width: 100%; text-align: center"></th>
+                                <th style="width: 100%; text-align: center" colspan="2">Saldos</th>
+                            </tr>
+                            <tr>
+                                <th style="width: 60%; text-align: center">Cuenta</th>
+                                <th style="width: 20%; text-align: left">Deudor</th>
+                                <th style="width: 20%; text-align: left">Acreedor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="detalle in bsc.balanceDetalle" title="{{detalle.nombre}}">
+                                <td style="vertical-align: middle; text-align: left;">{{detalle.codigo | cuenta}} {{detalle.nombre}}</td>
+                                <td style="vertical-align: middle; text-align: left;">{{detalle.saldo_deudor == "0.0000" ? '--' : detalle.saldo_deudor | currency: '$'}}</td>
+                                <td style="vertical-align: middle; text-align: left;">{{detalle.saldo_acreedor == "0.0000" ? '--' : detalle.saldo_acreedor | currency: '$'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

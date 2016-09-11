@@ -1,0 +1,55 @@
+<div class="jumbotron" ng-controller="userCtrl as usc">
+  <div class="row" ng-init="usc.initCtrl()">
+    <div class="col-md-7 col-md-offset-3 panel panel-default with-margin-left-1">
+        <div class="panel panel-info" style="margin: 15px 0px;">
+            <div class="panel-heading">
+                <table width="100%">
+                    <tr>
+                        <td style="width: 60%; text-align: left;"><h4 style="margin: 0;"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>PERFIL USUARIO</h4></td>
+                        <td style="width: 40%; text-align: right;"><button type="button" class="btn btn-primary" ng-click="usc.changePassword()">Cambiar contraseña</button></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" ng-submit="usc.setUserProfile()" name="userProfileForm">
+                    <div class="form-group required">
+                        <label class="col-sm-4 control-label">Identificacion</label>
+                        <label class="col-sm-7 control-label" style="font-weight: normal; text-align: left;">{{usc.userIdentification}}</label>
+                    </div>
+                    <div class="form-group required">
+                        <label class="col-sm-4 control-label">Usuario</label>
+                        <label class="col-sm-7 control-label" style="font-weight: normal; text-align: left;">{{usc.userName}}</label>
+                    </div>
+                    <div class="form-group required">
+                        <label class="col-sm-4 control-label">Correo</label>
+                        <label class="col-sm-7 control-label" style="font-weight: normal; text-align: left;">{{usc.email}}</label>
+                    </div>
+                    <div class="form-group required">
+                        <label for="firstName" class="col-sm-4 control-label">Nombre *</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="firstName"
+                                   ng-model="usc.firstName" required="required" placeholder="{{'userregPhFirstName' | translate}}"
+                                   name="firstName" ng-pattern="patternFirstName">
+                        </div>
+                        <span class="col-sm-12 text-danger text-right" ng-show="userProfileForm.firstName.$error.required">{{'userregMsgText4' | translate}}</span>
+                        <span class="col-sm-12 text-danger text-right" ng-show="userProfileForm.firstName.$error.pattern">{{'userregMsgText4' | translate}}</span>
+                    </div>
+                    <div class="form-group required">
+                        <label for="lastName" class="col-sm-4 control-label">Apellido *</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="lastName"
+                                   ng-model="usc.lastName" required="required"
+                                   placeholder="{{'userregPhLastName' | translate}}"
+                                   name="lastName" ng-pattern="patternLastName">
+                        </div>
+                        <span class="col-sm-12 text-danger text-right" ng-show="userProfileForm.lastName.$error.pattern">{{'userregMsgText5' | translate}}</span>
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

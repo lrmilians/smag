@@ -1,0 +1,22 @@
+<div class="modal-header" style="background-color: #d9edf7;" xmlns="http://www.w3.org/1999/html">
+    <h4 class="modal-title">
+        <span class="glyphicon {{glyphicon}}"></span>{{title}}
+    </h4>
+</div>
+<div class="modal-body" >
+    <div class="panel panel-info" style="margin: 5px 0px;">
+        <div class="panel-body" style="padding-bottom: 0; padding-top: 0;">
+            <div ng-repeat="datum in data" class="row" style="margin: 10px 0;">
+                <div class="col-xs-5">
+                    <strong>{{datum.label}}</strong>
+                </div>
+                <div class="col-xs-7">
+                    {{datum.value}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-success pull-right" ng-click="cancel()">{{'DIALOGS_OK' | translate}}</button>
+</div>

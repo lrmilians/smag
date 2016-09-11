@@ -1,0 +1,105 @@
+<div class="jumbotron" style="padding: 10px 25px;">
+    <div ng-controller="balanceComprobacionCtrl as bcc" ng-init="bcc.initCtrl()">
+        <div class="panel panel-info" style="margin: 5px 0px 15px 0px;">
+            <div class="panel-heading" style="padding: 0px 10px;">
+                <table width="100%">
+                    <tr>
+                        <td style="width: 60%; text-align: left;"><h4><button type="button" class="btn btn-default btn-success btn-xs" ng-click="bcc.initCtrl()" style="font-size: 12px;" title="Actualizar">
+                            <span class="glyphicon glyphicon-repeat" aria-hidden="true" style="margin: 0;"></span>
+                        </button><span class="glyphicon glyphicon-book" aria-hidden="true" style="margin-left: 6px; margin-right: 6px;"></span><label class="text-primary" style="margin-bottom: 0px;">BALANCE COMPROBACIÓN</label></h4></td>
+                        <td style="width: 40%; text-align: right;"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel-body" style="padding-top: 0px;">
+                <div class="col-md-6 text-center">
+                    <table class="table table-hover table-striped" style="margin-bottom: 0px;">
+                        <thead>
+                            <tr>
+                                <th style="width: 11%;"></th>
+                                <th style="width: 44%; text-align: center" colspan="2">SUMAS</th>
+                                <th style="width: 44%; text-align: center" colspan="2">SALDOS</th>
+                                <th style="width: 1%;"></th>
+                            </tr>
+                            <tr>
+                                <th style="width: 12%;">Cuenta</th>
+                                <th style="width: 22%;">DEBE</th>
+                                <th style="width: 22%;">HABER</th>
+                                <th style="width: 22%;">DEUDOR</th>
+                                <th style="width: 22%;">ACREEDOR</th>
+                                <th style="width: 1%;">.....</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-if="bcc.balance.length === 0">
+                                <td colspan="12">
+                                    <div role="alert" class="alert alert-danger" style="margin-bottom: 0; padding: 5px;">
+                                        <span aria-hidden="true" class="glyphicon glyphicon-exclamation-sign"></span>
+                                        <span class="sr-only">Error:</span>
+                                        {{'No existen registros'}}
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr ng-show="bcc.balance.length !== 0" ng-repeat="balanc in bcc.balance" style="text-align: left;" ng-click="bcc.verDetalleCuenta(balanc.cuenta_id)" title="Mostrar movimientos de la cuenta {{balanc.codigo | cuenta}}" ng-class="balanc.codigo === bcc.detallesCuenta[0].codigo ? 'success text-danger' : ''">
+                                <td style="vertical-align: middle;" ng-class="balanc.saldo == '0.0000' ? 'text-success' : ''">{{balanc.codigo | cuenta}}</td>
+                                <td style="vertical-align: middle;" ng-class="balanc.saldo == '0.0000' ? 'text-success' : ''">{{balanc.suma_debe | currency: '$' }}</td>
+                                <td style="vertical-align: middle;" ng-class="balanc.saldo == '0.0000' ? 'text-success' : ''">{{balanc.suma_haber | currency: '$' }}</td>
+                                <td style="vertical-align: middle;" ng-class="balanc.saldo == '0.0000' ? 'text-success' : ''">{{balanc.saldo > 0 ? balanc.saldo : 0 | currency: '$'}}</td>
+                                <td style="vertical-align: middle;" ng-class="balanc.saldo == '0.0000' ? 'text-success' : ''">{{balanc.saldo < 0 ? -balanc.saldo : 0 | currency: '$'}}</td>
+                                <td style="vertical-align: middle; text-align: right" ng-class="balanc.saldo == '0.0000' ? 'text-success' : ''">
+                                    <span ng-if="balanc.codigo === bcc.detallesCuenta[0].codigo" aria-hidden="true" class="glyphicon glyphicon-arrow-right" style="margin: 0 0 0 5px;"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6 text-center">
+                    <table class="table table-hover table-striped" style="margin-bottom: 0px;">
+                        <thead>
+                            <tr>
+                                <th style="width: 50%; text-align: center" colspan="2">DEBE</th>
+                                <th style="width: 50%; text-align: center" colspan="2">HABER</th>
+                            </tr>
+                        <tr>
+                            <th style="width: 25%; text-align: center">DEBE</th>
+                            <th style="width: 25%; text-align: center">HABER</th>
+                            <th style="width: 25%; text-align: center">DEUDOR</th>
+                            <th style="width: 25%; text-align: center">ACREEDOR</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="text-align: center;">
+                                <td class="{{bcc.estiloSuma}}" style="vertical-align: middle;"><strong>{{bcc.totalSumaDebe | currency: '$'}}</strong></td>
+                                <td class="{{bcc.estiloSuma}}" style="vertical-align: middle;"><strong>{{bcc.totalSumaHaber | currency: '$'}}</strong></td>
+                                <td class="{{bcc.estiloSaldos}}" style="vertical-align: middle;"><strong>{{bcc.totalSaldoDeudor | currency: '$'}}</strong></td>
+                                <td class="{{bcc.estiloSaldos}}" style="vertical-align: middle;"><strong>{{bcc.totalSaldoAcreedor | currency: '$'}}</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr>
+                    <table ng-if="bcc.detalleCuenta" class="table table-hover table-striped" style="margin-bottom: 0px;">
+                        <thead>
+                            <tr>
+                                <th style="width: 100%; text-align: center" colspan="4">{{bcc.detallesCuenta[0].codigo | cuenta}} - {{bcc.detallesCuenta[0].nombre}}</th>
+                            </tr>
+                            <tr>
+                                <th style="width: 10%; text-align: center">Fecha</th>
+                                <th style="width: 54%; text-align: center">Descripción</th>
+                                <th style="width: 18%; text-align: center">DEBE</th>
+                                <th style="width: 18%; text-align: center">HABER</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="detalle in bcc.detallesCuenta">
+                                <td style="vertical-align: middle; text-align: left;">{{detalle.fecha.substr(0,10)}}</td>
+                                <td style="vertical-align: middle; text-align: left;">{{detalle.descripcion}}</td>
+                                <td style="vertical-align: middle; text-align: left;">{{detalle.importe_debe == "0.00" ? '--' : detalle.importe_debe | currency: '$'}}</td>
+                                <td style="vertical-align: middle; text-align: left;">{{detalle.importe_haber == "0.00" ? '--' : detalle.importe_haber | currency: '$'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

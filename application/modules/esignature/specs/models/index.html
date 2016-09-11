@@ -1,0 +1,22 @@
+<?php
+
+class Test_Base_Model1 extends CodeIgniterUnitTestCase {
+
+  public function __construct() {
+    parent::__construct();
+    $this->load->model('base_model');
+  }
+
+  public function test_set_table() {
+    $this->base_model->set_table('users');
+    $table = $this->base_model->get_table();
+    $this->assertEqual($table, 'users');
+  }
+
+  public function test_set_database() {
+    
+    $this->base_model->set_database('pac_standard_testing');
+    $database = $this->base_model->get_database();
+    $this->assertEqual($database, 'pac_standard_testing');
+  }
+}

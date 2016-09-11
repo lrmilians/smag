@@ -1,0 +1,75 @@
+<div class="jumbotron" style="padding: 10px 25px;">
+    <div ng-controller="keyCtrl as kec" ng-init="kec.initCtrl()">
+        <div class="panel panel-info" style="margin: 5px 0px 15px 0px;">
+            <div class="panel-heading" style="padding: 0px 10px;">
+                <table width="100%">
+                    <tr>
+                        <td style="width: 60%; text-align: left;"><h4><button type="button" class="btn btn-default btn-success btn-xs" ng-click="kec.initCtrl()" style="font-size: 12px;" title="Actualizar">
+                            <span class="glyphicon glyphicon-repeat" aria-hidden="true" style="margin: 0;"></span>
+                        </button><span class="glyphicon glyphicon-lock" aria-hidden="true" style="margin-left: 6px; margin-right: 6px;"></span><label class="text-primary" style="margin-bottom: 0px;">Llaves de Firma</label></h4></td>
+                        <td style="width: 40%; text-align: right;">
+                            <button type="button" class="btn btn-success" style="font-size: 12px;" ng-click="kec.addKey()">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Adicionar Llave
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel-body" style="padding-top: 0px;">
+                <table class="table table-hover table-striped" style="margin-bottom: 0px;">
+                    <thead>
+                    <tr>
+                        <th style="width: 25%;">Nombre</th>
+                        <th style="width: 15%;">Clave</th>
+                        <th style="width: 5%;">Activa</th>
+                        <th style="width: 15%;">Vencimiento</th>
+                        <th style="width: 15%;">Adicionada</th>
+                        <th style="width: 15%;">Modificada</th>
+                        <th style="width: 10%;"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-if="kec.keys.length === 0">
+                        <td colspan="12">
+                            <div role="alert" class="alert alert-danger" style="margin-bottom: 0; padding: 5px;">
+                                <span aria-hidden="true" class="glyphicon glyphicon-exclamation-sign"></span>
+                                <span class="sr-only">Error:</span>
+                                {{'No existen registros'}}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr ng-show="kec.keys.length !== 0" dir-paginate="key in kec.keys | filter:q | itemsPerPage: kec.pageSize" current-page="kec.currentPage" total-items="kec.totalRecords" ng-class="key.active == '1' ? 'success' : ''" ng-style=" key.active == '1' ? { 'font-weight' :'bold' } : {'font-weight' :'normal'}" style="text-align: left;">
+                        <td style="vertical-align: middle;">{{key.name}}</td>
+                        <td style="vertical-align: middle;">{{key.password}}</td>
+                        <td style="vertical-align: middle;">{{key.active === "1" ? "Si" : "No"}}</td>
+                        <td style="vertical-align: middle;">{{key.expired_date}}</td>
+                        <td style="vertical-align: middle;">{{key.created}}</td>
+                        <td style="vertical-align: middle;">{{key.modified}}</td>
+                        <td style="vertical-align: middle;">
+                            <button type="button" class="btn btn-default btn-xs btn-warning" style="font-size: 12px;" ng-click="kec.editKey(key)" title="Editar">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true" style="margin: 0;"></span>
+                            </button>
+                            <a class="btn btn-default btn-xs btn-success" style="font-size: 12px;" href="{{baseURL}}/esignature/key/keyfile/name/{{key.name}}/token/{{kec.userToken}}" target="_blank" title="Descargar">
+                                <span class="glyphicon glyphicon-download-alt" aria-hidden="true" style="margin: 0;"></span>
+                            </a>
+                            <button type="button" class="btn btn-default btn-xs btn-danger" style="font-size: 12px;" ng-click="kec.delKey(key)" title="Eliminar" ng-disabled="key.active == '1'">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true" style="margin: 0;"></span>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="text-left" style="margin: 15px 0 0 15px;">
+                        Total de registros: {{kec.totalRecords}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="text-center">
+                        <dir-pagination-controls boundary-links="true" on-page-change="kec.pageChangeHandler(newPageNumber)" template-url="client/app/bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

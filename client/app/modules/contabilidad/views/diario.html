@@ -1,0 +1,130 @@
+<div class="jumbotron" style="padding: 10px 25px;">
+    <div ng-controller="diarioCtrl as dic" ng-init="dic.initCtrl()">
+        <div class="panel panel-info" style="margin: 5px 0px 15px 0px;">
+            <div class="panel-heading" style="padding: 0px 10px;">
+                <table width="100%">
+                    <tr>
+                        <td style="width: 40%; text-align: left;">
+                            <h4>
+                                <button type="button" class="btn btn-default btn-success btn-xs" ng-click="dic.initCtrl()" style="font-size: 12px;" title="Actualizar">
+                                    <span class="glyphicon glyphicon-repeat" aria-hidden="true" style="margin: 0;"></span>
+                                </button><span class="glyphicon glyphicon-book" aria-hidden="true" style="margin-left: 6px; margin-right: 6px;"></span><label class="text-primary" style="margin-bottom: 0px;">LIBRO DIARIO</label>
+                            </h4>
+                        </td>
+                        <td style="width: 60%; text-align: right;">
+                            <button type="button" class="btn btn-danger" style="font-size: 12px;" ng-click="dic.cierreContable()">
+                                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>Cierre Contable
+                            </button>
+                            <button type="button" class="btn btn-primary" style="font-size: 12px;" ng-click="dic.searchAsiento()" ng-if="dic.asientos.length !== 0">
+                                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>Búsqueda avanzada
+                            </button>
+                            <button ng-if="dic.user.rolCode != 'CL01'" type="button" class="btn btn-success" style="font-size: 12px;" ng-click="dic.addAsiento()">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Adicionar Asiento
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel-body" style="padding-top: 0px;">
+                <div class="row" style="margin-top: 10px;">
+                    <div ng-if="dic.asientos.length !== 0" class="col-md-3">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1"><span aria-hidden="true" class="glyphicon glyphicon-search"></span></span>
+                            <input type="text" ng-model="dic.q" class="form-control" placeholder="Búsqueda rápida" aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                    <div ng-if="dic.asientos.length !== 0 && dic.q !== undefined && resultFiltered.length !== 0" class="col-md-3" style="text-align: left; padding-top: 8px; padding-bottom: 8px;">
+                        <span>{{resultFiltered.length === 1 ? "Un Registro encontrado" : resultFiltered.length + " Registros encontrados"}}</span>
+                    </div>
+                    <div ng-if="dic.advanceSearch" class="col-md-3">
+                        <button type="button" class="btn btn-default btn-xs btn-danger" ng-click="dic.resetSearch()">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Limpiar búsqueda
+                        </button>
+                    </div>
+                </div>
+                <table class="table table-hover table-striped" style="margin-bottom: 0px;">
+                    <thead>
+                        <tr>
+                            <th style="width: 10%;"></th>
+                            <th style="width: 23%;"></th>
+                            <th style="width: 15%; text-align: center" colspan="2">DEBE</th>
+                            <th style="width: 15%; text-align: center" colspan="2">HABER</th>
+                            <th style="width: 10%;"></th>
+                            <th style="width: 10%;"></th>
+                            <th style="width: 10%;"></th>
+                            <th style="width: 7%;"></th>
+                        </tr>
+                        <tr>
+                            <th style="width: 10%;">Fecha</th>
+                            <th style="width: 23%;">Descripción</th>
+                            <th style="width: 10%; text-align: center">Importe</th>
+                            <th style="width: 5%; text-align: center">Cuenta</th>
+                            <th style="width: 5%; text-align: center">Cuenta</th>
+                            <th style="width: 10%;text-align: center">Importe</th>
+                            <th style="width: 10%;">Creado</th>
+                            <th style="width: 10%;">Modificado</th>
+                            <th style="width: 10%;">Usuario</th>
+                            <th style="width: 7%;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-if="dic.asientos.length === 0">
+                        <td colspan="12">
+                            <div role="alert" class="alert alert-danger" style="margin-bottom: 0; padding: 5px;">
+                                <span aria-hidden="true" class="glyphicon glyphicon-exclamation-sign"></span>
+                                <span class="sr-only">Error:</span>
+                                {{'No existen registros'}}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr ng-show="dic.asientos.length !== 0" dir-paginate="asiento in resultFiltered = (dic.asientos | filter:dic.q | itemsPerPage: dic.pageSize)" current-page="dic.currentPage" total-items="dic.totalRecords" style="text-align: left;">
+                        <td style="vertical-align: middle;">{{asiento.fecha.substring(0, 10)}}</td>
+                        <td style="vertical-align: middle;">{{asiento.descripcion}}</td>
+                        <td style="vertical-align: top;">
+                            <ul style="padding-left: 10px;">
+                                <li ng-repeat="cuenta_debe in asiento.cuentas_debe">{{cuenta_debe.importe | currency : '$'}}</li>
+                            </ul>
+                        </td>
+                        <td style="vertical-align: top;">
+                            <ul style="padding-left: 10px;">
+                                <li ng-repeat="cuenta_debe in asiento.cuentas_debe">{{cuenta_debe.codigo | cuenta}}</li>
+                            </ul>
+                        </td>
+                        <td style="vertical-align: top;">
+                            <ul style="padding-left: 10px;">
+                                <li ng-repeat="cuenta_haber in asiento.cuentas_haber">{{cuenta_haber.codigo | cuenta}}</li>
+                            </ul>
+                        </td>
+                        <td style="vertical-align: top;">
+                            <ul style="padding-left: 10px;">
+                                <li ng-repeat="cuenta_haber in asiento.cuentas_haber">{{cuenta_haber.importe | currency : '$'}}</li>
+                            </ul>
+                        </td>
+                        <td style="vertical-align: middle;">{{asiento.created}}</td>
+                        <td style="vertical-align: middle;">{{asiento.modified}}</td>
+                        <td style="vertical-align: middle;">{{asiento.username}}</td>
+                        <td style="vertical-align: middle;">
+                            <!--<button type="button" class="btn btn-default btn-xs btn-warning" style="font-size: 12px;" ng-click="dic.editAsiento(asiento)" title="Editar Asiento">
+                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true" style="margin: 0;"></span>
+                             </button>-->
+                            <button type="button" class="btn btn-default btn-xs btn-danger" style="font-size: 12px;" ng-click="dic.delAsiento(asiento.id)" title="Editar Asiento">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true" style="margin: 0;"></span>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="text-left" style="margin: 15px 0 0 15px;">
+                        Total de registros: {{dic.totalRecords}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="text-center">
+                        <dir-pagination-controls boundary-links="true" on-page-change="dic.pageChangeHandler(newPageNumber)" template-url="client/app/bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

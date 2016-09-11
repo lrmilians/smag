@@ -1,0 +1,160 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <title>Esignature 2</title>
+    <link type="image/x-icon" href="client/app/images/favicon.ico" rel="shortcut icon">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="client/app/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="client/app/bower_components/ui-bootstrap/ui-bootstrap-csp.css" />
+    <link rel="stylesheet" href="client/app/bower_components/bootstrap/dist/css/bootstrap-datepicker3.min.css" />
+    <link rel="stylesheet" href="client/app/bower_components/jquery-ui/themes/redmond/jquery-ui.css" />
+    <link rel="stylesheet" href="client/app/bower_components/intl-tel-input/css/intlTelInput.css" />
+    <link rel="stylesheet" href="client/app/bower_components/Font-Awesome/css/font-awesome.min.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css({.tmp,app}) styles/main.css -->
+    <link rel="stylesheet" href="client/app/styles/main.css">
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="client/app/styles/strength.css">
+    <link rel="stylesheet" href="client/app/styles/dialogs.css">
+    <link rel="stylesheet" href="client/app/styles/checkbox.css">
+    <link rel="stylesheet" href="client/app/styles/style.css">
+    <!-- endbuild -->
+   <!-- <link rel="stylesheet" href="client/app/styles/normalize.css">
+    <link rel="stylesheet" href="client/app/styles/foundation.min.css">-->
+    <!-- endbuild -->
+   <!-- bower:js -->
+
+   <!-- endbower -->
+  </head>
+  <body ng-app="esignatureApp">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <div id="div-loading" class="modal">
+      <img src="client/app/images/ajax-loader.gif" class="ajax-loader"/>
+    </div>
+    <!-- Add your site or application content here -->
+    <div ng-controller="mainCtrl as mc" ng-init="initCtrl()">
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+          <li ng-repeat="menu in mainMenu" ng-class="{active: $route.current.activetab == menu.activetab}" ng-class="menu.submenu !== undefined ? 'dropdown' : ''">
+
+            <a ng-if="menu.submenu !== undefined" class="dropdown-toggle" data-toggle="dropdown" href="" style="padding-left: 8px; padding-right: 8px;"><span ng-if="menu.glyphicon !== undefined" class="glyphicon" ng-class="menu.glyphicon" aria-hidden="true"></span>{{menu.title | translate}}<span style="margin-left: 7px;" class="caret"></span></a>
+            <a ng-if="menu.submenu === undefined" href="{{menu.href}}" style="padding-left: 8px; padding-right: 8px;"><span ng-if="menu.glyphicon !== undefined" class="glyphicon" ng-class="menu.glyphicon" aria-hidden="true"></span>{{menu.title | translate}}</a>
+            <ul ng-if="menu.submenu !== undefined" class="dropdown-menu">
+              <li ng-repeat="submen in menu.submenu">
+                <a href="{{submen.href}}"><span ng-if="submen.glyphicon !== undefined" class="glyphicon" ng-class="submen.glyphicon" aria-hidden="true"></span>{{submen.title}}</a></li>
+            </ul>
+          </li>
+          <li ng-if="connectedUser.isConnected">
+            <a href="" ng-click="logout(false)" style="padding-left: 8px; padding-right: 8px;"><span class="glyphicon glyphicon-off" aria-hidden="true"></span>Salir</a>
+          </li>
+        </ul>
+        <h3 class="text-muted">Esignature2</h3>
+      </div>
+      <div style="text-align: right; padding: 0 15px;">
+        <label ng-show="connectedUser.isConnected" class="text-primary">Bienvenido:  {{connectedUser.rolName}}, {{connectedUser.firstName}} {{connectedUser.lastName}}</label>
+      </div>
+      <div class="container">
+        <div ng-view></div>
+      </div>
+      <div class="footer">
+        <p><span class="glyphicon glyphicon-heart"></span>--</p>
+      </div>
+    </div>
+
+
+    <!--</script>-->
+
+    <!--[if lt IE 9]>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.min.js"></script>
+    <![endif]-->
+
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="client/app/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="client/app/bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <script src="client/app/bower_components/angular/angular.min.js"></script>
+    <script src="client/app/bower_components/angular-translate/angular-translate.min.js"></script>
+    <script src="client/app/bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+    <script src="client/app/bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js"></script>
+    <script src="client/app/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="client/app/bower_components/bootstrap/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="client/app/bower_components/bootstrap/dist/locales/bootstrap-datepicker.es.min.js"></script>
+    <script src="client/app/bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="client/app/bower_components/angular-aria/angular-aria.min.js"></script>
+    <script src="client/app/bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="client/app/bower_components/angular-messages/angular-messages.min.js"></script>
+    <script src="client/app/bower_components/angular-mocks/angular-mocks.js"></script>
+    <script src="client/app/bower_components/angular-resource/angular-resource.min.js"></script>
+    <script src="client/app/bower_components/angular-route/angular-route.min.js"></script>
+    <script src="client/app/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="client/app/bower_components/angular-touch/angular-touch.min.js"></script>
+    <script src="client/app/bower_components/angular-file-upload/angular-file-upload.min.js"></script>
+    <script src="client/app/bower_components/angular-file-upload/angular-file-upload-shim.min.js"></script>
+    <script src="client/app/bower_components/angular-dialog-service/example/js/dialogs.min.js"></script>
+    <script src="client/app/bower_components/angular-utils-pagination/dirPagination.js"></script>
+    <script src="client/app/bower_components/ui-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="client/app/bower_components/ui-bootstrap-tpls/ui-bootstrap-tpls.min.js"></script>
+    <script src="client/app/bower_components/password-strength/ng-password-strength.min.js"></script>
+    <script src="client/app/bower_components/password-strength/strength.js"></script>
+    <script src="client/app/bower_components/intl-tel-input/js/intlTelInput.min.js"></script>
+    <script src="client/app/bower_components/bootstrap-wysiwyg/bootstrap-wysiwyg.js"></script>
+    <script src="client/app/bower_components/bootstrap-wysiwyg/jquery.hotkeys.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js
+        <script src='client/app/modules/app.js'></script>
+        <script src='client/app/modules/moduleTest/module.js'></script>
+        <script src='client/app/modules/moduleTest/controllers/controller.js'></script>
+        <script src='client/app/modules/moduleTest/models/models.js'></script>-->
+        <!-- endbuild -->
+            <script src='client/app/modules/app.js'></script>
+
+    <!-- Module: admin-->
+    <script src='client/app/modules/admin/moduleAdmin.js'></script>
+    <script src='client/app/modules/admin/controllers/userAdminCtrls.js'></script>
+    <script src='client/app/modules/admin/controllers/mainCtrls.js'></script>
+    <script src='client/app/modules/admin/controllers/dashboardCtrls.js'></script>
+    <script src='client/app/modules/admin/services/userAdminService.js'></script>
+    <script src='client/app/modules/admin/services/dashboardService.js'></script>
+    <script src='client/app/modules/admin/services/catalogsAdminService.js'></script>
+    <script src='client/app/modules/admin/directives/directives.js'></script>
+    <!-- end Module: admin -->
+
+    <!-- Module: esignature-->
+    <script src='client/app/modules/esignature/moduleEsignature.js'></script>
+    <script src='client/app/modules/esignature/controllers/controller.js'></script>
+    <script src='client/app/modules/esignature/controllers/keyAdminCtrls.js'></script>
+    <script src='client/app/modules/esignature/controllers/docAdminCtrls.js'></script>
+    <script src='client/app/modules/esignature/models/model.js'></script>
+    <script src='client/app/modules/esignature/services/catalogsEsignatureService.js'></script>
+    <script src='client/app/modules/esignature/services/keyAdminService.js'></script>
+    <script src='client/app/modules/esignature/services/docAdminService.js'></script>
+    <script src='client/app/modules/esignature/directives/directives.js'></script>
+    <script src='client/app/modules/esignature/directives/load-filename.js'></script>
+    <!-- end Module: esignature -->
+
+    <!-- Module: contabilidad-->
+    <script src='client/app/modules/contabilidad/moduleContabilidad.js'></script>
+    <script src='client/app/modules/contabilidad/controllers/librosCtrls.js'></script>
+    <script src='client/app/modules/contabilidad/controllers/balancesCtrls.js'></script>
+    <script src='client/app/modules/contabilidad/services/catalogsContabilidadService.js'></script>
+    <script src='client/app/modules/contabilidad/services/librosService.js'></script>
+    <script src='client/app/modules/contabilidad/services/balancesService.js'></script>
+    <script src='client/app/modules/contabilidad/filters/filters.js'></script>
+    <script src='client/app/modules/contabilidad/directives/directives.js'></script>
+    <!-- end Module: contabilidad -->
+</body>
+</html>

@@ -1,0 +1,128 @@
+<div class="row">
+
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading" style="padding: 20px 15px;">
+                <h3 class="panel-title">Configuraci&oacute;n de Correo</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6"> 
+                        <div class="form-group">
+                            <label for="from">Correo de env&iacute;o:</label>
+                            <input type="email" class="form-control input-sm" id="from" ng-model="from" placeholder="Entre el correo.">
+                        </div>
+                    </div>
+                    <div class="col-md-6"> 
+                        <div class="form-group">
+                            <label for="host">Servidor:</label>
+                            <input type="text" class="form-control input-sm" id="host" ng-model="host" placeholder="Entre el servidor a usar.">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6"> 
+                        <div class="form-group">
+                            <label for="subject">Asunto:</label>
+                            <input type="text" class="form-control input-sm" id="subject" ng-model="subject" placeholder="Entre el asunto.">
+                        </div>
+                    </div>
+                    <div class="col-md-6"> 
+                        <div class="row">
+                            <div class="col-md-8"> 
+                                <div class="form-group">
+                                    <label for="port">Puerto:</label>
+                                    <input type="text" class="form-control input-sm" id="port" ng-model="port" placeholder="Entre el puerto del servidor.">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label></label>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" ng-model="ssl" ng-checked="getCheckedSSL()"><b> SSL</b>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12"> 
+                        <div class="form-group">
+                            <label for="body">Cuerpo del correo:</label>
+                            <textarea class="form-control" rows="10" id="body" ng-model="body">
+                                    
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-info" style="background-color: rgba(217, 237, 247, 0.25);">
+                    <div class="row">
+                        <div class="col-lg-12">
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" ng-model="auth" ng-checked="getChecked()"> Usar autenticaci&oacute;n
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6"> 
+                            <div class="form-group">
+                                <label for="username">Usuario:</label>
+                                <input type="text" class="form-control input-sm" id="username" ng-model="username" placeholder="Entre el usuario." ng-disabled="!getChecked()">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="password">Contrase&ntilde;a:</label>
+                                <input type="text" class="form-control input-sm" id="password" ng-model="password" placeholder="Entre la contrase&ntilde;a." ng-disabled="!getChecked()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12"> 
+                        <label>Configuraci&oacute;n del V&iacute;nculo de Cancelaci&oacute;n de Suscripci&oacute;n</label>
+                        <div class="well">
+                            <form class="form-inline" role="form">
+                                <div class="form-group" style="width: 60%;">
+                                    <input type="text" class="form-control input-sm" ng-model="path" id="path" placeholder="http://">
+                                </div>
+                                <code style="padding: 2px 0px;"> /firma_electronica/#/esignature/unsubscribe</code>
+                                <br/>
+                                <label  for="path">Ruta de Instalaci&oacute;n del PAC:</label><br/>
+                                Ejemplo: 
+                                <code style="padding: 2px 0px;"> 
+                                    http://192.168.10.170/work/pacsrc/firma_electronica/#/esignature/unsubscribe
+                                </code>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6"> 
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6"> 
+
+                            </div>
+                            <div class="col-md-6"> 
+                                <button type="submit" class="btn btn-success pull-right" ng-click="saveChanges()">Guardar</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

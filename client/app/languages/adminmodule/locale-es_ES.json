@@ -1,0 +1,24 @@
+{
+  "DIALOGS_ERROR" : "Error",
+  "DIALOGS_ERROR_MSG" : "Se ha producido un error desconocido.",
+  "DIALOGS_CLOSE" : "Cerca",
+  "DIALOGS_PLEASE_WAIT" : "Espere por favor",
+  "DIALOGS_PLEASE_WAIT_ELIPS" : "Espere por favor...",
+  "DIALOGS_PLEASE_WAIT_MSG" : "Esperando en la operación para completar.",
+  "DIALOGS_PERCENT_COMPLETE" : "% Completado",
+  "DIALOGS_NOTIFICATION" : "Notificación",
+  "DIALOGS_NOTIFICATION_MSG" : "Notificación de aplicación Desconocido.",
+  "DIALOGS_CONFIRMATION" : "Confirmación",
+  "DIALOGS_CONFIRMATION_MSG" : "Se requiere confirmación.",
+  "DIALOGS_OK" : "OK",
+  "DIALOGS_YES" : "Si",
+  "DIALOGS_NO" : "No",
+
+  "msgSessionExpired" : "La sesión ha expirado. Por favor inicie sesión.",
+  "DATA_SAVE" : "Datos salvados con éxito.",
+
+  "FIELD_MANDATORY" : "Campo obligatorio",
+
+  "msgFileSize" : "El archivo seleccionado supera el tamaño permitido.",
+  "msgFileType" : "El archivo seleccionado no tiene el tipo de archivo permitido."
+}

@@ -1,0 +1,37 @@
+<div class="row"> 
+  <form>
+    <fieldset>
+      <legend>Editar Llave</legend>
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <div class="form-group">
+                    <label>Nombre Llave</label>
+                    <input type="text" placeholder="Disabled input" ng-model="key.name" required class="form-control" value="{{ key.file.name }}" disabled>
+                </div>
+            </div>
+            <div class="form-group col-sm-4">
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="text" placeholder="Contraseña" ng-model="key.password" required class="form-control" value="{{ key.password }}">
+                </div>
+            </div>
+            <div class="form-group col-sm-2">
+                <div class="form-group active">
+                    <div class="input text required">
+                        <input type="checkbox" ng-model="key.active" ng-checked="active"><label>&nbsp;Activo</label></input>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <a href="#/esignature/keys" class="btn btn-danger cancel">Cancelar</a>
+            </div>
+            <div class="form-group col-sm-6">
+                <button type="submit" ng-click="editKey(key)" class="btn btn-primary">Aceptar</button>
+            </div>
+        </div>
+    </fieldset>
+  </form>
+</div>

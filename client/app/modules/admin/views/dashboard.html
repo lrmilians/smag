@@ -1,0 +1,9 @@
+<div class="jumbotron" style="padding: 10px 25px;">
+    <div ng-controller="dashboardCtrl as dbo" ng-init="dbo.initCtrl()">
+        <div ng-if="dbo.user.rolCode == 'AD01'" class="row" ng-include="'client/app/modules/admin/views/dashboard-admin.html'">
+        </div>
+        <div ng-if="dbo.user.rolCode == 'CL01'" class="row" >
+            <div class="col-md-12 panel panel-default" style="padding-bottom: 20px;" ng-include="'client/app/modules/admin/views/dashboard-client.html'"></div>
+        </div>
+    </div>
+</div>

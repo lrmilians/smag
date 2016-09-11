@@ -1,0 +1,93 @@
+<style>
+    .lista.ng-enter,
+.lista.ng-leave,
+.lista.ng-move {
+    -webkit-transition: 0.5s linear all;
+    -moz-transition: 0.5s linear all;
+    -o-transition: 0.5s linear all;
+    transition: 0.5s linear all;
+}
+
+.lista.ng-enter,
+.lista.ng-move {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+    .lista.ng-move.ng-move-active,
+    .lista.ng-enter.ng-enter-active {
+        opacity: 1;
+        height: 20px;
+    }
+
+.lista.ng-leave {
+    opacity: 1;
+    overflow: hidden;
+}
+
+    .lista.ng-leave.ng-leave-active {
+        opacity: 0;
+        height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    
+
+.arriba {
+}
+
+.arriba:hover:not(:empty):not([ignorehover]) {
+    border-color: rgba(8,22,37,.25) rgba(8,22,37,.27) rgba(8,22,37,.3);
+    box-shadow: 0 0 10px rgba(8,22,37,.3);
+    background-color: rgba(79, 193, 233, 0.08);
+}
+    </style>
+
+<div class="panel panel-primary">
+    <div class="panel-heading" style="padding: 20px 15px;">
+        <h3 class="panel-title pull-left">Administraci&oacute;n de Correos de Notificaci&oacute;n</h3><br>
+        Las notificaciones por correo est&aacuten deshabilitadas para las siguientes direcciones:
+        <div class="pull-right">
+                  Buscar Email:    <input type="text" class="form-control input-sm" id="nombre" placeholder="" ng-model="mailFilter" >
+        </div>
+        <div class="clearfix"></div>
+        
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-1">
+                <b> ID</b>
+            </div>
+            <div class="col-md-3">
+                <b> Email</b>  
+            </div>
+            <div class="col-md-6">
+                <b> Razón</b>
+            </div>
+            <div class="col-md-2">
+               <b>  Estado</b>
+            </div>
+        </div>
+        <br/>
+        <div class="row lista arriba" dir-paginate="email in emailList | filter:{email: mailFilter}  | itemsPerPage: 25" style="margin-bottom:10px">
+            <div class="col-md-1">
+                {{email.id}} 
+            </div>
+            <div class="col-md-3">
+                {{email.email}}
+            </div>
+            <div class="col-md-6">
+                {{email.reason}}
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-success btn-xs" ng-click="subscribeEmail(email.email)">Activar Suscripción</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <dir-pagination-controls></dir-pagination-controls>
+        </div>
+    </div>
+</div>

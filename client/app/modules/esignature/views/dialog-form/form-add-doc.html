@@ -1,0 +1,28 @@
+<div class="modal-header" style="background-color: #d9edf7;" xmlns="http://www.w3.org/1999/html">
+    <h4 class="modal-title">
+        <span class="glyphicon {{glyphicon}}"></span> SUBIR {{docType}}
+    </h4>
+</div>
+<form name="docForm" novalidate>
+<div class="modal-body" >
+    <div class="panel panel-info" style="margin: 5px 0px;">
+        <div class="panel-body">
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label for="fileTitle" class="col-xs-4 control-label">Subir archivo *</label>
+                <div class="col-xs-7">
+                    <div class="form-group">
+                        <div class="input text required">
+                            <input type="file" ng-model="doc.fileTitle" name="fileTitle" load-filename-xml  id="fileTitle">
+                        </div>
+                    </div>
+                </div>
+                <span class="col-sm-12 text-danger text-right" ng-show="docForm.fileTitle.$error.pattern">{{'userregMsgText5' | translate}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+    <button type="submit" class="btn btn-success pull-right" ng-click="submitForm(doc)">Guardar</button>
+</div>
+</form>

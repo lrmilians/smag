@@ -1,0 +1,30 @@
+<div style="padding-left: 0; padding-right: 0; margin-top: 20px;" ng-controller="userLoginCtrl as ulc">
+
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Entrar al sistema</h3>
+          </div>
+          <div class="panel-body">
+            <form ng-submit="ulc.login()" name="loginForm" accept-charset="UTF-8" role="form">
+              <fieldset>
+                <div class="form-group">
+                  <input ng-model="ulc.userId" class="form-control" placeholder="Indetificación (Cédula / RUC / Pasaporte)" name="identification" type="text">
+                </div>
+                <div class="form-group">
+                  <input ng-model="ulc.userPassword" class="form-control" placeholder="Contraseña" name="password" type="password" value="">
+                </div>
+                  <div class="checkbox checkbox-danger">
+                    <input id="checkbox1" type="checkbox" ng-model="ulc.remember" />
+                    <label for="checkbox1"> Recordar </label>
+                  </div>
+                <input class="btn btn-lg btn-success btn-block" type="submit" value="Login">
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>

@@ -1,0 +1,95 @@
+<div class="panel panel-info" style="margin: 5px 0px 15px 0px;">
+    <div class="panel-heading" style="padding: 0px 10px;">
+        <table width="100%">
+            <tr>
+                <td style="width: 60%; text-align: left;"><h4><button type="button" class="btn btn-default btn-success btn-xs" ng-click="dbo.initCtrl()" style="font-size: 12px;" title="Actualizar">
+                    <span class="glyphicon glyphicon-repeat" aria-hidden="true" style="margin: 0;"></span>
+                </button><span class="glyphicon glyphicon-user" aria-hidden="true" style="margin-left: 6px; margin-right: 6px;"></span><label class="text-primary" style="margin-bottom: 0px;">Usuarios</label></h4></td>
+                <td style="width: 40%; text-align: right;">
+                    <button type="button" class="btn btn-primary" style="font-size: 12px;" ng-click="dbo.searchApplication()" ng-if="dbo.usersProccess.length !== 0">
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>Búsqueda avanzada
+                    </button>
+                    <button type="button" class="btn btn-success" style="font-size: 12px;" ng-click="dbo.addUser()">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>Crear Usuario
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="panel-body" style="padding-top: 0px;">
+        <div class="row" style="margin-top: 10px;">
+            <div ng-if="dbo.users.length !== 0" class="col-md-3">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1"><span aria-hidden="true" class="glyphicon glyphicon-search"></span></span>
+                    <input type="text" ng-model="q" class="form-control" placeholder="Búsqueda rápida" aria-describedby="basic-addon1">
+                </div>
+            </div>
+            <div ng-if="dbo.advanceSearch" class="col-md-3">
+                <button type="button" class="btn btn-default btn-xs btn-danger" ng-click="dbo.resetSearch()">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Limpiar búsqueda
+                </button>
+            </div>
+        </div>
+        <table class="table table-hover table-striped" style="margin-bottom: 0px;">
+            <thead>
+                <tr>
+                    <th style="width: 15%;">Identificacion</th>
+                    <th style="width: 10%;">Usuario</th>
+                    <th style="width: 15%;">Correo</th>
+                    <th style="width: 15%;">Nombre</th>
+                    <th style="width: 15%;">Apellidos</th>
+                    <th style="width: 10%;">Rol</th>
+                    <th style="width: 5%;">Logeado</th>
+                    <th style="width: 15%;"></th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr ng-if="dbo.users.length === 0">
+                <td colspan="12">
+                    <div role="alert" class="alert alert-danger" style="margin-bottom: 0; padding: 5px;">
+                        <span aria-hidden="true" class="glyphicon glyphicon-exclamation-sign"></span>
+                        <span class="sr-only">Error:</span>
+                        {{'No existen registros'}}
+                    </div>
+                </td>
+            </tr>
+            <tr ng-show="dbo.users.length !== 0" dir-paginate="user in dbo.users | filter:q | itemsPerPage: dbo.pageSize" current-page="dbo.currentPage" total-items="dbo.totalRecords">
+                <td style="vertical-align: middle;">{{user.identification}}</td>
+                <td style="vertical-align: middle;">{{user.username}}</td>
+                <td style="vertical-align: middle;">{{user.email}}</td>
+                <td style="vertical-align: middle;">{{user.first_name}}</td>
+                <td style="vertical-align: middle;">{{user.last_name}}</td>
+                <td style="vertical-align: middle;">{{user.description}}</td>
+                <td style="vertical-align: middle;">{{user.login === "t" ? "Si" : "No"}}</td>
+                <td style="vertical-align: middle;">
+                    <button type="button" class="btn btn-default btn-xs" style="font-size: 12px;" ng-click="dbo.viewUser(user)" title="Ver datos del usuario">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true" style="margin: 0;"></span>
+                    </button>
+                    <button type="button" class="btn btn-default btn-xs btn-warning" style="font-size: 12px;" ng-click="dbo.editUser(user)" title="Editar usuario">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true" style="margin: 0;"></span>
+                    </button>
+                    <!--<button type="button" class="btn btn-default btn-xs btn-info" style="font-size: 12px;" ng-click="dbo.viewEducationDetail(user.idPostulacion)" title="Educación">
+                        <span class="glyphicon glyphicon-education" aria-hidden="true" style="margin: 0;"></span>
+                    </button>
+                    <a type="button" class="btn btn-default btn-xs btn-warning" style="font-size: 12px;" ng-href="#/user-detail/{{user.idPostulacion}}" target="_blank" title="{{'dashboardViewApplic' | translate}}">
+                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="margin: 0;"></span>
+                    </a>
+                    <button type="button" class="btn btn-default btn-xs btn-success" style="font-size: 12px;" ng-click="dbo.selectScale(user)" title="Calificar postulación">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true" style="margin: 0;"></span>
+                    </button>-->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="text-left" style="margin: 15px 0 0 15px;">
+                Total de registros: {{dbo.totalRecords}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="text-center">
+                <dir-pagination-controls boundary-links="true" on-page-change="dbo.pageChangeHandler(newPageNumber)" template-url="client/app/bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>
