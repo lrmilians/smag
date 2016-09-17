@@ -17,14 +17,15 @@ angular
         'dialogs.main',
         'esignature',
         'admin',
-        'contabilidad'
+        'contabilidad',
+        'inventario'
     //  'Directives'
     ])
 
     .constant('PROPERTIES', {
       "serverConn" :	{
-        "server" : "http://localhost/smag",
-        //"server" : "http://u1510Desktop64x/esignature2",
+        "server" : "https://u1510desktop64x/smag",
+        //"server" : "https://www.lrconsultor.com/smag",
         "port"	: ""
       }
     })
