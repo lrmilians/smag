@@ -23,7 +23,7 @@ angular
 
     .constant('PROPERTIES', {
       "serverConn" :	{
-        "server" : "http://localhost/smag",
+        "server" : "http://vmu1510.lrconsultor.com/smag",
         //"server" : "http://u1510Desktop64x/esignature2",
         "port"	: ""
       }
