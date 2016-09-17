@@ -183,7 +183,7 @@ myAdmin.controller("diarioCtrl", ['catalogsContabilidadService','diarioService',
         }
 
         diarioCtrl.addAsiento = function(){
-            var dlg = dialogs.create('client/app/modules/contabilidad/views/dialog-form/form-asiento.html','asientoDialogCtrl',{
+            var dlg = dialogs.create('client/app/modules/contabilidad/views/dialog-form/form-inv.html','asientoDialogCtrl',{
                 userToken : diarioCtrl.user.token,
                 cuentas : diarioCtrl.cuentas,
                 asientoId : -1,
@@ -200,7 +200,7 @@ myAdmin.controller("diarioCtrl", ['catalogsContabilidadService','diarioService',
         }
 
         diarioCtrl.editAsiento = function(asiento){
-            var dlg = dialogs.create('client/app/modules/contabilidad/views/dialog-form/form-asiento.html','asientoDialogCtrl',{
+            var dlg = dialogs.create('client/app/modules/contabilidad/views/dialog-form/form-inv.html','asientoDialogCtrl',{
                 userToken : diarioCtrl.user.token,
                 cuentas : diarioCtrl.cuentas,
                 asientoId : asiento.id,

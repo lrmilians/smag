@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-    .module('esignatureApp', [
+    .module('smagApp', [
         'ngAnimate',
         'ngAria',
         'ngCookies',
@@ -23,7 +23,7 @@ angular
 
     .constant('PROPERTIES', {
       "serverConn" :	{
-        "server" : "http://vmu1510.lrconsultor.com/esignature2",
+        "server" : "http://localhost/smag",
         //"server" : "http://u1510Desktop64x/esignature2",
         "port"	: ""
       }
@@ -35,7 +35,7 @@ angular
         'client/app/modules/admin/views/user-profile.html',
         'client/app/modules/esignature/views/keys.html',
         'client/app/modules/esignature/views/bills.html',
-        'client/app/modules/contabilidad/views/diario.html',
+        'client/app/modules/contabilidad/views/inv-mtto.html',
         'client/app/modules/contabilidad/views/balance-comprobacion.html',
         'client/app/modules/contabilidad/views/balance-situacion.html',
       ];
@@ -44,7 +44,7 @@ angular
         'client/app/modules/admin/views/qualifications-byadmin.html',
         'client/app/modules/admin/views/magazines-byadmin.html',
         'client/app/modules/admin/views/comments.html',
-        'client/app/modules/contabilidad/views/diario.html',
+        'client/app/modules/contabilidad/views/inv-mtto.html',
         'client/app/modules/contabilidad/views/balance-comprobacion.html',
         'client/app/modules/contabilidad/views/balance-situacion.html',
       ];

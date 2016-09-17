@@ -62,7 +62,7 @@ myAdmin.constant('PROPERTIES_ADMIN', {
              /*   {href : '#/status-application', clic : '', title : 'menuStatusApp', activetab : 'status-application'},
                 {href : '#/notifications', clic : '', title : 'menuNotifications', activetab : 'notifications'},
                 {href : '#/bases-application', clic : '', title : 'menuHelp', activetab : 'help'},*/
-                {href : '#/user-profile', clic : '', title : 'Perfil usuario', activetab : 'user-profile'},
+             /*   {href : '#/user-profile', clic : '', title : 'Perfil usuario', activetab : 'user-profile'},
                 {href : '#/keys', clic : '', title : 'Llaves', activetab : 'key'},
                 {href : '#/bills', clic : '', title : 'Facturas', activetab : 'bill'},
                 {href : '#/contabilidad', clic : '', title : 'Contabilidad', activetab : 'contabilidad', glyphicon : 'glyphicon-dashboard',
@@ -70,8 +70,11 @@ myAdmin.constant('PROPERTIES_ADMIN', {
                         {href : '#/diario', title : 'Libro Diario', glyphicon : 'glyphicon-folder-open'},
                         {href : '#/balance-comprobacion', title : 'Balance Comprobación', glyphicon : 'glyphicon-folder-open'},
                         {href : '#/balance-situacion', title : 'Balances Situación', glyphicon : 'glyphicon-folder-open'},
-                       /* {href : '#/qualifications-byadmin', title : 'Calificación', glyphicon : 'glyphicon-pencil'},
-                        {href : '#/validations-byadmin', title : 'Convalidación de errores', glyphicon : 'glyphicon-repeat'}*/
+                    ]
+                },*/
+                {href : '#/inventario', clic : '', title : 'Inventario', activetab : 'inventario', glyphicon : 'glyphicon-dashboard',
+                    submenu : [
+                        {href : '#/inv-mtto', title : 'Mantenimiento', glyphicon : 'glyphicon-folder-open'},
                     ]
                 },
             ]

@@ -5,7 +5,7 @@ var myContabilidad = angular.module('contabilidad',['ngRoute']);
 myContabilidad.config(function ($routeProvider) {
     $routeProvider
         .when('/diario', {
-            templateUrl: 'client/app/modules/contabilidad/views/diario.html',
+            templateUrl: 'client/app/modules/contabilidad/views/inv-mtto.html',
             controller: 'diarioCtrl',
             activetab: 'contabilidad'
         })

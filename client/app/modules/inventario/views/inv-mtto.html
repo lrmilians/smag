@@ -1,0 +1,100 @@
+<div class="jumbotron" style="padding: 10px 25px;">
+    <div ng-controller="invMttoCtrl as bic" ng-init="imc.initCtrl()">
+        <div class="panel panel-info" style="margin: 5px 0px 15px 0px;">
+            <div class="panel-heading" style="padding: 0px 10px;">
+                <table width="100%">
+                    <tr>
+                        <td style="width: 60%; text-align: left;"><h4><button type="button" class="btn btn-default btn-success btn-xs" ng-click="imc.initCtrl()" style="font-size: 12px;" title="Actualizar">
+                            <span class="glyphicon glyphicon-repeat" aria-hidden="true" style="margin: 0;"></span>
+                        </button><span class="glyphicon glyphicon-lock" aria-hidden="true" style="margin-left: 6px; margin-right: 6px;"></span><label class="text-primary" style="margin-bottom: 0px;">FACTURAS</label></h4></td>
+                        <td style="width: 40%; text-align: right;">
+                            <button type="button" class="btn btn-primary" style="font-size: 12px;" ng-click="imc.searchBill()" ng-if="imc.bills.length !== 0">
+                                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>Búsqueda avanzada
+                            </button>
+                            <button ng-if="imc.user.rolCode != 'CL01'" type="button" class="btn btn-success" style="font-size: 12px;" ng-click="imc.addBill()">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Adicionar Factura
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel-body" style="padding-top: 0px;">
+                <div class="row" style="margin-top: 10px;">
+                    <div ng-if="dic.bills.length !== 0" class="col-md-3">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1"><span aria-hidden="true" class="glyphicon glyphicon-search"></span></span>
+                            <input type="text" ng-model="imc.q" class="form-control" placeholder="Búsqueda rápida" aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                    <div ng-if="dic.bills.length !== 0 && imc.q !== undefined && resultFiltered.length !== 0" class="col-md-3" style="text-align: left; padding-top: 8px; padding-bottom: 8px;">
+                        <span>{{resultFiltered.length === 1 ? "Un Registro encontrado" : resultFiltered.length + " Registros encontrados"}}</span>
+                    </div>
+                    <div ng-if="imc.advanceSearch" class="col-md-3">
+                        <button type="button" class="btn btn-default btn-xs btn-danger" ng-click="imc.resetSearch()">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Limpiar búsqueda
+                        </button>
+                    </div>
+                </div>
+                <table class="table table-hover table-striped" style="margin-bottom: 0px;">
+                    <thead>
+                    <tr>
+                        <th style="width: 10%;">Número Documento</th>
+                        <th style="width: 10%;">Identificación</th>
+                        <th style="width: 30%;">Cliente</th>
+                        <th style="width: 10%;">Estado</th>
+                        <th style="width: 15%;">Mensaje</th>
+                        <th style="width: 15%;">Creado</th>
+                        <th style="width: 10%;"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-if="imc.bills.length === 0">
+                        <td colspan="12">
+                            <div role="alert" class="alert alert-danger" style="margin-bottom: 0; padding: 5px;">
+                                <span aria-hidden="true" class="glyphicon glyphicon-exclamation-sign"></span>
+                                <span class="sr-only">Error:</span>
+                                {{'No existen registros'}}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr ng-show="imc.bills.length !== 0" dir-paginate="bill in resultFiltered = (imc.bills | filter:imc.q | itemsPerPage: imc.pageSize)" current-page="imc.currentPage" total-items="imc.totalRecords" style="text-align: left;">
+                        <td style="vertical-align: middle;">{{bill.num_doc}}</td>
+                        <td style="vertical-align: middle;">{{bill.identification}}</td>
+                        <td style="vertical-align: middle;">{{bill.first_name}}</td>
+                        <td style="vertical-align: middle;">{{bill.state}}</td>
+                        <td style="vertical-align: middle;">{{bill.message}}</td>
+                        <td style="vertical-align: middle;">{{bill.created}}</td>
+                        <td style="vertical-align: middle;">
+                            <button ng-if="bill.state != 'AUTORIZADO'" type="button" class="btn btn-default btn-xs btn-warning" style="font-size: 12px;" ng-click="imc.processBill(bill)" title="Procesar">
+                                <span class="glyphicon glyphicon-cog" aria-hidden="true" style="margin: 0;"></span>
+                            </button>
+                            <a style="font-size: 12px;" href="{{baseURL}}/esignature/esign/esignfile/type/01/typefile/xml/name/{{bill.name}}/token/{{imc.user.token}}" target="_blank" title="Descargar XML subido">
+                                <img ng-src="client/app/images/xmlnoprocess.png" alt="Descargar XML subido" style="width:23px;height:25px;border:0;">
+                            </a>
+                            <a ng-if="bill.state == 'AUTORIZADO'" style="font-size: 12px;" href="{{baseURL}}/esignature/esign/esignfile/type/01/typefile/pdf/name/{{bill.name}}/token/{{imc.user.token}}" target="_blank" title="Descargar RIDE">
+                                <img ng-src="client/app/images/pdficon.png" alt="Descargar RIDE" style="width:23px;height:25px;border:0;">
+                            </a>
+                            <a ng-if="bill.state == 'AUTORIZADO'" style="font-size: 12px;" href="{{baseURL}}/esignature/esign/esignfile/type/01/typefile/zip/name/{{bill.name}}/token/{{imc.user.token}}" target="_blank" title="Descargar XML autorizado">
+                                <img ng-src="client/app/images/xmlicon.png" alt="Descargar XML" style="width:23px;height:25px;border:0;">
+                            </a>
+                            <!--<button type="button" class="btn btn-default btn-xs btn-danger" style="font-size: 12px;" ng-click="imc.delKey(key)" title="Eliminar" ng-disabled="key.active == '1'">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true" style="margin: 0;"></span>
+                            </button>-->
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="text-left" style="margin: 15px 0 0 15px;">
+                        Total de registros: {{imc.totalRecords}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="text-center">
+                        <dir-pagination-controls boundary-links="true" on-page-change="imc.pageChangeHandler(newPageNumber)" template-url="client/app/bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

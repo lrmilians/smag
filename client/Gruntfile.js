@@ -27,7 +27,7 @@ module.exports = function (grunt) {
           relative_to: 'app/',
           exclude: ['app/modules/**/specs/**.js']
         },
-        src: ['app/modules/*.js', 'app/modules/**/moduleEsignature.js', 'app/modules/**/moduleContabilidad.js', 'app/modules/**/**.js']
+        src: ['app/modules/*.js', 'app/modules/**/moduleEsignature.js', 'app/modules/**/moduleInventario.js', 'app/modules/**/**.js']
       }
     },
     // Project settings
