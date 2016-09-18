@@ -59,12 +59,12 @@
             <a href="" ng-click="logout(false)" style="padding-left: 8px; padding-right: 8px;"><span class="glyphicon glyphicon-off" aria-hidden="true"></span>Salir</a>
           </li>
         </ul>
-        <h3 class="text-muted">Esignature2</h3>
+        <h3 class="text-muted">SMAG</h3>
       </div>
       <div style="text-align: right; padding: 0 15px;">
         <label ng-show="connectedUser.isConnected" class="text-primary">Bienvenido:  {{connectedUser.rolName}}, {{connectedUser.firstName}} {{connectedUser.lastName}}</label>
       </div>
-      <div class="container">
+      <div class="" style="margin: 0 10px">
         <div ng-view></div>
       </div>
       <div class="footer">
@@ -127,19 +127,21 @@
     <script src='client/app/modules/admin/controllers/userAdminCtrls.js'></script>
     <script src='client/app/modules/admin/controllers/mainCtrls.js'></script>
     <script src='client/app/modules/admin/controllers/dashboardCtrls.js'></script>
+    <script src='client/app/modules/admin/controllers/tablasCtrls.js'></script>
     <script src='client/app/modules/admin/services/userAdminService.js'></script>
     <script src='client/app/modules/admin/services/dashboardService.js'></script>
     <script src='client/app/modules/admin/services/catalogsAdminService.js'></script>
+    <script src='client/app/modules/admin/services/tablasServices.js'></script>
     <script src='client/app/modules/admin/directives/directives.js'></script>
     <!-- end Module: admin -->
 
-    <!-- Module: contabilidad-->
+    <!-- Module: inventario-->
     <script src='client/app/modules/inventario/moduleInventario.js'></script>
     <script src='client/app/modules/inventario/controllers/invMttoCtrls.js'></script>
     <script src='client/app/modules/inventario/services/invMttoServices.js'></script>
     <script src='client/app/modules/inventario/filters/filters.js'></script>
     <script src='client/app/modules/inventario/directives/directives.js'></script>
-    <!-- end Module: contabilidad -->
+    <!-- end Module: inventario -->
 
     <!-- Module: esignature-->
     <script src='client/app/modules/esignature/moduleEsignature.js'></script>

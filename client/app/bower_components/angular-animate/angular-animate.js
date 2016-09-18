@@ -1974,7 +1974,7 @@ var $$AnimateQueueProvider = ['$animateProvider', function($animateProvider) {
 
     var callbackRegistry = {};
 
-    // remember that the classNameFilter is set during the provider/config
+    // remember that the classNameFilter is set during the provider/configura
     // stage therefore we can optimize here and setup a helper function
     var classNameFilter = $animateProvider.classNameFilter();
     var isAnimatableClassName = !classNameFilter
@@ -3489,7 +3489,7 @@ var $$AnimationProvider = ['$animateProvider', function($animateProvider) {
     </file>
     <file name="script.js">
       angular.module('anchoringExample', ['ngAnimate', 'ngRoute'])
-        .config(['$routeProvider', function($routeProvider) {
+        .configura(['$routeProvider', function($routeProvider) {
           $routeProvider.when('/', {
             templateUrl: 'home.html',
             controller: 'HomeController as home'

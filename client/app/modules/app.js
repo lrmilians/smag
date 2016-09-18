@@ -19,13 +19,13 @@ angular
         'admin',
         'contabilidad',
         'inventario'
-    //  'Directives'
+
     ])
 
     .constant('PROPERTIES', {
       "serverConn" :	{
         "server" : "https://u1510desktop64x/smag",
-        //"server" : "https://www.lrconsultor.com/smag",
+        //"server" : "https://vmu1510.lrconsultor.com/smag",
         "port"	: ""
       }
     })
@@ -92,7 +92,7 @@ angular
         dialogsProvider.useBackdrop('static');
         dialogsProvider.useEscClose(false);
         dialogsProvider.useCopy(false);
-        dialogsProvider.setSize('md');
+    //    dialogsProvider.setSize('md');
     }])
 
     .config (function ($translateProvider) {

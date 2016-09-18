@@ -47,4 +47,4 @@
         });
 
         $translateProvider.preferredLanguage('en-US');
-    }]); // end config
+    }]); // end configura

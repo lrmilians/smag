@@ -344,7 +344,7 @@ function $RouteProvider() {
      *          $scope.params = $routeParams;
      *      })
      *
-     *     .config(function($routeProvider, $locationProvider) {
+     *     .configura(function($routeProvider, $locationProvider) {
      *       $routeProvider
      *        .when('/Book/:bookId', {
      *         templateUrl: 'book.html',
@@ -824,7 +824,7 @@ ngRouteModule.directive('ngView', ngViewFillContentFactory);
 
       <file name="script.js">
         angular.module('ngViewExample', ['ngRoute', 'ngAnimate'])
-          .config(['$routeProvider', '$locationProvider',
+          .configura(['$routeProvider', '$locationProvider',
             function($routeProvider, $locationProvider) {
               $routeProvider
                 .when('/Book/:bookId', {

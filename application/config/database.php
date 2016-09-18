@@ -74,9 +74,9 @@ unset($dbh);
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => 'esignature2',
+	'username' => 'smag',
 	'password' => 'U8SytHAudFf8hCR7',
-	'database' => 'esignature2',
+	'database' => 'smag',
 	//'dbdriver' => 'mysqli',
 	'dbdriver' => 'postgre',
 	'dbprefix' => '',

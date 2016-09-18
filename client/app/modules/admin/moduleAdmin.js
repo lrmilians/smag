@@ -19,6 +19,11 @@ myAdmin.config(function ($routeProvider) {
             controller: 'dashboardCtrl',
             activetab: 'start'
         })
+        .when('/config-tablas', {
+            templateUrl: 'client/app/modules/admin/views/config-tablas.html',
+            controller: 'tablasCtrl',
+            activetab: 'configuracion'
+        })
         .otherwise({reditrectTo: "/"});
 });
 
@@ -45,6 +50,10 @@ myAdmin.constant('PROPERTIES_ADMIN', {
         "uriWebServiceGetUsers" : "auth/user/users",
         "uriWebServiceGetRoles" : "auth/rol/roles",
         "uriWebServiceUser" : "auth/user/user",
+
+        "uriWebServiceGetTablas" : "admin/tablas/tabla",
+        "uriWebServiceSetTablas" : "admin/tablas/settabla",
+        "uriWebServiceDelTabla" : "admin/tablas/deltabla",
     },
     "mainMenu" : [
         {
@@ -72,6 +81,11 @@ myAdmin.constant('PROPERTIES_ADMIN', {
                         {href : '#/balance-situacion', title : 'Balances Situación', glyphicon : 'glyphicon-folder-open'},
                     ]
                 },*/
+                {href : '', clic : '', title : 'Configuracion', activetab : 'configuracion', glyphicon : 'glyphicon-cog',
+                    submenu : [
+                        {href : '#/config-tablas', title : 'Tablas', glyphicon : 'glyphicon-folder-open'},
+                    ]
+                },
                 {href : '#/inventario', clic : '', title : 'Inventario', activetab : 'inventario', glyphicon : 'glyphicon-dashboard',
                     submenu : [
                         {href : '#/inv-mtto', title : 'Mantenimiento', glyphicon : 'glyphicon-folder-open'},
