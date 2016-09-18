@@ -111,10 +111,10 @@ myAdmin.factory('billAdminService', ['$http','$q','PROPERTIES','PROPERTIES_ESIGN
         }
         if(!file){
             $http.post(wsSetKey, dataRequest)
-                .success(function(data, status, headers, config) {
+                .success(function(data, status, headers, configura) {
                     deferred.resolve(data);
                 })
-                .error(function (data, status, headers, config)	{
+                .error(function (data, status, headers, configura)	{
                     deferred.reject(data);
                 });
         } else {
@@ -123,10 +123,10 @@ myAdmin.factory('billAdminService', ['$http','$q','PROPERTIES','PROPERTIES_ESIGN
                 file: file,
                 data: dataRequest
             })
-                .success(function (data, status, headers, config) {
+                .success(function (data, status, headers, configura) {
                     deferred.resolve(data);
                 })
-                .error(function (data, status, headers, config)	{
+                .error(function (data, status, headers, configura)	{
                     deferred.reject(data);
                 });
         }
@@ -150,10 +150,10 @@ myAdmin.factory('billAdminService', ['$http','$q','PROPERTIES','PROPERTIES_ESIGN
         }
 
         $http.post(wsDelKey, dataRequest)
-            .success(function(data, status, headers, config) {
+            .success(function(data, status, headers, configura) {
                 deferred.resolve(data);
             })
-            .error(function (data, status, headers, config)	{
+            .error(function (data, status, headers, configura)	{
                 deferred.reject(data);
             });
 

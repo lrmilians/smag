@@ -50,7 +50,7 @@
  *
  * ##Disabling Attributes
  * It's possible to disable individual attributes added by ngAria with the
- * {@link ngAria.$ariaProvider#config config} method. For more details, see the
+ * {@link ngAria.$ariaProvider#config configura} method. For more details, see the
  * {@link guide/accessibility Developer Guide}.
  */
  /* global -ngAriaModule */
@@ -66,8 +66,8 @@ var ngAriaModule = angular.module('ngAria', ['ng']).
  * Used for configuring the ARIA attributes injected and managed by ngAria.
  *
  * ```js
- * angular.module('myApp', ['ngAria'], function config($ariaProvider) {
- *   $ariaProvider.config({
+ * angular.module('myApp', ['ngAria'], function configura($ariaProvider) {
+ *   $ariaProvider.configura({
  *     ariaValue: true,
  *     tabindex: false
  *   });

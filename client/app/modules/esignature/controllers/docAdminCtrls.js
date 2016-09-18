@@ -18,8 +18,6 @@ myAdmin.controller("billCtrl", ['catalogsEsignatureService','billAdminService','
         billCtrl.totalRecords = 0;
         billCtrl.advanceSearch = false;
 
-       // billCtrl.q = '';
-
         billCtrl.dataRequest = {
             name : "",
             num_doc : "",
@@ -34,12 +32,6 @@ myAdmin.controller("billCtrl", ['catalogsEsignatureService','billAdminService','
             start : 0,
             size : billCtrl.pageSize
         };
-
-
-        /*$scope.scrollStyle = $scope.scrollStyle2 = {};
-        $scope.scrollTotalRecords = $scope.scrollTotalRecords2 = 8;
-        $scope.scrollHeight = $scope.scrollHeight2 = 200;
-        $scope.totalRecord = $scope.totalRecord2 = 0;*/
 
         billCtrl.orderByField = 'id';
         billCtrl.reverseSort = false;

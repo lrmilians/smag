@@ -19,7 +19,7 @@ angular
         'admin',
         'contabilidad',
         'inventario'
-    //  'Directives'
+
     ])
 
     .constant('PROPERTIES', {
@@ -92,7 +92,7 @@ angular
         dialogsProvider.useBackdrop('static');
         dialogsProvider.useEscClose(false);
         dialogsProvider.useCopy(false);
-        dialogsProvider.setSize('md');
+    //    dialogsProvider.setSize('md');
     }])
 
     .config (function ($translateProvider) {

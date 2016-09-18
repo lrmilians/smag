@@ -1,0 +1,205 @@
+<div class="jumbotron" style="padding: 5px 5px;border-radius: 5px">
+    <div ng-controller="tablasCtrl as tac" ng-init="tac.initCtrl()">
+        <div class="panel panel-info" style="margin: 5px 0px 15px 0px;">
+            <div class="panel-heading" style="padding: 0px 10px;">
+                <table width="100%">
+                    <tr>
+                        <td style="width: 60%; text-align: left;"><h4><button type="button" class="btn btn-default btn-success btn-xs" ng-click="tac.initCtrl()" style="font-size: 12px;" title="Actualizar">
+                            <span class="glyphicon glyphicon-repeat" aria-hidden="true" style="margin: 0;"></span>
+                        </button><span class="glyphicon glyphicon-lock" aria-hidden="true" style="margin-left: 6px; margin-right: 6px;"></span><label class="text-primary" style="margin-bottom: 0px;">MANTENIMIENTO DE TABLAS</label></h4></td>
+                        <td style="width: 40%; text-align: right;">
+                            <button type="button" class="btn btn-primary" style="font-size: 12px;" ng-click="imc.searchBill()" ng-if="imc.bills.length !== 0">
+                                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>Buscar
+                            </button>
+                            <button type="button" class="btn btn-success" style="font-size: 12px;" ng-click="tac.addTabla()">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Adicionar Tabla
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel-body" style="padding-top: 0px;">
+                <div class="row" style="margin-top: 10px;">
+                    <div ng-if="tac.tablas.length !== 0 && tac.q !== undefined && resultFiltered.length !== 0" class="col-md-3" style="text-align: left; padding-top: 8px; padding-bottom: 8px;">
+                        <span>{{resultFiltered.length === 1 ? "Un Registro encontrado" : resultFiltered.length + " Registros encontrados"}}</span>
+                    </div>
+                    <div ng-if="tac.advanceSearch" class="col-md-3">
+                        <button type="button" class="btn btn-default btn-xs btn-danger" ng-click="tac.resetSearch()">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Limpiar búsqueda
+                        </button>
+                    </div>
+                </div>
+			    <div style="width: 100%; overflow-x: auto; white-space: nowrap;">
+                    <table class="table table-hover table-striped" style="margin-bottom: 0px;">
+                        <thead>
+                            <tr>
+                                <th style='vertical-align: middle;font-weight: bold;width: 5%; padding: 3px;'></th>
+                                <th style='vertical-align: middle;font-weight: bold;width: 5%; padding: 3px;'>
+                                    <a href="" ng-click="tac.orderByField = 'numero'; tac.reverseSort = !tac.reverseSort">
+                                        NUMERO
+                                    <span ng-show="tac.orderByField == 'numero' && tac.tablas.length !== 0">
+                                         <span ng-show="!tac.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
+                                         <span ng-show="tac.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
+                                    </span>
+                                    </a>
+                                </th>
+                                <th style='vertical-align: middle;font-weight: bold;width: 5%; padding: 3px;'>
+                                    <a href="" ng-click="tac.orderByField = 'codigo'; tac.reverseSort = !tac.reverseSort">
+                                        CODIGO
+                                    <span ng-show="tac.orderByField == 'codigo' && tac.tablas.length !== 0">
+                                         <span ng-show="!tac.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
+                                         <span ng-show="tac.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
+                                    </span>
+                                    </a>
+                                </th>
+                                <th style='vertical-align: middle;font-weight: bold;width: 5%; padding: 3px;'>
+                                    <a href="" ng-click="tac.orderByField = 'nombre'; tac.reverseSort = !tac.reverseSort">
+                                        NOMBRE
+                                    <span ng-show="tac.orderByField == 'nombre' && tac.tablas.length !== 0">
+                                         <span ng-show="!tac.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
+                                         <span ng-show="tac.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
+                                    </span>
+                                    </a>
+                                </th>
+                                <th style='vertical-align: middle;font-weight: bold;width: 5%; padding: 3px;'>
+                                    <a href="" ng-click="tac.orderByField = 'dato1'; tac.reverseSort = !tac.reverseSort">
+                                        Dato1
+                                    <span ng-show="tac.orderByField == 'dato1' && tac.tablas.length !== 0">
+                                         <span ng-show="!tac.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
+                                         <span ng-show="tac.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
+                                    </span>
+                                    </a>
+                                </th>
+                                <th style='vertical-align: middle;font-weight: bold;width: 5%; padding: 3px;'>
+                                    <a href="" ng-click="tac.orderByField = 'dato2'; tac.reverseSort = !tac.reverseSort">
+                                        Dato2
+                                    <span ng-show="tac.orderByField == 'dato2' && tac.tablas.length !== 0">
+                                         <span ng-show="!tac.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
+                                         <span ng-show="tac.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
+                                    </span>
+                                    </a>
+                                </th>
+                                <th style='vertical-align: middle;font-weight: bold;width: 5%; padding: 3px;'>
+                                    <a href="" ng-click="tac.orderByField = 'dato3'; tac.reverseSort = !tac.reverseSort">
+                                        Dato3
+                                    <span ng-show="tac.orderByField == 'dato3' && tac.tablas.length !== 0">
+                                         <span ng-show="!tac.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
+                                         <span ng-show="tac.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
+                                    </span>
+                                    </a>
+                                </th>
+                                <th style='vertical-align: middle;font-weight: bold;width: 5%; padding: 3px;'>
+                                    <a href="" ng-click="tac.orderByField = 'dato4'; tac.reverseSort = !tac.reverseSort">
+                                        Dato4
+                                    <span ng-show="tac.orderByField == 'dato4' && tac.tablas.length !== 0">
+                                         <span ng-show="!tac.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
+                                         <span ng-show="tac.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
+                                    </span>
+                                    </a>
+                                </th>
+                                <th style='vertical-align: middle;font-weight: bold;width: 5%; padding: 3px;'>
+                                    <a href="" ng-click="tac.orderByField = 'dato5'; tac.reverseSort = !tac.reverseSort">
+                                        Dato5
+                                    <span ng-show="tac.orderByField == 'dato5' && tac.tablas.length !== 0">
+                                         <span ng-show="!tac.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
+                                         <span ng-show="tac.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
+                                    </span>
+                                    </a>
+                                </th>
+                                <th style='vertical-align: middle;font-weight: bold;width: 5%; padding: 3px;'>
+                                    <a href="" ng-click="tac.orderByField = 'dato6'; tac.reverseSort = !tac.reverseSort">
+                                        Dato6
+                                    <span ng-show="tac.orderByField == 'dato6' && tac.tablas.length !== 0">
+                                         <span ng-show="!tac.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
+                                         <span ng-show="tac.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
+                                    </span>
+                                    </a>
+                                </th>
+                                <th style='vertical-align: middle;font-weight: bold;width: 5%; padding: 3px;'>
+                                    <a href="" ng-click="tac.orderByField = 'dato7'; tac.reverseSort = !tac.reverseSort">
+                                        Dato7
+                                    <span ng-show="tac.orderByField == 'dato7' && tac.tablas.length !== 0">
+                                         <span ng-show="!tac.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
+                                         <span ng-show="tac.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
+                                    </span>
+                                    </a>
+                                </th>
+                                <th style='vertical-align: middle;font-weight: bold;width: 5%; padding: 3px;'>
+                                    <a href="" ng-click="tac.orderByField = 'dato8'; tac.reverseSort = !tac.reverseSort">
+                                        Dato8
+                                    <span ng-show="tac.orderByField == 'dato8' && tac.tablas.length !== 0">
+                                         <span ng-show="!tac.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
+                                         <span ng-show="tac.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
+                                    </span>
+                                    </a>
+                                </th>
+                                <th style='vertical-align: middle;font-weight: bold;width: 5%; padding: 3px;'>
+                                    <a href="" ng-click="tac.orderByField = 'dato9'; tac.reverseSort = !tac.reverseSort">
+                                        Dato9
+                                    <span ng-show="tac.orderByField == 'dato9' && tac.tablas.length !== 0">
+                                         <span ng-show="!tac.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
+                                         <span ng-show="tac.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
+                                    </span>
+                                    </a>
+                                </th>
+                                <th style='vertical-align: middle;font-weight: bold;width: 5%; padding: 3px;'>
+                                    <a href="" ng-click="tac.orderByField = 'dato10'; tac.reverseSort = !tac.reverseSort">
+                                        Dato10
+                                    <span ng-show="tac.orderByField == 'dato10' && tac.tablas.length !== 0">
+                                         <span ng-show="!tac.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
+                                         <span ng-show="tac.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
+                                    </span>
+                                    </a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-if="tac.tablas.length === 0">
+                            <td colspan="15">
+                                <div role="alert" class="alert alert-danger" style="margin-bottom: 0; padding: 5px;">
+                                    <span aria-hidden="true" class="glyphicon glyphicon-exclamation-sign"></span>
+                                    <span class="sr-only">Error:</span>
+                                    {{'No existen registros'}}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr ng-show="tac.tablas.length !== 0" dir-paginate="item in resultFiltered = (tac.tablas | itemsPerPage: tac.pageSize | orderBy:tac.orderByField:tac.reverseSort)" current-page="tac.currentPage" total-items="tac.totalRecords" style="text-align: left;">
+                            <td style="vertical-align: middle;text-align: center;max-width: 10%">
+                                <button ng-if="item.codigo == '-'" type="button" class="btn btn-default btn-xs btn-warning" style="font-size: 12px;" ng-click="tac.editTabla(item.numero)" title="Editar Tabla">
+                                    <span class="glyphicon glyphicon-edit" aria-hidden="true" style="margin-right: 0"></span>
+                                </button>
+                                <button ng-if="item.codigo == '-'" type="button" class="btn btn-default btn-xs btn-danger" style="font-size: 12px;" ng-click="tac.delTabla(item.numero, item.nombre)" title="Eliminar Tabla">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true" style="margin-right: 0"></span>
+                                </button>
+                            </td>
+                            <td style="vertical-align: middle;">{{item.numero}}</td>
+                            <td style="vertical-align: middle;">{{item.codigo}}</td>
+                            <td style="vertical-align: middle;">{{item.nombre}}</td>
+                            <td style="vertical-align: middle;">{{item.dato1}}</td>
+                            <td style="vertical-align: middle;">{{item.dato2}}</td>
+                            <td style="vertical-align: middle;">{{item.dato3}}</td>
+                            <td style="vertical-align: middle;">{{item.dato4}}</td>
+                            <td style="vertical-align: middle;">{{item.dato5}}</td>
+                            <td style="vertical-align: middle;">{{item.dato6}}</td>
+                            <td style="vertical-align: middle;">{{item.dato7}}</td>
+                            <td style="vertical-align: middle;">{{item.dato8}}</td>
+                            <td style="vertical-align: middle;">{{item.dato9}}</td>
+                            <td style="vertical-align: middle;">{{item.dato10}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="text-left" style="margin: 15px 0 0 15px;">
+                        Total de registros: {{tac.totalRecords}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="text-center">
+                        <dir-pagination-controls boundary-links="true" on-page-change="tac.pageChangeHandler(newPageNumber)" template-url="client/app/bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

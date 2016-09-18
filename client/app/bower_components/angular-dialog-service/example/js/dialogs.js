@@ -11,7 +11,7 @@ var translateSubMod = angular.module('translate.sub',[]);
 
 	/**
 	 * $translate Service
-	 * Sets up a $translateProvider service to use in your module's config
+	 * Sets up a $translateProvider service to use in your module's configura
 	 * function.  $translate.Provider syntax is the same as Angular-Translate,
 	 * use $translate.Provider.translations(lang,obj) to change the defaults
 	 * for modal button, header and message text.
@@ -458,7 +458,7 @@ angular.module('dialogs.main',['dialogs.services','ngSanitize']) // requires ang
 	            DIALOGS_NO: "No"
         	});
 		} // end try/catch
-	}]) // end config
+	}]) // end configura
 
 	// Add default templates via $templateCache
 	.run(['$templateCache','$interpolate',function($templateCache,$interpolate){

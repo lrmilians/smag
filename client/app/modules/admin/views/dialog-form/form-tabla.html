@@ -1,0 +1,256 @@
+<div class="modal-header" style="background-color: #d9edf7;" xmlns="http://www.w3.org/1999/html">
+    <h4 class="modal-title">
+        <span class="glyphicon glyphicon-user"></span>{{action == -1 ? "ADICIONAR" : "ACTUALIZAR"}} TABLAS
+    </h4>
+</div>
+<form name="tablaForm" novalidate>
+<div class="modal-body" >
+    <div class="panel panel-info" style="margin: 5px 0px;">
+        <div class="panel-body">
+            <div style="width: 100%; overflow-x: auto; white-space: nowrap;">
+                <table class="table table-bordered">
+                    <thead>
+                        <!--<tr>
+                            <th colspan="15" style="text-align: center; background-color: #E6E6E6">INGRESO DE ELEMENTOS DE LA LISTA</th>
+                        </tr>-->
+                    <tr style="text-align: center; background-color: #F2F2F2">
+                        <th style="vertical-align: middle;font-weight: bold;width: 5%;text-align: center">
+                            <button type="button" class="btn btn-default btn-xs btn-success" style="font-size: 12px;" ng-click="addTabla()" title="Adicionar nueva tabla">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true" style="margin-right: -2px"></span>
+                            </button>
+                        </th>
+                        <th style="vertical-align: middle;font-weight: bold;width: 5%"></th>
+                        <th style="vertical-align: middle;font-weight: bold;width: 5%">N&Uacute;MERO</th>
+                        <th style="vertical-align: middle;font-weight: bold;width: 5%">C&Oacute;DIGO</th>
+                        <th style="vertical-align: middle;font-weight: bold;width: 5%">&nbsp;&nbsp;NOMBRE&nbsp;&nbsp;</th>
+                        <th style="vertical-align: middle;font-weight: bold;width: 5%">&nbsp;DATO1&nbsp;</th>
+                        <th style="vertical-align: middle;font-weight: bold;width: 5%">&nbsp;DATO2&nbsp;</th>
+                        <th style="vertical-align: middle;font-weight: bold;width: 5%">&nbsp;DATO3&nbsp;</th>
+                        <th style="vertical-align: middle;font-weight: bold;width: 5%">&nbsp;DATO4&nbsp;</th>
+                        <th style="vertical-align: middle;font-weight: bold;width: 5%">&nbsp;DATO5&nbsp;</th>
+                        <th style="vertical-align: middle;font-weight: bold;width: 5%">&nbsp;DATO6&nbsp;</th>
+                        <th style="vertical-align: middle;font-weight: bold;width: 5%">&nbsp;DATO7&nbsp;</th>
+                        <th style="vertical-align: middle;font-weight: bold;width: 5%">&nbsp;DATO8&nbsp;</th>
+                        <th style="vertical-align: middle;font-weight: bold;width: 5%">&nbsp;DATO9&nbsp;</th>
+                        <th style="vertical-align: middle;font-weight: bold;width: 5%">&nbsp;DATO10&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody ng-if="tablas.length == 0">
+                        <tr>
+                            <td colspan="15">
+                                <div role="alert" class="alert alert-danger" style="margin-bottom: 0; padding: 5px;">
+                                    <span aria-hidden="true" class="glyphicon glyphicon-exclamation-sign"></span>
+                                    <span class="sr-only">Error:</span>
+                                    {{'No existen tablas'}}
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody ng-if="tablas.length > 0" ng-repeat="tabla in tablas">
+                        <tr style="background-color: #EBEBEB">
+                            <td style="vertical-align: middle;text-align: center">
+                                <button ng-disabled="subprod.codprod20 == ''" type="button" class="btn btn-default btn-xs btn-success" style="font-size: 12px;" ng-click="addSubTabla($index,tabla.numero)" title="{{subprod.codprod20 == '' ? 'Debe seleccionar el subproducto' : 'Adicionar Subtabla'}}">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true" style="margin-right: 0px"></span>
+                                </button>
+                                <button type="button" class="btn btn-default btn-xs btn-danger" style="font-size: 12px;" ng-click="delTabla($index)" title="Eliminar Tabla">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true" style="margin-right: 0px"></span>
+                                </button>
+                            </td>
+                            <td style="vertical-align: middle">{{$index+1}}</td>
+                            <td style="vertical-align: middle">
+                                <div class="col-xs-12" style="padding-right: 0px;padding-left: 0px;">
+                                    <div class="form-group" style="margin-bottom: 0;width: 95%">
+                                        <input type="text" class="form-control" width="20"
+                                               name="numero{{$index}}" id="numero{{$index}}"
+                                               placeholder="" value="" required="required"
+                                               ng-model="tabla.numero" />
+                                    </div>
+                                </div>
+                                <div class="col-xs-12" style="padding-right: 0px;padding-left: 0px;">
+                                    <span class="text-danger text-right col-xs-12" ng-show="tablaForm.$submitted || tablaForm.{{'numero'+$index}}.$touched">
+                                        <span ng-show="tablaForm.{{'numero'+$index}}.$error.required">Campo obligatorio</span>
+                                    </span>
+                                </div>
+                            </td>
+                            <td style="vertical-align: middle"></td>
+                            <td style="vertical-align: middle">
+                                <div style="padding-right: 0px;padding-left: 0px;width: 300px">
+                                    <div class="form-group" style="margin-bottom: 0;width: 95%">
+                                        <input type="text" class="form-control"
+                                               name="nombre{{$index}}" id="nombre{{$index}}"
+                                               placeholder="" value="" required="required"
+                                               ng-model="tabla.nombre" />
+                                    </div>
+                                </div>
+                                <div class="col-xs-12" style="padding-right: 0px;padding-left: 0px;">
+                                    <span class="text-danger text-right col-xs-12" ng-show="tablaForm.$submitted || tablaForm.{{'nombre'+$index}}.$touched">
+                                        <span ng-show="tablaForm.{{'nombre'+$index}}.$error.required">Campo obligatorio</span>
+                                    </span>
+                                </div>
+                            </td>
+                            <td style="vertical-align: middle"></td>
+                            <td style="vertical-align: middle"></td>
+                            <td style="vertical-align: middle;text-align: center"></td>
+                            <td style="vertical-align: middle;text-align: center"></td>
+                            <td style="vertical-align: middle;text-align: center"></td>
+                            <td style="vertical-align: middle;text-align: center"></td>
+                            <td style="vertical-align: middle;text-align: center"></td>
+                            <td style="vertical-align: middle;text-align: center"></td>
+                            <td style="vertical-align: middle;text-align: center"></td>
+                            <td style="vertical-align: middle;text-align: center"></td>
+                        </tr>
+                        <tr ng-repeat="subtabla in tabla.subtablas">
+                            <td style="vertical-align: middle;text-align: center">
+                                <button type="button" class="btn btn-default btn-xs btn-danger" style="font-size: 12px;" ng-click="delSubTabla($index,tabla.index)" title="Eliminar Subtabla">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true" style="margin-right: 0px"></span>
+                                </button>
+                            </td>
+                            <td style="vertical-align: middle;text-align: right">{{tabla.index+1}}.{{$index+1}}</td>
+                            <td style="vertical-align: middle;text-align: center">{{subtabla.numero}}</td>
+                            <td style="vertical-align: middle;text-align: center">
+                                <div class="col-xs-12" style="padding-right: 0px;padding-left: 0px;">
+                                    <div class="form-group" style="margin-bottom: 0;width: 95%">
+                                        <input type="text" class="form-control"
+                                               name="subcodigo{{$index}}" id="subcodigo{{$index}}"
+                                               placeholder="" value="" required="required"
+                                               ng-model="subtabla.codigo" />
+                                    </div>
+                                </div>
+                                <div class="col-xs-12" style="padding-right: 0px;padding-left: 0px;">
+                                    <span class="text-danger text-right col-xs-12" ng-show="tablaForm.$submitted || tablaForm.{{'subcodigo'+$index}}.$touched">
+                                        <span ng-show="tablaForm.{{'subcodigo'+$index}}.$error.required">Campo obligatorio</span>
+                                    </span>
+                                </div>
+                            </td>
+                            <td style="vertical-align: middle">
+                                <div style="padding-right: 0px;padding-left: 0px;width: 300px">
+                                    <div class="form-group" style="margin-bottom: 0;width: 95%">
+                                        <input type="text" class="form-control"
+                                               name="subnombre{{$index}}" id="subnombre{{$index}}"
+                                               placeholder="" value="" required="required"
+                                               ng-model="subtabla.nombre" />
+                                    </div>
+                                </div>
+                                <div class="col-xs-12" style="padding-right: 0px;padding-left: 0px;">
+                                    <span class="text-danger text-right col-xs-12" ng-show="tablaForm.$submitted || tablaForm.{{'subnombre'+$index}}.$touched">
+                                        <span ng-show="tablaForm.{{'subnombre'+$index}}.$error.required">Campo obligatorio</span>
+                                    </span>
+                                </div>
+                            </td>
+                            <td style="vertical-align: middle">
+                                <div style="padding-right: 0px;padding-left: 0px;width: 50px">
+                                    <div class="form-group" style="margin-bottom: 0">
+                                        <input type="number" class="form-control"
+                                               name="subdato1{{$index}}" id="subdato1{{$index}}"
+                                               placeholder="" value="0"
+                                               ng-model="subtabla.dato1" min="0" style="padding: 4px" />
+                                    </div>
+                                </div>
+                                <div class="col-xs-12" style="padding-right: 0px;padding-left: 0px;">
+                                    <span class="text-danger text-right col-xs-12" ng-show="tablaForm.$submitted || tablaForm.{{'subdato1'+$index}}.$touched">
+                                        <span ng-show="tablaForm.{{'subdato1'+$index}}.$error.number">No num</span>
+                                    </span>
+                                </div>
+                            </td>
+                            <td style="vertical-align: middle">
+                                <div style="padding-right: 0px;padding-left: 0px;width: 60px">
+                                    <div class="form-group" style="margin-bottom: 0;width: 95%">
+                                        <input type="text" class="form-control"
+                                               name="subdato2{{$index}}" id="subdato2{{$index}}"
+                                               placeholder="" value=""
+                                               ng-model="subtabla.dato2" />
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="vertical-align: middle">
+                                <div style="padding-right: 0px;padding-left: 0px;width: 60px">
+                                    <div class="form-group" style="margin-bottom: 0;width: 95%">
+                                        <input type="text" class="form-control"
+                                               name="subdato3{{$index}}" id="subdato3{{$index}}"
+                                               placeholder="" value=""
+                                               ng-model="subtabla.dato3" />
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="vertical-align: middle">
+                                <div style="padding-right: 0px;padding-left: 0px;width: 200px">
+                                    <div class="form-group" style="margin-bottom: 0;width: 95%">
+                                        <input type="text" class="form-control"
+                                               name="subdato4{{$index}}" id="subdato4{{$index}}"
+                                               placeholder="" value=""
+                                               ng-model="subtabla.dato4" />
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="vertical-align: middle">
+                                <div style="padding-right: 0px;padding-left: 0px;width: 200px">
+                                    <div class="form-group" style="margin-bottom: 0;width: 95%">
+                                        <input type="text" class="form-control"
+                                               name="subdato5{{$index}}" id="subdato5{{$index}}"
+                                               placeholder="" value=""
+                                               ng-model="subtabla.dato5" />
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="vertical-align: middle">
+                                <div style="padding-right: 0px;padding-left: 0px;width: 200px">
+                                    <div class="form-group" style="margin-bottom: 0;width: 95%">
+                                        <input type="text" class="form-control"
+                                               name="subdato6{{$index}}" id="subdato6{{$index}}"
+                                               placeholder="" value=""
+                                               ng-model="subtabla.dato6" />
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="vertical-align: middle">
+                                <div style="padding-right: 0px;padding-left: 0px;width: 200px">
+                                    <div class="form-group" style="margin-bottom: 0;width: 95%">
+                                        <input type="text" class="form-control"
+                                               name="subdato7{{$index}}" id="subdato7{{$index}}"
+                                               placeholder="" value=""
+                                               ng-model="subtabla.dato7" />
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="vertical-align: middle">
+                                <div style="padding-right: 0px;padding-left: 0px;width: 200px">
+                                    <div class="form-group" style="margin-bottom: 0;width: 95%">
+                                        <input type="text" class="form-control"
+                                               name="subdato8{{$index}}" id="subdato8{{$index}}"
+                                               placeholder="" value=""
+                                               ng-model="subtabla.dato8" />
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="vertical-align: middle">
+                                <div style="padding-right: 0px;padding-left: 0px;width: 200px">
+                                    <div class="form-group" style="margin-bottom: 0;width: 95%">
+                                        <input type="text" class="form-control"
+                                               name="subdato9{{$index}}" id="subdato9{{$index}}"
+                                               placeholder="" value=""
+                                               ng-model="subtabla.dato9" />
+                                    </div>
+                                </div>
+                            </td>
+                            <td colspan="2" style="vertical-align: middle;font-size: 13px;">
+                                <div style="padding-right: 0px;padding-left: 0px;width: 200px">
+                                    <div class="form-group" style="margin-bottom: 0;width: 95%">
+                                        <input type="text" class="form-control"
+                                               name="subdato10{{$index}}" id="subdato10{{$index}}"
+                                               placeholder="" value=""
+                                               ng-model="subtabla.dato10" />
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+    <button type="submit" class="btn btn-success pull-right" ng-click="submitForm(user)">Guardar</button>
+</div>
+</form>

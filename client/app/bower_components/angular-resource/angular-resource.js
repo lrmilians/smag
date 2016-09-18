@@ -84,7 +84,7 @@ function shallowClearAndCopy(src, dst) {
  * this:
  *
  * ```js
-     app.config(['$resourceProvider', function($resourceProvider) {
+     app.configura(['$resourceProvider', function($resourceProvider) {
        // Don't strip trailing slashes from calculated URLs
        $resourceProvider.defaults.stripTrailingSlashes = false;
      }]);
@@ -118,7 +118,7 @@ function shallowClearAndCopy(src, dst) {
  *
  * @param {Object.<Object>=} actions Hash with declaration of custom actions that should extend
  *   the default set of resource actions. The declaration should be created in the format of {@link
- *   ng.$http#usage $http.config}:
+ *   ng.$http#usage $http.configura}:
  *
  *       {action1: {method:?, params:?, isArray:?, headers:?, ...},
  *        action2: {method:?, params:?, isArray:?, headers:?, ...},
