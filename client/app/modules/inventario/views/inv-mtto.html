@@ -35,55 +35,7 @@
                         </button>
                     </div>
                 </div>
-                <table class="table table-hover table-striped" style="margin-bottom: 0px;">
-                    <thead>
-                    <tr>
-                        <th style="width: 10%;">Número Documento</th>
-                        <th style="width: 10%;">Identificación</th>
-                        <th style="width: 30%;">Cliente</th>
-                        <th style="width: 10%;">Estado</th>
-                        <th style="width: 15%;">Mensaje</th>
-                        <th style="width: 15%;">Creado</th>
-                        <th style="width: 10%;"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-if="imc.bills.length === 0">
-                        <td colspan="12">
-                            <div role="alert" class="alert alert-danger" style="margin-bottom: 0; padding: 5px;">
-                                <span aria-hidden="true" class="glyphicon glyphicon-exclamation-sign"></span>
-                                <span class="sr-only">Error:</span>
-                                {{'No existen registros'}}
-                            </div>
-                        </td>
-                    </tr>
-                    <tr ng-show="imc.bills.length !== 0" dir-paginate="bill in resultFiltered = (imc.bills | filter:imc.q | itemsPerPage: imc.pageSize)" current-page="imc.currentPage" total-items="imc.totalRecords" style="text-align: left;">
-                        <td style="vertical-align: middle;">{{bill.num_doc}}</td>
-                        <td style="vertical-align: middle;">{{bill.identification}}</td>
-                        <td style="vertical-align: middle;">{{bill.first_name}}</td>
-                        <td style="vertical-align: middle;">{{bill.state}}</td>
-                        <td style="vertical-align: middle;">{{bill.message}}</td>
-                        <td style="vertical-align: middle;">{{bill.created}}</td>
-                        <td style="vertical-align: middle;">
-                            <button ng-if="bill.state != 'AUTORIZADO'" type="button" class="btn btn-default btn-xs btn-warning" style="font-size: 12px;" ng-click="imc.processBill(bill)" title="Procesar">
-                                <span class="glyphicon glyphicon-cog" aria-hidden="true" style="margin: 0;"></span>
-                            </button>
-                            <a style="font-size: 12px;" href="{{baseURL}}/esignature/esign/esignfile/type/01/typefile/xml/name/{{bill.name}}/token/{{imc.user.token}}" target="_blank" title="Descargar XML subido">
-                                <img ng-src="client/app/images/xmlnoprocess.png" alt="Descargar XML subido" style="width:23px;height:25px;border:0;">
-                            </a>
-                            <a ng-if="bill.state == 'AUTORIZADO'" style="font-size: 12px;" href="{{baseURL}}/esignature/esign/esignfile/type/01/typefile/pdf/name/{{bill.name}}/token/{{imc.user.token}}" target="_blank" title="Descargar RIDE">
-                                <img ng-src="client/app/images/pdficon.png" alt="Descargar RIDE" style="width:23px;height:25px;border:0;">
-                            </a>
-                            <a ng-if="bill.state == 'AUTORIZADO'" style="font-size: 12px;" href="{{baseURL}}/esignature/esign/esignfile/type/01/typefile/zip/name/{{bill.name}}/token/{{imc.user.token}}" target="_blank" title="Descargar XML autorizado">
-                                <img ng-src="client/app/images/xmlicon.png" alt="Descargar XML" style="width:23px;height:25px;border:0;">
-                            </a>
-                            <!--<button type="button" class="btn btn-default btn-xs btn-danger" style="font-size: 12px;" ng-click="imc.delKey(key)" title="Eliminar" ng-disabled="key.active == '1'">
-                                <span class="glyphicon glyphicon-remove" aria-hidden="true" style="margin: 0;"></span>
-                            </button>-->
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+
                 <div class="row">
                     <div class="text-left" style="margin: 15px 0 0 15px;">
                         Total de registros: {{imc.totalRecords}}
