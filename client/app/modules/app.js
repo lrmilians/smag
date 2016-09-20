@@ -24,8 +24,8 @@ angular
 
     .constant('PROPERTIES', {
       "serverConn" :	{
-        //"server" : "https://u1510desktop64x/smag",
-        "server" : "https://wmu1510.lrconsultor.com/smag",
+        "server" : "https://u1510desktop64x/smag",
+        // "server" : "https://vmu1510.lrconsultor.com/smag",
         "port"	: ""
       }
     })

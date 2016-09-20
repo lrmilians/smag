@@ -161,11 +161,11 @@ myAdmin.controller("tablasCtrl", ['tablasService','$scope','$modal','dialogs','$
 
         tablasCtrl.editTabla = function(numero){
             var dlg = dialogs.create('client/app/modules/admin/views/dialog-form/form-tabla.html','tablaDialogCtrl',{
-                userToken : tablasCtrl.user.token, action : numero, dataRequest : tablasCtrl.dataRequest, user: tablasCtrl.user
+                userToken : tablasCtrl.user.token, action : numero, dataReq : tablasCtrl.dataRequest, user: tablasCtrl.user
             },'lg');
             dlg.result.then(function(result){
                 if(result.status == "OK"){
-                    tablasCtrl.initCtrl();
+                    tablasCtrl.resetSearch();
                 }
             },function(){
                 if(angular.equals($scope.name,''))
@@ -210,17 +210,17 @@ myAdmin.controller("tablaDialogCtrl", function(tablasService,$scope,$modalInstan
     $scope.userToken = data.userToken;
     $scope.action = data.action;
     $scope.user = data.user;
+    var dataReq1 = data.dataReq;
 
     $scope.glyphicon = "glyphicon-lock";
     $scope.tablas = [];
 
-
     if($scope.action !== -1){
         angular.element('#div-loading').show();
-        data.dataRequest[0].numero = $scope.action;
-        data.dataRequest[13].start = '';
-        data.dataRequest[14].size = '';
-        tablasService.getTablas(data.dataRequest, $scope.userToken)
+        dataReq1[0].numero = $scope.action;
+        dataReq1[13].start = '';
+        dataReq1[14].size = '';
+        tablasService.getTablas(dataReq1, $scope.userToken)
             .then(function(result){
                 angular.element('#div-loading').hide();
                 if(result.status == 'OK'){
@@ -335,6 +335,7 @@ myAdmin.controller("tablaDialogCtrl", function(tablasService,$scope,$modalInstan
                     angular.element('#div-loading').hide();
                     if(result.status == "OK"){
                         dialogs.notify(undefined, 'Datos salvados correctamente.');
+                        result.dataReq = data.dataReq;
                         $modalInstance.close(result);
                     } else {
                         dialogs.error('Error', result.message);
