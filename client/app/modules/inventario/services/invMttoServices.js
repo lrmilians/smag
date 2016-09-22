@@ -3,7 +3,7 @@ myInventario.factory('invMttoService', ['$http','$q','PROPERTIES','PROPERTIES_IN
     var invMttoService = {
         getProductos : getProductos,
         setProducto : setProducto,
-        delProducto : delProducto,
+        existeCampos : existeCampos,
         getCatalogos : getCatalogos
     };
 
@@ -37,11 +37,11 @@ myInventario.factory('invMttoService', ['$http','$q','PROPERTIES','PROPERTIES_IN
         return deferred.promise;
     }
 
-    function delProducto(dataRequest, token){
+    function existeCampos(dataRequest, token){
         var deferred = $q.defer();
-        var wsDelProducto =  PROPERTIES.serverConn.server + "/" + PROPERTIES_INVENTARIO.services.uriWebServiceDelProducto + '/token/' + token;
+        var wsExisteCampos =  PROPERTIES.serverConn.server + "/" + PROPERTIES_INVENTARIO.services.uriWebServiceExisteCampos + '/token/' + token;
 
-        $http.post(wsDelProducto, dataRequest)
+        $http.post(wsExisteCampos, dataRequest)
             .success(function(data, status, headers, config) {
                 deferred.resolve(data);
             })

@@ -22,7 +22,18 @@ myInventario.controller("invMttoCtrl", ['PROPERTIES','invMttoService','$scope','
             codigo: '',
             nombre: '',
             start: 0,
-            size: invMttoCtrl.pageSize
+            size: invMttoCtrl.pageSize,
+            catalogos : [
+                PROPERTIES.maetroTablas.categoriasProducto,
+                PROPERTIES.maetroTablas.tiposProducto,
+                PROPERTIES.maetroTablas.marcasProducto,
+                PROPERTIES.maetroTablas.modelosProducto,
+                PROPERTIES.maetroTablas.unidadesMedida,
+                PROPERTIES.maetroTablas.ivas,
+                PROPERTIES.maetroTablas.estadosProducto,
+                PROPERTIES.maetroTablas.icesCompra,
+                PROPERTIES.maetroTablas.icesVenta
+            ]
         };
 
         invMttoCtrl.orderByField = 'numero';
@@ -35,7 +46,6 @@ myInventario.controller("invMttoCtrl", ['PROPERTIES','invMttoService','$scope','
         }
 
         invMttoCtrl.initCtrl = function(){
-            invMttoCtrl.getCatalogos();
             invMttoCtrl.getProductos();
         };
 
@@ -51,7 +61,18 @@ myInventario.controller("invMttoCtrl", ['PROPERTIES','invMttoService','$scope','
                 codigo: '',
                 nombre: '',
                 start: 0,
-                size: invMttoCtrl.pageSize
+                size: invMttoCtrl.pageSize,
+                catalogos : [
+                    PROPERTIES.maetroTablas.categoriasProducto,
+                    PROPERTIES.maetroTablas.tiposProducto,
+                    PROPERTIES.maetroTablas.marcasProducto,
+                    PROPERTIES.maetroTablas.modelosProducto,
+                    PROPERTIES.maetroTablas.unidadesMedida,
+                    PROPERTIES.maetroTablas.ivas,
+                    PROPERTIES.maetroTablas.estadosProducto,
+                    PROPERTIES.maetroTablas.icesCompra,
+                    PROPERTIES.maetroTablas.icesVenta
+                ]
             };
 
             invMttoCtrl.advanceSearch = false;
@@ -107,12 +128,66 @@ myInventario.controller("invMttoCtrl", ['PROPERTIES','invMttoService','$scope','
                     if(result.status == "OK"){
                         invMttoCtrl.productos = result.data;
                         invMttoCtrl.totalRecords = result.total_records;
+                        invMttoCtrl.catalogos = {
+                            categoriasProducto : '', tiposProducto : '', marcasProducto : '', modelosProducto : '', unidadesMedida : '',
+                            ivas : '', estadosProducto : '', icesCompra : '', icesVenta : ''
+                        };
+                        for(var i in result.catalogos){
+                            for(var j in invMttoCtrl.dataRequest.catalogos){
+                                if(invMttoCtrl.dataRequest.catalogos[j] ==  result.catalogos[i][0].numero){
+                                    switch(j){
+                                        case '0':
+                                            invMttoCtrl.catalogos.categoriasProducto = result.catalogos[i];
+                                            break;
+                                        case '1':
+                                            invMttoCtrl.catalogos.tiposProducto = result.catalogos[i];
+                                            break;
+                                        case '2':
+                                            invMttoCtrl.catalogos.marcasProducto = result.catalogos[i];
+                                            break;
+                                        case '3':
+                                            invMttoCtrl.catalogos.modelosProducto = result.catalogos[i];
+                                            break;
+                                        case '4':
+                                            invMttoCtrl.catalogos.unidadesMedida = result.catalogos[i];
+                                            break;
+                                        case '5':
+                                            invMttoCtrl.catalogos.ivas = result.catalogos[i];
+                                            break;
+                                        case '6':
+                                            invMttoCtrl.catalogos.estadosProducto = result.catalogos[i];
+                                            break;
+                                        case '7':
+                                            invMttoCtrl.catalogos.icesCompra = result.catalogos[i];
+                                            break;
+                                        case '8':
+                                            invMttoCtrl.catalogos.icesVenta = result.catalogos[i];
+                                            break;
+                                    }
+                                }
+                            }
+                        }
+                        for(var i in invMttoCtrl.productos){
+                            for(var j in invMttoCtrl.catalogos.estadosProducto){
+                                if(invMttoCtrl.productos[i].estado == invMttoCtrl.catalogos.estadosProducto[j].codigo){
+                                    invMttoCtrl.productos[i].estadoNombre = invMttoCtrl.catalogos.estadosProducto[j].nombre;
+                                }
+                            }
+                            for(var j in invMttoCtrl.catalogos.ivas){
+                                if(invMttoCtrl.productos[i].iva == invMttoCtrl.catalogos.ivas[j].codigo){
+                                    invMttoCtrl.productos[i].ivaNombre = invMttoCtrl.catalogos.ivas[j].nombre;
+                                }
+                            }
+                        }
+
+                    } else {
+                        dialogs.error('Error', result.message);
                     }
                 }).catch(function(data){
                     angular.element('#div-loading').hide();
                     if(data.status == "OFF"){
                         $translate('msgSessionExpired').then(function (msg) {
-                            dialogs.error('Error', msg);
+                            dialogs.error('Error', data.message);
                         });
                         $scope.$parent.logout(true);
                     } else {
@@ -139,9 +214,9 @@ myInventario.controller("invMttoCtrl", ['PROPERTIES','invMttoService','$scope','
             });
         };
 
-        invMttoCtrl.editProducto = function(numero){
+        invMttoCtrl.editProducto = function(producto){
             var dlg = dialogs.create('client/app/modules/inventario/views/dialog-form/form-producto.html','productoDialogCtrl',{
-                action : numero, dataReq : invMttoCtrl.dataRequest, user: invMttoCtrl.user, catalogos : invMttoCtrl.catalogos
+                action : producto.id, user: invMttoCtrl.user, catalogos : invMttoCtrl.catalogos, producto : producto
             },{size : 'md'});
             dlg.result.then(function(result){
                 if(result.status == "OK"){
@@ -153,94 +228,6 @@ myInventario.controller("invMttoCtrl", ['PROPERTIES','invMttoService','$scope','
             });
         };
 
-        invMttoCtrl.delProducto = function(numero, nombre){
-            var dlg = dialogs.confirm('Confirmacion', "Desea eliminar la tabla " + numero + ' (' + nombre + ') ?','md');
-            dlg.result.then(function(btn){
-                angular.element('#div-loading').show();
-                invMttoService.delProducto({numero : numero}, tablasCtrl.user.token)
-                    .then(function(result){
-                        angular.element('#div-loading').hide();
-                        dialogs.notify(undefined, result.message);
-                        tablasCtrl.initCtrl();
-                    }).catch(function(data){
-                        angular.element('#div-loading').hide();
-                        if(data.status == "OFF"){
-                            $translate('msgSessionExpired').then(function (msg) {
-                                dialogs.error('Error', msg);
-                            });
-                            $scope.$parent.logout(true);
-                        } else {
-                            if(data.status == null){
-                                dialogs.error('Error', "null");
-                            } else {
-                                dialogs.error('Error', data.message);
-                            }
-                        }
-                    });
-            },function(btn){
-
-            });
-        };
-
-        invMttoCtrl.getCatalogos = function(){
-            var tablas = [
-                PROPERTIES.maetroTablas.categoriasProducto,
-                PROPERTIES.maetroTablas.tiposProducto,
-                PROPERTIES.maetroTablas.marcasProducto,
-                PROPERTIES.maetroTablas.modelosProducto,
-                PROPERTIES.maetroTablas.unidadesMedida,
-                PROPERTIES.maetroTablas.ivas,
-                PROPERTIES.maetroTablas.estadosProducto,
-                PROPERTIES.maetroTablas.icesCompra,
-                PROPERTIES.maetroTablas.icesVenta
-            ];
-            invMttoCtrl.catalogos = {
-                categoriasProducto : '', tiposProducto : '', marcasProducto : '', modelosProducto : '', unidadesMedida : '',
-                ivas : '', estadosProducto : '', icesCompra : '', icesVenta : ''
-            };
-
-            invMttoService.getCatalogos(tablas, invMttoCtrl.user.token)
-                .then(function(result){
-                    for(var i in result.data){
-                        for(var j in tablas){
-                            if(tablas[j] ==  result.data[i][0].numero){
-                                switch(j){
-                                    case '0':
-                                        invMttoCtrl.catalogos.categoriasProducto = result.data[i];
-                                        break;
-                                    case '1':
-                                        invMttoCtrl.catalogos.tiposProducto = result.data[i];
-                                        break;
-                                    case '2':
-                                        invMttoCtrl.catalogos.marcasProducto = result.data[i];
-                                        break;
-                                    case '3':
-                                        invMttoCtrl.catalogos.modelosProducto = result.data[i];
-                                        break;
-                                    case '4':
-                                        invMttoCtrl.catalogos.unidadesMedida = result.data[i];
-                                        break;
-                                    case '5':
-                                        invMttoCtrl.catalogos.ivas = result.data[i];
-                                        break;
-                                    case '6':
-                                        invMttoCtrl.catalogos.estadosProducto = result.data[i];
-                                        break;
-                                    case '7':
-                                        invMttoCtrl.catalogos.icesCompra = result.data[i];
-                                        break;
-                                    case '8':
-                                        invMttoCtrl.catalogos.icesVenta = result.data[i];
-                                        break;
-                                }
-                            }
-                        }
-                    }
-                }).catch(function(data){
-                    dialogs.error('Error', data.message);
-                });
-        };
-
 
 }]);
 
@@ -249,18 +236,98 @@ myInventario.controller("productoDialogCtrl", function(invMttoService,$scope,$mo
     $scope.catalogos = data.catalogos;
     $scope.action = data.action;
     $scope.user = data.user;
-    var dataReq1 = data.dataReq;
 
     $scope.glyphicon = "glyphicon-lock";
     $scope.tablas = [];
 
     if($scope.action !== -1){
-
+        $scope.producto = data.producto;
+        if($scope.producto.categoria !== ''){
+            for(var i in $scope.catalogos.categoriasProducto){
+                if($scope.catalogos.categoriasProducto[i].codigo == $scope.producto.categoria){
+                    $scope.categoriaProductoSelected = $scope.catalogos.categoriasProducto[i];
+                }
+            }
+        } else {
+            $scope.categoriaProductoSelected = {};
+        }
+        if($scope.producto.tipo_producto !== ''){
+            for(var i in $scope.catalogos.tiposProducto){
+                if($scope.catalogos.tiposProducto[i].codigo == $scope.producto.tipo_producto){
+                    $scope.tipoProductoSelected = $scope.catalogos.tiposProducto[i];
+                }
+            }
+        } else {
+            $scope.tipoProductoSelected = {};
+        }
+        if($scope.producto.marca !== ''){
+            for(var i in $scope.catalogos.marcasProducto){
+                if($scope.catalogos.marcasProducto[i].codigo == $scope.producto.marca){
+                    $scope.marcaProductoSelected = $scope.catalogos.marcasProducto[i];
+                }
+            }
+        } else {
+            $scope.marcaProductoSelected = {};
+        }
+        if($scope.producto.modelo !== ''){
+            for(var i in $scope.catalogos.modelosProducto){
+                if($scope.catalogos.modelosProducto[i].codigo == $scope.producto.modelo){
+                    $scope.modeloProductoSelected = $scope.catalogos.modelosProducto[i];
+                }
+            }
+        } else {
+            $scope.modeloProductoSelected = {};
+        }
+        if($scope.producto.unidad_medida !== ''){
+            for(var i in $scope.catalogos.unidadesMedida){
+                if($scope.catalogos.unidadesMedida[i].codigo == $scope.producto.unidad_medida){
+                    $scope.unidadMedidaSelected = $scope.catalogos.unidadesMedida[i];
+                }
+            }
+        } else {
+            $scope.unidadMedidaSelected = {};
+        }
+        if($scope.producto.iva !== ''){
+            for(var i in $scope.catalogos.ivas){
+                if($scope.catalogos.ivas[i].codigo == $scope.producto.iva){
+                    $scope.ivaSelected = $scope.catalogos.ivas[i];
+                }
+            }
+        } else {
+            $scope.ivaSelected = {};
+        }
+        if($scope.producto.estado !== ''){
+            for(var i in $scope.catalogos.estadosProducto){
+                if($scope.catalogos.estadosProducto[i].codigo == $scope.producto.estado){
+                    $scope.estadoSelected = $scope.catalogos.estadosProducto[i];
+                }
+            }
+        } else {
+            $scope.estadoSelected = {};
+        }
+        if($scope.producto.ice_compras !== ''){
+            for(var i in $scope.catalogos.icesCompra){
+                if($scope.catalogos.icesCompra[i].codigo == $scope.producto.ice_compras){
+                    $scope.iceCompraSelected = $scope.catalogos.icesCompra[i];
+                }
+            }
+        } else {
+            $scope.iceCompraSelected = {};
+        }
+        if($scope.producto.ice_ventas !== ''){
+            for(var i in $scope.catalogos.icesVenta){
+                if($scope.catalogos.icesVenta[i].codigo == $scope.producto.ice_ventas){
+                    $scope.iceVentaSelected = $scope.catalogos.icesVenta[i];
+                }
+            }
+        } else {
+            $scope.iceVentaSelected = {};
+        }
     } else {
         $scope.producto = {
-            nombre : '', codigo : '', codigoBarras : '', categoriaProducto : '', tipoProducto : '', marcaProducto : '', modeloProducto : '', unidadMedida : '',
-            precioVenta: '', iva : '', estado : '', referencia : '', descripcion : '', stockActual : '', stockMinimo : '', stockMaximo : '', ubicacion : '',
-            costoUltimaCompra : '', costoPrimeraCompra : '', iceCompra : '', iceVentaSelected : '', peso : '', factorHoraHombre : ''
+            nombre : '', codigo : '', codigo_barras: '', categoria : '', tipo_producto : '', marca : '', modelo : '', unidad_medida : '',
+            precio_venta: '', iva : '', estado : '', referencia : '', descripcion : '', stock_actual : '', stock_minimo : '', stock_maximo : '', ubicacion : '',
+            costo_ultima_compra : '', costo_primera_compra : '', ice_compras : '', ice_ventas : '', peso : '', factor_hora_hombre : ''
         };
         $scope.categoriaProductoSelected = {};
         $scope.tipoProductoSelected = {};
@@ -279,46 +346,72 @@ myInventario.controller("productoDialogCtrl", function(invMttoService,$scope,$mo
     };
 
     $scope.submitForm = function(){
+        var dataRequest1 = {
+            tabla : 'inv_productos',
+            campos : {codigo : $scope.producto.codigo,nombre : $scope.producto.nombre, codigo_barras : $scope.producto.codigo_barras}
+        };
         if ($scope.productoForm.$valid){
-            if(Object.keys($scope.categoriaProductoSelected).length !== 0){
-                $scope.producto.categoriaProducto = $scope.categoriaProductoSelected.codigo;
-            }
-            if(Object.keys($scope.tipoProductoSelected).length !== 0){
-                $scope.producto.tipoProducto = $scope.tipoProductoSelected.codigo;
-            }
-            if(Object.keys($scope.marcaProductoSelected).length !== 0){
-                $scope.producto.marcaProducto = $scope.marcaProductoSelected.codigo;
-            }
-            if(Object.keys($scope.modeloProductoSelected).length !== 0){
-                $scope.producto.modeloProducto = $scope.modeloProductoSelected.codigo;
-            }
-            if(Object.keys($scope.unidadMedidaSelected).length !== 0){
-                $scope.producto.unidadMedida = $scope.unidadMedidaSelected.codigo;
-            }
-            if(Object.keys($scope.ivaSelected).length !== 0){
-                $scope.producto.iva = $scope.ivaSelected.codigo;
-            }
-            if(Object.keys($scope.estadoSelected).length !== 0){
-                $scope.producto.estado = $scope.estadoSelected.codigo;
-            }
-            if(Object.keys($scope.iceCompraSelected).length !== 0){
-                $scope.producto.iceCompra = $scope.iceCompraSelected.codigo;
-            }
-            if(Object.keys($scope.iceVentaSelected).length !== 0){
-                $scope.producto.iceVenta = $scope.iceVentaSelected.codigo;
-            }
-            var dataRequest = {
-                action : $scope.action,
-                producto : $scope.producto,
-                userId : $scope.user.userId
-            };
-            angular.element('#div-loading').show();
-            invMttoService.setProducto(dataRequest, $scope.user.token)
+            invMttoService.existeCampos(dataRequest1, $scope.user.token)
                 .then(function(result){
                     angular.element('#div-loading').hide();
                     if(result.status == "OK"){
-                        dialogs.notify(undefined, 'Datos salvados correctamente.');
-                        $modalInstance.close(result);
+                        if(Object.keys($scope.categoriaProductoSelected).length !== 0){
+                            $scope.producto.categoria = $scope.categoriaProductoSelected.codigo;
+                        }
+                        if(Object.keys($scope.tipoProductoSelected).length !== 0){
+                            $scope.producto.tipo_producto = $scope.tipoProductoSelected.codigo;
+                        }
+                        if(Object.keys($scope.marcaProductoSelected).length !== 0){
+                            $scope.producto.marca = $scope.marcaProductoSelected.codigo;
+                        }
+                        if(Object.keys($scope.modeloProductoSelected).length !== 0){
+                            $scope.producto.modelo = $scope.modeloProductoSelected.codigo;
+                        }
+                        if(Object.keys($scope.unidadMedidaSelected).length !== 0){
+                            $scope.producto.unidad_medida = $scope.unidadMedidaSelected.codigo;
+                        }
+                        if(Object.keys($scope.ivaSelected).length !== 0){
+                            $scope.producto.iva = $scope.ivaSelected.codigo;
+                        }
+                        if(Object.keys($scope.estadoSelected).length !== 0){
+                            $scope.producto.estado = $scope.estadoSelected.codigo;
+                        }
+                        if(Object.keys($scope.iceCompraSelected).length !== 0){
+                            $scope.producto.ice_compras = $scope.iceCompraSelected.codigo;
+                        }
+                        if(Object.keys($scope.iceVentaSelected).length !== 0){
+                            $scope.producto.ice_ventas = $scope.iceVentaSelected.codigo;
+                        }
+                        var dataRequest = {
+                            action : $scope.action,
+                            producto : $scope.producto,
+                            userId : $scope.user.userId
+                        };
+                        angular.element('#div-loading').show();
+                        invMttoService.setProducto(dataRequest, $scope.user.token)
+                            .then(function(result){
+                                angular.element('#div-loading').hide();
+                                if(result.status == "OK"){
+                                    dialogs.notify(undefined, result.message);
+                                    $modalInstance.close(result);
+                                } else {
+                                    dialogs.error('Error', result.message);
+                                }
+                            }).catch(function(data){
+                                angular.element('#div-loading').hide();
+                                if(data.status == "OFF"){
+                                    $translate('msgSessionExpired').then(function (msg) {
+                                        dialogs.error('Error', msg);
+                                    });
+                                    $scope.$parent.logout(true);
+                                } else {
+                                    if(data.status == null){
+                                        dialogs.error('Error', "null");
+                                    } else {
+                                        dialogs.error('Error', data.message);
+                                    }
+                                }
+                            });
                     } else {
                         dialogs.error('Error', result.message);
                     }
@@ -337,6 +430,8 @@ myInventario.controller("productoDialogCtrl", function(invMttoService,$scope,$mo
                         }
                     }
                 });
+
+
         }
     };
 

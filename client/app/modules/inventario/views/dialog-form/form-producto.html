@@ -45,7 +45,7 @@
                             <input type="text" class="form-control"
                                    name="codigoBarras" id="codigoBarras"
                                    placeholder=""
-                                   ng-model="producto.codigoBarras" ng-pattern="">
+                                   ng-model="producto.codigo_barras" ng-pattern="">
                         </div>
                     </div>
                     <span class="text-danger text-right col-xs-12" style="margin: -10px 0 10px 0" ng-show="!productoForm.$pristine && productoForm.codigoBarras.$error.required">Obligatorio</span>
@@ -117,7 +117,7 @@
                             <input type="text" class="form-control"
                                    name="precioVenta" id="precioVenta"
                                    placeholder=""
-                                   ng-model="producto.precioVenta" ng-pattern="">
+                                   ng-model="producto.precio_venta" ng-pattern="">
                         </div>
                     </div>
                     <span class="text-danger text-right col-xs-12" style="margin: -10px 0 10px 0;" ng-show="!productoForm.$pristine && productoForm.precioVenta.$error.required">Campo obligatorio</span>
@@ -207,7 +207,7 @@
                         <textarea class="form-control" id="descripcion" rows="2"
                                   name="descripcion"
                                   placeholder="Descripción"
-                                  ng-model="producto.descripcion" required="required" ng-pattern="patternDescripcion"></textarea>
+                                  ng-model="producto.descripcion" ng-pattern="patternDescripcion"></textarea>
                         </div>
                     </div>
                 </div>
@@ -218,7 +218,7 @@
                             <input type="text" class="form-control"
                                    name="stockActual" id="stockActual"
                                    placeholder=""
-                                   ng-model="producto.stockActual" ng-pattern="">
+                                   ng-model="producto.stock_actual" ng-pattern="">
                         </div>
                     </div>
                     <span class="text-danger text-right col-xs-12" style="margin: -10px 0 10px 0;" ng-show="!productoForm.$pristine && productoForm.stockActual.$error.required">Campo obligatorio</span>
@@ -230,7 +230,7 @@
                             <input type="text" class="form-control"
                                    name="stockMinimo" id="stockMinimo"
                                    placeholder=""
-                                   ng-model="producto.stockMinimo" ng-pattern="">
+                                   ng-model="producto.stock_minimo" ng-pattern="">
                         </div>
                     </div>
                     <span class="text-danger text-right col-xs-12" style="margin: -10px 0 10px 0;" ng-show="!productoForm.$pristine && productoForm.stockMinimo.$error.required">Campo obligatorio</span>
@@ -242,7 +242,7 @@
                             <input type="text" class="form-control"
                                    name="stockMaximo" id="stockMaximo"
                                    placeholder=""
-                                   ng-model="producto.stockMaximo" ng-pattern="">
+                                   ng-model="producto.stock_maximo" ng-pattern="">
                         </div>
                     </div>
                     <span class="text-danger text-right col-xs-12" style="margin: -10px 0 10px 0;" ng-show="!productoForm.$pristine && productoForm.stockMaximo.$error.required">Campo obligatorio</span>
@@ -254,7 +254,7 @@
                         <textarea class="form-control" id="ubicacion" rows="2"
                                   name="ubicacion"
                                   placeholder=""
-                                  ng-model="producto.ubicacion" required="required" ng-pattern="patternUbicacion"></textarea>
+                                  ng-model="producto.ubicacion" ng-pattern="patternUbicacion"></textarea>
                         </div>
                     </div>
                 </div>
@@ -265,7 +265,7 @@
                             <input type="text" class="form-control"
                                    name="costoUltimaCompra" id="costoUltimaCompra"
                                    placeholder=""
-                                   ng-model="producto.costoUltimaCompra" ng-pattern="">
+                                   ng-model="producto.costo_ultima_compra" ng-pattern="">
                         </div>
                     </div>
                     <span class="text-danger text-right col-xs-12" style="margin: -10px 0 10px 0;" ng-show="!productoForm.$pristine && productoForm.costoUltimaCompra.$error.required">Campo obligatorio</span>
@@ -277,7 +277,7 @@
                             <input type="text" class="form-control"
                                    name="costoPrimeraCompra" id="costoPrimeraCompra"
                                    placeholder=""
-                                   ng-model="producto.costoPrimeraCompra" ng-pattern="">
+                                   ng-model="producto.costo_primera_compra" ng-pattern="">
                         </div>
                     </div>
                     <span class="text-danger text-right col-xs-12" style="margin: -10px 0 10px 0;" ng-show="!productoForm.$pristine && productoForm.costoPrimeraCompra.$error.required">Campo obligatorio</span>
@@ -343,7 +343,7 @@
                             <input type="text" class="form-control"
                                    name="factorHoraHombre" id="factorHoraHombre"
                                    placeholder=""
-                                   ng-model="producto.factorHoraHombre" ng-pattern="">
+                                   ng-model="producto.factor_hora_hombre" ng-pattern="">
                         </div>
                     </div>
                     <span class="text-danger text-right col-xs-12" style="margin: -10px 0 10px 0;" ng-show="!productoForm.$pristine && productoForm.factorHoraHombre.$error.required">Campo obligatorio</span>

@@ -28,7 +28,7 @@ class Producto_model extends CI_Model {
 
     }
 
-    public function set_producto($data) {
+    public function add_producto($data) {
         $this->db->insert('inv_productos', $data);
         if($this->db->affected_rows() > 0){
             return true;
@@ -36,16 +36,16 @@ class Producto_model extends CI_Model {
         return false;
     }
 
-    public function existe_tabla($num, $cod){
-        $this->db->from('config_tablas');
-        $this->db->where('numero', $num);
-        $this->db->where('codigo', $cod);
-        $result = $this->db->get()->result_array();
-        if(!empty($result)){
+    public function update_producto($data, $id) {
+        $this->db->where('id', $id);
+        $this->db->update('inv_productos', $data);
+        if($this->db->affected_rows() > 0){
             return true;
         }
         return false;
     }
+
+
 
     public function del_tabla($num){
         $this->db->where('numero', $num);

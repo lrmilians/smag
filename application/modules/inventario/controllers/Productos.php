@@ -25,7 +25,7 @@ class Productos extends REST_Controller {
         //	$this->methods['user_delete']['limit'] = 50; //50 requests per hour per user/key
 
         $this->load->model('auth/session_model');
-        $this->load->model(array('producto_model'));
+        $this->load->model(array('producto_model','admin/tabla_model'));
     }
 
     function producto_post(){
@@ -37,10 +37,11 @@ class Productos extends REST_Controller {
             if ($session == 0) {
                 $data = $this->post();
                 $productos = $this->producto_model->get_productos($data);
-
+                $catalogos = $this->tabla_model->get_catalogos($data['catalogos']);
                     $response['status'] = 'OK';
                     $response['message'] = '';
                     $response['data'] = $productos['data'];
+                    $response['catalogos'] = $catalogos;
                     $response['total_records'] = $productos['total_records'];
 
                     $this->response($response, 200);
@@ -59,41 +60,49 @@ class Productos extends REST_Controller {
         } else {
             if ($session == 0) {
                 if($this->post('action') !== '-1'){
-
-
-                } else {
-                    $fecha_creado = $fecha_modificado = date('Y-m-d H:i:s');
                     $producto = $this->post('producto');
                     $data = array(
                         'nombre' => $producto['nombre'],
                         'codigo' => $producto['codigo'],
-                        'codigo_barras' => $producto['codigoBarras'],
-                        'categoria' => $producto['categoriaProducto'],
-                        'tipo_producto' => $producto['tipoProducto'],
-                        'marca' => $producto['marcaProducto'],
-                        'modelo' => $producto['modeloProducto'],
-                        'unidad_medida' => $producto['unidadMedida'],
-                        'precio_venta' => $producto['precioVenta'],
+                        'codigo_barras' => $producto['codigo_barras'],
+                        'categoria' => $producto['categoria'],
+                        'tipo_producto' => $producto['tipo_producto'],
+                        'marca' => $producto['marca'],
+                        'modelo' => $producto['modelo'],
+                        'unidad_medida' => $producto['unidad_medida'],
+                        'precio_venta' => $producto['precio_venta'],
                         'iva' => $producto['iva'],
                         'estado' => $producto['estado'],
-                        'creado' => $fecha_creado,
-                        'modificado' => $fecha_modificado,
-                        'user_creado' => $this->post('userId'),
+                        'modificado' => date('Y-m-d H:i:s'),
                         'user_modificado' => $this->post('userId'),
                         'referencia' => $producto['referencia'],
                         'descripcion' => $producto['descripcion'],
-                        'stock_actual' => $producto['stockActual'],
-                        'stock_minimo' => $producto['stockMinimo'],
-                        'stock_maximo' => $producto['stockMaximo'],
+                        'stock_actual' => $producto['stock_actual'],
+                        'stock_minimo' => $producto['stock_minimo'],
+                        'stock_maximo' => $producto['stock_maximo'],
                         'ubicacion' => $producto['ubicacion'],
-                        'costo_ultima_compra' => $producto['costoUltimaCompra'],
-                        'costo_primera_compra' => $producto['costoPrimeraCompra'],
-                        'ice_compras' => $producto['iceCompra'],
-                        'ice_ventas' => $producto['iceVenta'],
+                        'costo_ultima_compra' => $producto['costo_ultima_compra'],
+                        'costo_primera_compra' => $producto['costo_primera_compra'],
+                        'ice_compras' => $producto['ice_compras'],
+                        'ice_ventas' => $producto['ice_ventas'],
                         'peso' => $producto['peso'],
-                        'factor_hora_hombre' => $producto['factorHoraHombre']
+                        'factor_hora_hombre' => $producto['factor_hora_hombre']
                     );
-                    if($this->producto_model->set_producto($data)){
+                    if($this->producto_model->update_producto($data, $this->post('action'))){
+                        $response['status'] = 'OK';
+                        $response['message'] = 'Datos actualizados correctamente.';
+                    } else {
+                        $response['status'] = '-1';
+                        $response['message'] = 'Los datos no fueron actualizados.';
+                    }
+                } else {
+                    $fecha_creado = $fecha_modificado = date('Y-m-d H:i:s');
+                    $data = $this->post('producto');
+                    $data['creado'] = $fecha_creado;
+                    $data['modificado'] = $fecha_modificado;
+                    $data['user_creado'] = $this->post('userId');
+                    $data['user_modificado'] = $this->post('userId');
+                    if($this->producto_model->add_producto($data)){
                         $response['status'] = 'OK';
                         $response['message'] = 'Datos guardados correctamente.';
                     } else {
@@ -113,30 +122,6 @@ class Productos extends REST_Controller {
     }
 
 
-    function deltabla_post(){
-        $token = $this->get('token');
-        $session = $this->_checksession($token);
-        if($session == -1){
-            $this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
-        } else {
-            if ($session == 0) {
-                if($this->tabla_model->del_tabla($this->post('numero'))){
-                    $response['status'] = 'OK';
-                    $response['message'] = 'Datos eliminados correctamente.';
-                } else {
-                    $response['status'] = '-1';
-                    $response['message'] = 'Los datos no fueron guardados.';
-                }
-                $response['data'] = '';
-                $response['total_records'] = '';
-
-                $this->response($response, 200);
-
-            } else {
-                $this->response($this->data_error_response('01', 'Sesion caducada.'), 500);
-            }
-        }
-    }
 
 
     private function _checksession($token) {

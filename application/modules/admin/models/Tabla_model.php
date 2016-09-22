@@ -40,6 +40,7 @@ class Tabla_model extends CI_Model {
         if(!empty($data)){
             foreach($data as $dat){
                 $this->db->where('numero', $dat);
+                $this->db->where('codigo <>', '-');
                 $result[$dat] = $this->db->get('config_tablas')->result_array();
             }
         }
