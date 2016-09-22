@@ -33,11 +33,16 @@
                         <th style="vertical-align: middle;font-weight: bold;width: 5%">&nbsp;DATO8&nbsp;</th>
                         <th style="vertical-align: middle;font-weight: bold;width: 5%">&nbsp;DATO9&nbsp;</th>
                         <th style="vertical-align: middle;font-weight: bold;width: 5%">&nbsp;DATO10&nbsp;</th>
+                        <th style="vertical-align: middle;font-weight: bold;width: 5%">&nbsp;DATO11&nbsp;</th>
+                        <th style="vertical-align: middle;font-weight: bold;width: 5%">&nbsp;DATO12&nbsp;</th>
+                        <th style="vertical-align: middle;font-weight: bold;width: 5%">&nbsp;DATO13&nbsp;</th>
+                        <th style="vertical-align: middle;font-weight: bold;width: 5%">&nbsp;DATO14&nbsp;</th>
+                        <th style="vertical-align: middle;font-weight: bold;width: 5%">&nbsp;DATO15&nbsp;</th>
                     </tr>
                     </thead>
                     <tbody ng-if="tablas.length == 0">
                         <tr>
-                            <td colspan="15">
+                            <td colspan="20">
                                 <div role="alert" class="alert alert-danger" style="margin-bottom: 0; padding: 5px;">
                                     <span aria-hidden="true" class="glyphicon glyphicon-exclamation-sign"></span>
                                     <span class="sr-only">Error:</span>
@@ -90,6 +95,11 @@
                             </td>
                             <td style="vertical-align: middle"></td>
                             <td style="vertical-align: middle"></td>
+                            <td style="vertical-align: middle;text-align: center"></td>
+                            <td style="vertical-align: middle;text-align: center"></td>
+                            <td style="vertical-align: middle;text-align: center"></td>
+                            <td style="vertical-align: middle;text-align: center"></td>
+                            <td style="vertical-align: middle;text-align: center"></td>
                             <td style="vertical-align: middle;text-align: center"></td>
                             <td style="vertical-align: middle;text-align: center"></td>
                             <td style="vertical-align: middle;text-align: center"></td>
@@ -232,13 +242,63 @@
                                     </div>
                                 </div>
                             </td>
-                            <td colspan="2" style="vertical-align: middle;font-size: 13px;">
+                            <td style="vertical-align: middle;font-size: 13px;">
                                 <div style="padding-right: 0px;padding-left: 0px;width: 200px">
                                     <div class="form-group" style="margin-bottom: 0;width: 95%">
                                         <input type="text" class="form-control"
                                                name="subdato10{{$index}}" id="subdato10{{$index}}"
                                                placeholder="" value=""
                                                ng-model="subtabla.dato10" />
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="vertical-align: middle;font-size: 13px;">
+                                <div style="padding-right: 0px;padding-left: 0px;width: 200px">
+                                    <div class="form-group" style="margin-bottom: 0;width: 95%">
+                                        <input type="text" class="form-control"
+                                               name="subdato11{{$index}}" id="subdato11{{$index}}"
+                                               placeholder="" value=""
+                                               ng-model="subtabla.dato11" />
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="vertical-align: middle;font-size: 13px;">
+                                <div style="padding-right: 0px;padding-left: 0px;width: 200px">
+                                    <div class="form-group" style="margin-bottom: 0;width: 95%">
+                                        <input type="text" class="form-control"
+                                               name="subdato12{{$index}}" id="subdato12{{$index}}"
+                                               placeholder="" value=""
+                                               ng-model="subtabla.dato12" />
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="vertical-align: middle;font-size: 13px;">
+                                <div style="padding-right: 0px;padding-left: 0px;width: 200px">
+                                    <div class="form-group" style="margin-bottom: 0;width: 95%">
+                                        <input type="text" class="form-control"
+                                               name="subdato13{{$index}}" id="subdato13{{$index}}"
+                                               placeholder="" value=""
+                                               ng-model="subtabla.dato13" />
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="vertical-align: middle;font-size: 13px;">
+                                <div style="padding-right: 0px;padding-left: 0px;width: 200px">
+                                    <div class="form-group" style="margin-bottom: 0;width: 95%">
+                                        <input type="text" class="form-control"
+                                               name="subdato14{{$index}}" id="subdato14{{$index}}"
+                                               placeholder="" value=""
+                                               ng-model="subtabla.dato14" />
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="vertical-align: middle;font-size: 13px;">
+                                <div style="padding-right: 0px;padding-left: 0px;width: 200px">
+                                    <div class="form-group" style="margin-bottom: 0;width: 95%">
+                                        <input type="text" class="form-control"
+                                               name="subdato15{{$index}}" id="subdato15{{$index}}"
+                                               placeholder="" value=""
+                                               ng-model="subtabla.dato15" />
                                     </div>
                                 </div>
                             </td>

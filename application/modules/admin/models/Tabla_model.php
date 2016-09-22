@@ -24,8 +24,8 @@ class Tabla_model extends CI_Model {
         $tempdb = clone $this->db;
         $result['total_records'] = $tempdb->count_all_results();
 
-        if(!empty($data[13]['start']) && !empty($data[14]['size'])){
-            $this->db->limit($data[13]['start'],$data[14]['size']);
+        if(!empty($data[18]['start']) && !empty($data[19]['size'])){
+            $this->db->limit($data[18]['start'],$data[19]['size']);
 
         }
 

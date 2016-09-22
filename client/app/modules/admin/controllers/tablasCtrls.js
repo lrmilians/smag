@@ -32,6 +32,11 @@ myAdmin.controller("tablasCtrl", ['tablasService','$scope','$modal','dialogs','$
             {dato8 : '', like : false},
             {dato9 : '', like : false},
             {dato10 : '', like : false},
+            {dato11 : '', like : false},
+            {dato12 : '', like : false},
+            {dato13 : '', like : false},
+            {dato14 : '', like : false},
+            {dato15 : '', like : false},
             {start : 0},
             {size : tablasCtrl.pageSize}
         ];
@@ -71,6 +76,11 @@ myAdmin.controller("tablasCtrl", ['tablasService','$scope','$modal','dialogs','$
                 {dato8 : '', like : false},
                 {dato9 : '', like : false},
                 {dato10 : '', like : false},
+                {dato11 : '', like : false},
+                {dato12 : '', like : false},
+                {dato13 : '', like : false},
+                {dato14 : '', like : false},
+                {dato15 : '', like : false},
                 {start : 0},
                 {size : tablasCtrl.pageSize}
             ];
@@ -218,8 +228,8 @@ myAdmin.controller("tablaDialogCtrl", function(tablasService,$scope,$modalInstan
     if($scope.action !== -1){
         angular.element('#div-loading').show();
         dataReq1[0].numero = $scope.action;
-        dataReq1[13].start = '';
-        dataReq1[14].size = '';
+        dataReq1[18].start = '';
+        dataReq1[19].size = '';
         tablasService.getTablas(dataReq1, $scope.userToken)
             .then(function(result){
                 angular.element('#div-loading').hide();
@@ -274,6 +284,11 @@ myAdmin.controller("tablaDialogCtrl", function(tablasService,$scope,$modalInstan
             dato8 : '',
             dato9 : '',
             dato10 : '',
+            dato11 : '',
+            dato12 : '',
+            dato13 : '',
+            dato14 : '',
+            dato15 : '',
             subtablas: []
         });
     };
@@ -292,7 +307,12 @@ myAdmin.controller("tablaDialogCtrl", function(tablasService,$scope,$modalInstan
             dato7 : '',
             dato8 : '',
             dato9 : '',
-            dato10 : ''
+            dato10 : '',
+            dato11 : '',
+            dato12 : '',
+            dato13 : '',
+            dato14 : '',
+            dato15 : '',
         });
     };
 
