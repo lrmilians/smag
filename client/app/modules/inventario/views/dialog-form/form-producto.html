@@ -56,7 +56,7 @@
                         <div class="form-group">
                             <select class="form-control" name="categoriaProducto" id="categoriaProducto"
                                     ng-options="item as item.nombre  for item in catalogos.categoriasProducto track by item.codigo"
-                                    ng-model="producto.categoriaProductoSelected">
+                                    ng-model="categoriaProductoSelected">
                                 <option value="">--Seleccione--</option>
                             </select>
                         </div>
@@ -68,7 +68,7 @@
                         <div class="form-group">
                             <select class="form-control" name="tipoProducto" id="tipoProducto"
                                     ng-options="item as item.nombre  for item in catalogos.tiposProducto track by item.codigo"
-                                    ng-model="producto.tipoProductoSelected">
+                                    ng-model="tipoProductoSelected">
                                 <option value="">--Seleccione--</option>
                             </select>
                         </div>
@@ -80,7 +80,7 @@
                         <div class="form-group">
                             <select class="form-control" name="marcaProducto" id="marcaProducto"
                                     ng-options="item as item.nombre  for item in catalogos.marcasProducto track by item.codigo"
-                                    ng-model="producto.marcaProductoSelected">
+                                    ng-model="marcaProductoSelected">
                                 <option value="">--Seleccione--</option>
                             </select>
                         </div>
@@ -92,7 +92,7 @@
                         <div class="form-group">
                             <select class="form-control" name="modeloProducto" id="modeloProducto"
                                     ng-options="item as item.nombre  for item in catalogos.modelosProducto track by item.codigo"
-                                    ng-model="producto.modeloProductoSelected">
+                                    ng-model="modeloProductoSelected">
                                 <option value="">--Seleccione--</option>
                             </select>
                         </div>
@@ -104,11 +104,23 @@
                         <div class="form-group">
                             <select class="form-control" name="unidadMedida" id="unidadMedida"
                                     ng-options="item as item.nombre  for item in catalogos.unidadesMedida track by item.codigo"
-                                    ng-model="producto.unidadMedidaSelected">
+                                    ng-model="unidadMedidaSelected">
                                 <option value="">--Seleccione--</option>
                             </select>
                         </div>
                     </div>
+                </div>
+                <div class="form-group input-group-xs">
+                    <label class="control-label col-xs-7" for="precioVenta">Precio Venta *</label>
+                    <div class="col-xs-5" style="padding-right: 0px;">
+                        <div class="form-group">
+                            <input type="text" class="form-control"
+                                   name="precioVenta" id="precioVenta"
+                                   placeholder=""
+                                   ng-model="producto.precioVenta" ng-pattern="">
+                        </div>
+                    </div>
+                    <span class="text-danger text-right col-xs-12" style="margin: -10px 0 10px 0;" ng-show="!productoForm.$pristine && productoForm.precioVenta.$error.required">Campo obligatorio</span>
                 </div>
 
                 <div class="form-group input-group-xs">
@@ -117,7 +129,7 @@
                         <div class="form-group">
                             <select class="form-control" name="iva" id="iva"
                                     ng-options="item as item.nombre  for item in catalogos.ivas track by item.codigo"
-                                    ng-model="producto.ivaSelected">
+                                    ng-model="ivaSelected">
                                 <option value="">--Seleccione--</option>
                             </select>
                         </div>
@@ -131,7 +143,7 @@
                         <div class="form-group">
                             <select class="form-control" name="estado" id="estado"
                                     ng-options="item as item.nombre  for item in catalogos.estadosProducto track by item.codigo"
-                                    ng-model="producto.estadoSelected">
+                                    ng-model="estadoSelected">
                                 <option value="">--Seleccione--</option>
                             </select>
                         </div>
@@ -285,7 +297,7 @@
                         <div class="form-group">
                             <select class="form-control" name="iceCompra" id="iceCompra"
                                     ng-options="item as item.nombre  for item in catalogos.icesCompra track by item.codigo"
-                                    ng-model="producto.iceCompraSelected">
+                                    ng-model="iceCompraSelected">
                                 <option value="">--Seleccione--</option>
                             </select>
                         </div>
@@ -298,7 +310,7 @@
                         <div class="form-group">
                             <select class="form-control" name="iceVenta" id="iceVenta"
                                     ng-options="item as item.nombre  for item in catalogos.icesVenta track by item.codigo"
-                                    ng-model="producto.iceVentaSelected">
+                                    ng-model="iceVentaSelected">
                                 <option value="">--Seleccione--</option>
                             </select>
                         </div>

@@ -28,8 +28,8 @@ class Producto_model extends CI_Model {
 
     }
 
-    public function set_tablas($data) {
-        $this->db->insert_batch('config_tablas', $data);
+    public function set_producto($data) {
+        $this->db->insert('inv_productos', $data);
         if($this->db->affected_rows() > 0){
             return true;
         }

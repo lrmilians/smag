@@ -244,7 +244,7 @@ myInventario.controller("invMttoCtrl", ['PROPERTIES','invMttoService','$scope','
 
 }]);
 
-myInventario.controller("productoDialogCtrl", function(tablasService,invMttoService,$scope,$modalInstance,data,$translate,dialogs){
+myInventario.controller("productoDialogCtrl", function(invMttoService,$scope,$modalInstance,data,$translate,dialogs){
 
     $scope.catalogos = data.catalogos;
     $scope.action = data.action;
@@ -255,126 +255,69 @@ myInventario.controller("productoDialogCtrl", function(tablasService,invMttoServ
     $scope.tablas = [];
 
     if($scope.action !== -1){
-        angular.element('#div-loading').show();
-        dataReq1[0].numero = $scope.action;
-        dataReq1[13].start = '';
-        dataReq1[14].size = '';
-        tablasService.getTablas(dataReq1, $scope.user.userToken)
-            .then(function(result){
-                angular.element('#div-loading').hide();
-                if(result.status == 'OK'){
-                    for(var i in result.data){
-                        result.data[i].subtablas = [];
-                        result.data[i].dato1 = parseInt(result.data[i].dato1);
-                        if(result.data[i].codigo == '-'){
-                            $scope.tablas.push(result.data[i]);
-                        } else {
-                            $scope.tablas[0].subtablas.push(result.data[i]);
-                        }
-                    }
-                } else {
-                    dialogs.error('Error', 'No se recuperaron los datos.');
-                    $modalInstance.dismiss('Canceled');
-                }
-            }).catch(function(data){
-                angular.element('#div-loading').hide();
-                if(data.status == "OFF"){
-                    $translate('msgSessionExpired').then(function (msg) {
-                        dialogs.error('Error', msg);
-                    });
-                    $scope.$parent.logout(true);
-                } else {
-                    if(data.status == null){
-                        dialogs.error('Error', "null");
-                    } else {
-                        dialogs.error('Error', data.message);
-                    }
-                }
-            });
+
+    } else {
+        $scope.producto = {
+            nombre : '', codigo : '', codigoBarras : '', categoriaProducto : '', tipoProducto : '', marcaProducto : '', modeloProducto : '', unidadMedida : '',
+            precioVenta: '', iva : '', estado : '', referencia : '', descripcion : '', stockActual : '', stockMinimo : '', stockMaximo : '', ubicacion : '',
+            costoUltimaCompra : '', costoPrimeraCompra : '', iceCompra : '', iceVentaSelected : '', peso : '', factorHoraHombre : ''
+        };
+        $scope.categoriaProductoSelected = {};
+        $scope.tipoProductoSelected = {};
+        $scope.marcaProductoSelected = {};
+        $scope.modeloProductoSelected = {};
+        $scope.unidadMedidaSelected = {};
+        $scope.ivaSelected = {};
+        $scope.estadoSelected = {};
+        $scope.iceCompraSelected = {};
+        $scope.iceVentaSelected = {};
+
     }
-
-    $scope.addTabla = function(){
-        var valorIndex = 0;
-        if($scope.tablas.length > 0){
-            valorIndex = $scope.tablas.length;
-        }
-        $scope.tablas.push({
-            index : valorIndex,
-            numero : '',
-            codigo : '',
-            nombre : '',
-            dato1 : '',
-            dato2 : '',
-            dato3 : '',
-            dato4 : '',
-            dato5 : '',
-            dato6 : '',
-            dato7 : '',
-            dato8 : '',
-            dato9 : '',
-            dato10 : '',
-            subtablas: []
-        });
-    };
-
-    $scope.addSubTabla = function(index, numero){
-        $scope.tablas[index].subtablas.push({
-            numero : numero,
-            codigo : '',
-            nombre : '',
-            dato1 : 0,
-            dato2 : '0.00',
-            dato3 : '0.00',
-            dato4 : '',
-            dato5 : '',
-            dato6 : '',
-            dato7 : '',
-            dato8 : '',
-            dato9 : '',
-            dato10 : ''
-        });
-    };
-
-    $scope.delTabla = function(index){
-        var dlg = dialogs.confirm('Confirmacion', "Desea eliminar la tabla?");
-        dlg.result.then(function(btn){
-            $scope.tablas.splice(index,1);
-        },function(btn){
-
-        });
-    };
-
-    $scope.delSubTabla = function(index, tablaIndex){
-        var dlg = dialogs.confirm('Confirmacion', "Desea eliminar la subtabla?");
-        dlg.result.then(function(btn){
-            for(var i in $scope.tablas){
-                if($scope.tablas[i].index == tablaIndex){
-                    $scope.tablas[i].subtablas.splice(index,1);
-                }
-            }
-        },function(btn){
-
-        });
-    };
 
     $scope.cancel = function(){
         $modalInstance.dismiss('Canceled');
     };
 
     $scope.submitForm = function(){
-        if ($scope.tablaForm.$valid){
+        if ($scope.productoForm.$valid){
+            if(Object.keys($scope.categoriaProductoSelected).length !== 0){
+                $scope.producto.categoriaProducto = $scope.categoriaProductoSelected.codigo;
+            }
+            if(Object.keys($scope.tipoProductoSelected).length !== 0){
+                $scope.producto.tipoProducto = $scope.tipoProductoSelected.codigo;
+            }
+            if(Object.keys($scope.marcaProductoSelected).length !== 0){
+                $scope.producto.marcaProducto = $scope.marcaProductoSelected.codigo;
+            }
+            if(Object.keys($scope.modeloProductoSelected).length !== 0){
+                $scope.producto.modeloProducto = $scope.modeloProductoSelected.codigo;
+            }
+            if(Object.keys($scope.unidadMedidaSelected).length !== 0){
+                $scope.producto.unidadMedida = $scope.unidadMedidaSelected.codigo;
+            }
+            if(Object.keys($scope.ivaSelected).length !== 0){
+                $scope.producto.iva = $scope.ivaSelected.codigo;
+            }
+            if(Object.keys($scope.estadoSelected).length !== 0){
+                $scope.producto.estado = $scope.estadoSelected.codigo;
+            }
+            if(Object.keys($scope.iceCompraSelected).length !== 0){
+                $scope.producto.iceCompra = $scope.iceCompraSelected.codigo;
+            }
+            if(Object.keys($scope.iceVentaSelected).length !== 0){
+                $scope.producto.iceVenta = $scope.iceVentaSelected.codigo;
+            }
             var dataRequest = {
                 action : $scope.action,
-                tablas : $scope.tablas,
+                producto : $scope.producto,
                 userId : $scope.user.userId
             };
             angular.element('#div-loading').show();
-            tablasService.setTablas(dataRequest, $scope.userToken)
+            invMttoService.setProducto(dataRequest, $scope.user.token)
                 .then(function(result){
                     angular.element('#div-loading').hide();
                     if(result.status == "OK"){
                         dialogs.notify(undefined, 'Datos salvados correctamente.');
-                        result.dataReq = data.dataReq;
                         $modalInstance.close(result);
                     } else {
                         dialogs.error('Error', result.message);

@@ -58,58 +58,49 @@ class Productos extends REST_Controller {
             $this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
         } else {
             if ($session == 0) {
-                $del = true;
                 if($this->post('action') !== '-1'){
-                    $del = $this->producto_model->del_tabla($this->post('action'));
-                }
-                if($del){
-                    $fecha_modificado = date('Y-m-d H:i:s');
-                    $data = array();
-                    foreach($this->post('tablas') as $tabla){
-                        if(!$this->tabla_model->existe_tabla($tabla['numero'], '-')){
-                            $data[]= array (
-                                'numero' => $tabla['numero'],
-                                'codigo' => '-',
-                                'nombre' => $tabla['nombre'],
-                                'dato1' => null,'dato2' => null,'dato3' => null,'dato4' => null,'dato5' => null,'dato6' => null,'dato7' => null,'dato8' => null,'dato9' => null,'dato10' => null,
-                                'fecha_modificado' => $fecha_modificado, 'user_modificado' => $this->post('userId')
-                            );
-                            if(!empty($tabla['subtablas'])){
-                                foreach($tabla['subtablas'] as $subtabla){
-                                    if(!$this->tabla_model->existe_tabla($subtabla['numero'], $subtabla['codigo'])){
-                                        $data[]= array (
-                                            'numero' => $subtabla['numero'],
-                                            'codigo' => $subtabla['codigo'],
-                                            'nombre' => $subtabla['nombre'],
-                                            'dato1' => $subtabla['dato1'],'dato2' => $subtabla['dato2'],'dato3' => $subtabla['dato3'],'dato4' => $subtabla['dato4'],
-                                            'dato5' => $subtabla['dato5'],'dato6' => $subtabla['dato6'],'dato7' => $subtabla['dato7'],'dato8' => $subtabla['dato8'],
-                                            'dato9' => $subtabla['dato9'],'dato10' => $subtabla['dato10'],
-                                            'fecha_modificado' => $fecha_modificado, 'user_modificado' => $this->post('userId')
-                                        );
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    /*echo '<pre>';
-                    print_r($data);
-                    echo '<pre>';die();*/
-                    $response['status'] = '-1';
-                    $response['message'] = 'Los datos no fueron guardados.';
-                    if(!empty($data)){
-                        $result = $this->tabla_model->set_tablas($data);
-                        if($result){
-                            $response['status'] = 'OK';
-                            $response['message'] = 'Datos guardados correctamente.';
-                        }
-                    } else {
-                        $response['message'] .= 'Ya existen las tablas.';
-                    }
-                } else {
-                    $response['status'] = '-1';
-                    $response['message'] = 'Los datos no fueron guardados.';
-                }
 
+
+                } else {
+                    $fecha_creado = $fecha_modificado = date('Y-m-d H:i:s');
+                    $producto = $this->post('producto');
+                    $data = array(
+                        'nombre' => $producto['nombre'],
+                        'codigo' => $producto['codigo'],
+                        'codigo_barras' => $producto['codigoBarras'],
+                        'categoria' => $producto['categoriaProducto'],
+                        'tipo_producto' => $producto['tipoProducto'],
+                        'marca' => $producto['marcaProducto'],
+                        'modelo' => $producto['modeloProducto'],
+                        'unidad_medida' => $producto['unidadMedida'],
+                        'precio_venta' => $producto['precioVenta'],
+                        'iva' => $producto['iva'],
+                        'estado' => $producto['estado'],
+                        'creado' => $fecha_creado,
+                        'modificado' => $fecha_modificado,
+                        'user_creado' => $this->post('userId'),
+                        'user_modificado' => $this->post('userId'),
+                        'referencia' => $producto['referencia'],
+                        'descripcion' => $producto['descripcion'],
+                        'stock_actual' => $producto['stockActual'],
+                        'stock_minimo' => $producto['stockMinimo'],
+                        'stock_maximo' => $producto['stockMaximo'],
+                        'ubicacion' => $producto['ubicacion'],
+                        'costo_ultima_compra' => $producto['costoUltimaCompra'],
+                        'costo_primera_compra' => $producto['costoPrimeraCompra'],
+                        'ice_compras' => $producto['iceCompra'],
+                        'ice_ventas' => $producto['iceVenta'],
+                        'peso' => $producto['peso'],
+                        'factor_hora_hombre' => $producto['factorHoraHombre']
+                    );
+                    if($this->producto_model->set_producto($data)){
+                        $response['status'] = 'OK';
+                        $response['message'] = 'Datos guardados correctamente.';
+                    } else {
+                        $response['status'] = '-1';
+                        $response['message'] = 'Los datos no fueron guardados.';
+                    }
+                }
                 $response['data'] = '';
                 $response['total_records'] = '';
 
