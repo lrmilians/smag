@@ -2,7 +2,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Tablas extends REST_Controller {
+class Productos extends REST_Controller {
 
     protected $allowed_http_methods = array('get', 'delete', 'post', 'put');
 
@@ -25,10 +25,10 @@ class Tablas extends REST_Controller {
         //	$this->methods['user_delete']['limit'] = 50; //50 requests per hour per user/key
 
         $this->load->model('auth/session_model');
-        $this->load->model(array('tabla_model'));
+        $this->load->model(array('producto_model'));
     }
 
-    function tabla_post(){
+    function producto_post(){
         $token = $this->get('token');
         $session = $this->_checksession($token);
         if($session == -1){
@@ -36,12 +36,12 @@ class Tablas extends REST_Controller {
         } else {
             if ($session == 0) {
                 $data = $this->post();
-                $tablas = $this->tabla_model->get_tablas($data);
+                $productos = $this->producto_model->get_productos($data);
 
                     $response['status'] = 'OK';
                     $response['message'] = '';
-                    $response['data'] = $tablas['data'];
-                    $response['total_records'] = $tablas['total_records'];
+                    $response['data'] = $productos['data'];
+                    $response['total_records'] = $productos['total_records'];
 
                     $this->response($response, 200);
 
@@ -51,7 +51,7 @@ class Tablas extends REST_Controller {
         }
     }
 
-    function settabla_post(){
+    function setproducto_post(){
         $token = $this->get('token');
         $session = $this->_checksession($token);
         if($session == -1){
@@ -60,7 +60,7 @@ class Tablas extends REST_Controller {
             if ($session == 0) {
                 $del = true;
                 if($this->post('action') !== '-1'){
-                    $del = $this->tabla_model->del_tabla($this->post('action'));
+                    $del = $this->producto_model->del_tabla($this->post('action'));
                 }
                 if($del){
                     $fecha_modificado = date('Y-m-d H:i:s');
@@ -91,6 +91,9 @@ class Tablas extends REST_Controller {
                             }
                         }
                     }
+                    /*echo '<pre>';
+                    print_r($data);
+                    echo '<pre>';die();*/
                     $response['status'] = '-1';
                     $response['message'] = 'Los datos no fueron guardados.';
                     if(!empty($data)){
@@ -134,28 +137,6 @@ class Tablas extends REST_Controller {
                     $response['message'] = 'Los datos no fueron guardados.';
                 }
                 $response['data'] = '';
-                $response['total_records'] = '';
-
-                $this->response($response, 200);
-
-            } else {
-                $this->response($this->data_error_response('01', 'Sesion caducada.'), 500);
-            }
-        }
-    }
-
-    function catalogos_post(){
-        $token = $this->get('token');
-        $session = $this->_checksession($token);
-        if($session == -1){
-            $this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
-        } else {
-            if ($session == 0) {
-                $catalogos = $this->tabla_model->get_catalogos($this->post());
-
-                $response['status'] = 'OK';
-                $response['message'] = '';
-                $response['data'] = $catalogos;
                 $response['total_records'] = '';
 
                 $this->response($response, 200);

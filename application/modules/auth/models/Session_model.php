@@ -44,7 +44,7 @@ class Session_model extends CI_Model {
             $data1 = array (
                 'token' => $token,
                 'login' => $login,
-                'time_session' => strtotime('+ 5 minute', strtotime($date))
+                'time_session' => strtotime('+ 90 minute', strtotime($date))
             );
             if($this->_update_user($identity, $data1)){
                 return array(
@@ -99,7 +99,7 @@ class Session_model extends CI_Model {
             } else {
                 //Extender Sesion
                 $data1 = array (
-                    'time_session' => strtotime('+ 5 minute', $time)
+                    'time_session' => strtotime('+ 90 minute', $time)
                 );
                 if($this->_update_user($data, $data1)){
                     return 0;

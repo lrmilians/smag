@@ -14,15 +14,13 @@ myInventario.config(function ($routeProvider) {
 
 myInventario.constant('PROPERTIES_INVENTARIO', {
     "services": {
-        "uriWebServiceGetCuentas": "contabilidad/cuenta/cuentas",
-        "uriWebServiceGetAsientos": "contabilidad/diario/asientos",
-        "uriWebServiceAddAsiento": "contabilidad/diario/asiento",
-        "uriWebServiceDelAsiento": "contabilidad/diario/delasiento",
-        "uriWebServiceGetBalanceComprobacion": "contabilidad/balances/comprobacion",
-        "uriWebServiceGetDetalleCuenta": "contabilidad/cuenta/getcuenta",
-        "uriWebServiceCierreContable": "contabilidad/diario/cierrecontable",
-        "uriWebServiceGetBalancesSituacion": "contabilidad/balances/situacion",
-        "uriWebServiceGetBalanceSituacionDetalle": "contabilidad/balances/situaciondetalle",
+        //CRUD PRODUCTOS
+        "uriWebServiceGetProductos": "inventario/productos/producto",
+        "uriWebServiceSetProducto": "inventario/productos/setproducto",
+        "uriWebServiceDelProducto": "inventario/productos/delproducto",
+        "uriWebServiceGetCatalogos": "admin/tablas/catalogos",
+
+
     },
     "regularExpression" : {
         "passport" : /^[a-zA-Z0-9_-]{4,15}$/,
