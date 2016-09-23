@@ -83,8 +83,8 @@ class Tablas extends REST_Controller {
                                             'nombre' => $subtabla['nombre'],
                                             'dato1' => $subtabla['dato1'],'dato2' => $subtabla['dato2'],'dato3' => $subtabla['dato3'],'dato4' => $subtabla['dato4'],
                                             'dato5' => $subtabla['dato5'],'dato6' => $subtabla['dato6'],'dato7' => $subtabla['dato7'],'dato8' => $subtabla['dato8'],
-                                            'dato9' => $subtabla['dato9'],'dato10' => $subtabla['dato10'],'dato11' => $subtabla['dato12'],'dato13' => $subtabla['dato13'],
-                                            'dato14' => $subtabla['dato14'],'dato15' => $subtabla['dato15'],
+                                            'dato9' => $subtabla['dato9'],'dato10' => $subtabla['dato10'],'dato11' => $subtabla['dato11'],'dato12' => $subtabla['dato12'],
+                                            'dato13' => $subtabla['dato13'],'dato14' => $subtabla['dato14'], 'dato15' => $subtabla['dato15'],
                                             'fecha_modificado' => $fecha_modificado, 'user_modificado' => $this->post('userId')
                                         );
                                     }

@@ -57,7 +57,7 @@ myAdmin.controller("tablasCtrl", ['tablasService','$scope','$modal','dialogs','$
         tablasCtrl.pageChangeHandler = function(newPageNumber){
             tablasCtrl.currentPage = newPageNumber;
             var indexValue = (tablasCtrl.currentPage - 1) * tablasCtrl.pageSize;
-            tablasCtrl.dataRequest[13].start =  indexValue;
+            tablasCtrl.dataRequest[18].start =  indexValue;
             tablasCtrl.getTablas();
         };
 
