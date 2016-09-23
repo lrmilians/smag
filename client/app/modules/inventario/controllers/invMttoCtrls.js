@@ -241,6 +241,7 @@ myInventario.controller("productoDialogCtrl", function(invMttoService,$scope,$mo
     $scope.tablas = [];
 
     if($scope.action !== -1){
+        $scope.color = '#F6CF99';
         $scope.producto = data.producto;
         if($scope.producto.categoria !== ''){
             for(var i in $scope.catalogos.categoriasProducto){
@@ -324,6 +325,7 @@ myInventario.controller("productoDialogCtrl", function(invMttoService,$scope,$mo
             $scope.iceVentaSelected = {};
         }
     } else {
+        $scope.color = '#B7EDB7';
         $scope.producto = {
             nombre : '', codigo : '', codigo_barras: '', categoria : '', tipo_producto : '', marca : '', modelo : '', unidad_medida : '',
             precio_venta: '', iva : '', estado : '', referencia : '', descripcion : '', stock_actual : '', stock_minimo : '', stock_maximo : '', ubicacion : '',
@@ -430,7 +432,6 @@ myInventario.controller("productoDialogCtrl", function(invMttoService,$scope,$mo
                         }
                     }
                 });
-
 
         }
     };
