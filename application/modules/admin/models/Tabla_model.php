@@ -35,6 +35,18 @@ class Tabla_model extends CI_Model {
 
     }
 
+    public function get_catalogos($data) {
+        $result = array();
+        if(!empty($data)){
+            foreach($data as $dat){
+                $this->db->where('numero', $dat);
+                $this->db->where('codigo <>', '-');
+                $result[$dat] = $this->db->get('config_tablas')->result_array();
+            }
+        }
+        return $result;
+    }
+
     public function set_tablas($data) {
         $this->db->insert_batch('config_tablas', $data);
         if($this->db->affected_rows() > 0){

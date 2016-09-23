@@ -2,7 +2,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Tablas extends REST_Controller {
+class Utils extends REST_Controller {
 
     protected $allowed_http_methods = array('get', 'delete', 'post', 'put');
 
@@ -25,26 +25,32 @@ class Tablas extends REST_Controller {
         //	$this->methods['user_delete']['limit'] = 50; //50 requests per hour per user/key
 
         $this->load->model('auth/session_model');
-        $this->load->model(array('tabla_model'));
+        $this->load->model(array('util_model'));
     }
 
-    function tabla_post(){
+    function existecampos_post(){
         $token = $this->get('token');
         $session = $this->_checksession($token);
         if($session == -1){
             $this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
         } else {
             if ($session == 0) {
-                $data = $this->post();
-                $tablas = $this->tabla_model->get_tablas($data);
-
+                $tabla = $this->post('tabla');
+                $campos = $this->post('campos');
+                $result = $this->util_model->existe_campos($tabla, $campos);
+                if(!empty($result)){
+                    $response['status'] = '-1';
+                    $response['message'] = '<p><strong>Los siguientes datos existen en la base de datos.</strong></p>';
+                    foreach($result as $key => $value){
+                        $response['message'] .= '<p><strong>Campo: </strong>'.$key.' <strong>Valor: </strong>'.$value.'</p>';
+                    }
+                } else {
                     $response['status'] = 'OK';
                     $response['message'] = '';
-                    $response['data'] = $tablas['data'];
-                    $response['total_records'] = $tablas['total_records'];
-
-                    $this->response($response, 200);
-
+                }
+                $response['data'] = $result;
+                $response['total_records'] = '';
+                $this->response($response, 200);
             } else {
                 $this->response($this->data_error_response('01', 'Sesion caducada.'), 500);
             }

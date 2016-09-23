@@ -1,26 +1,18 @@
 myInventario.factory('invMttoService', ['$http','$q','PROPERTIES','PROPERTIES_INVENTARIO', '$upload', function ($http, $q, PROPERTIES, PROPERTIES_INVENTARIO) {
 
     var invMttoService = {
-        getBalancesSituacion : getBalancesSituacion,
-        getBalanceSituacionDetalle  : getBalanceSituacionDetalle
+        getProductos : getProductos,
+        setProducto : setProducto,
+        existeCampos : existeCampos,
+        getCatalogos : getCatalogos
     };
 
-    function getBalancesSituacion(token){
+    function getProductos(dataRequest, token){
         var deferred = $q.defer();
-        var wsGetBalancesSituacion = '';
-        if(PROPERTIES.serverConn.port !== ''){
-            wsGetBalancesSituacion =  PROPERTIES.serverConn.server + ":" +
-                PROPERTIES.serverConn.port + "/" +
-                PROPERTIES_INVENTARIO.services.uriWebServiceGetBalancesSituacion +
-                '/token/' + token;
-        } else {
-            wsGetBalancesSituacion =  PROPERTIES.serverConn.server +
-                "/" + PROPERTIES_INVENTARIO.services.uriWebServiceGetBalancesSituacion +
-                '/token/' + token;
-        }
+        var wsGetProductos =  PROPERTIES.serverConn.server + "/" + PROPERTIES_INVENTARIO.services.uriWebServiceGetProductos + '/token/' + token;
 
-        $http.get(wsGetBalancesSituacion).success(
-            function(data, status, headers, config) {
+        $http.post(wsGetProductos, dataRequest)
+            .success(function(data, status, headers, config) {
                 deferred.resolve(data);
             })
             .error(function (data, status, headers, config)	{
@@ -30,22 +22,12 @@ myInventario.factory('invMttoService', ['$http','$q','PROPERTIES','PROPERTIES_IN
         return deferred.promise;
     }
 
-    function getBalanceSituacionDetalle(balanceId, token){
+    function setProducto(dataRequest, token){
         var deferred = $q.defer();
-        var wsGetBalanceSituacionDetalle = '';
-        if(PROPERTIES.serverConn.port !== ''){
-            wsGetBalanceSituacionDetalle =  PROPERTIES.serverConn.server + ":" +
-                PROPERTIES.serverConn.port + "/" +
-                PROPERTIES_INVENTARIO.services.uriWebServiceGetBalanceSituacionDetalle +
-                '/id/' + balanceId + '/token/' + token;
-        } else {
-            wsGetBalanceSituacionDetalle =  PROPERTIES.serverConn.server +
-                "/" + PROPERTIES_INVENTARIO.services.uriWebServiceGetBalanceSituacionDetalle +
-                '/id/' + balanceId + '/token/' + token;
-        }
+        var wsSetProducto =  PROPERTIES.serverConn.server + "/" + PROPERTIES_INVENTARIO.services.uriWebServiceSetProducto + '/token/' + token;
 
-        $http.get(wsGetBalanceSituacionDetalle).success(
-            function(data, status, headers, config) {
+        $http.post(wsSetProducto, dataRequest)
+            .success(function(data, status, headers, config) {
                 deferred.resolve(data);
             })
             .error(function (data, status, headers, config)	{
@@ -55,6 +37,35 @@ myInventario.factory('invMttoService', ['$http','$q','PROPERTIES','PROPERTIES_IN
         return deferred.promise;
     }
 
+    function existeCampos(dataRequest, token){
+        var deferred = $q.defer();
+        var wsExisteCampos =  PROPERTIES.serverConn.server + "/" + PROPERTIES_INVENTARIO.services.uriWebServiceExisteCampos + '/token/' + token;
+
+        $http.post(wsExisteCampos, dataRequest)
+            .success(function(data, status, headers, config) {
+                deferred.resolve(data);
+            })
+            .error(function (data, status, headers, config)	{
+                deferred.reject(data);
+            });
+
+        return deferred.promise;
+    }
+
+    function getCatalogos(tablas, token){
+        var deferred = $q.defer();
+        var wsGetCatalogos =  PROPERTIES.serverConn.server + "/" + PROPERTIES_INVENTARIO.services.uriWebServiceGetCatalogos + '/token/' + token;
+
+        $http.post(wsGetCatalogos, tablas)
+            .success(function(data, status, headers, config) {
+                deferred.resolve(data);
+            })
+            .error(function (data, status, headers, config)	{
+                deferred.reject(data);
+            });
+
+        return deferred.promise;
+    }
 
 
     return invMttoService;

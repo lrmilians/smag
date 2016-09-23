@@ -1,18 +1,18 @@
 <div class="jumbotron" style="padding: 5px 5px;border-radius: 5px">
-    <div ng-controller="invMttoCtrl as bic" ng-init="imc.initCtrl()">
+    <div ng-controller="invMttoCtrl as imc" ng-init="imc.initCtrl()">
         <div class="panel panel-info" style="margin: 5px 0px 15px 0px;">
             <div class="panel-heading" style="padding: 0px 10px;">
                 <table width="100%">
                     <tr>
                         <td style="width: 60%; text-align: left;"><h4><button type="button" class="btn btn-default btn-success btn-xs" ng-click="imc.initCtrl()" style="font-size: 12px;" title="Actualizar">
                             <span class="glyphicon glyphicon-repeat" aria-hidden="true" style="margin: 0;"></span>
-                        </button><span class="glyphicon glyphicon-lock" aria-hidden="true" style="margin-left: 6px; margin-right: 6px;"></span><label class="text-primary" style="margin-bottom: 0px;">MANTENIMIENTO DE INVENTARIO</label></h4></td>
+                        </button><span class="glyphicon glyphicon-lock" aria-hidden="true" style="margin-left: 6px; margin-right: 6px;"></span><label class="text-primary" style="margin-bottom: 0px;">MANTENIMIENTO DE PRODUCTOS</label></h4></td>
                         <td style="width: 40%; text-align: right;">
                             <button type="button" class="btn btn-primary" style="font-size: 12px;" ng-click="imc.searchBill()" ng-if="imc.bills.length !== 0">
-                                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>Búsqueda avanzada
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>Buscar
                             </button>
-                            <button ng-if="imc.user.rolCode != 'CL01'" type="button" class="btn btn-success" style="font-size: 12px;" ng-click="imc.addBill()">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Adicionar Factura
+                            <button type="button" class="btn btn-success" style="font-size: 12px;" ng-click="imc.addProducto()">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Adicionar Producto
                             </button>
                         </td>
                     </tr>
@@ -20,7 +20,7 @@
             </div>
             <div class="panel-body" style="padding-top: 0px;">
                 <div class="row" style="margin-top: 10px;">
-                    <div ng-if="dic.bills.length !== 0" class="col-md-3">
+                    <div ng-if="imc.productos.length !== 0" class="col-md-3">
                         <div class="input-group">
                             <span class="input-group-addon" id="basic-addon1"><span aria-hidden="true" class="glyphicon glyphicon-search"></span></span>
                             <input type="text" ng-model="imc.q" class="form-control" placeholder="Búsqueda rápida" aria-describedby="basic-addon1">
@@ -35,7 +35,96 @@
                         </button>
                     </div>
                 </div>
-
+                <table ng-if="imc.productos.length === 0" class="table table-hover table-striped" style="margin-bottom: 0px;">
+                    <tr>
+                        <td>
+                            <div role="alert" class="alert alert-danger" style="margin-bottom: 0; padding: 5px;">
+                                <span aria-hidden="true" class="glyphicon glyphicon-exclamation-sign"></span>
+                                <span class="sr-only">Error:</span>
+                                {{'No existen registros'}}
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <table ng-if="imc.productos.length !== 0" class="table table-hover table-striped" style="margin-bottom: 0px;">
+                    <thead>
+                    <tr>
+                        <th style='vertical-align: middle;font-weight: bold;width: 12%; padding: 3px;'>
+                            <a href="" ng-click="imc.orderByField = 'codigo'; imc.reverseSort = !imc.reverseSort">
+                                CODIGO
+                                    <span ng-show="imc.orderByField == 'codigo' && imc.productos.length !== 0">
+                                         <span ng-show="!imc.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
+                                         <span ng-show="imc.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
+                                    </span>
+                            </a>
+                        </th>
+                        <th style='vertical-align: middle;font-weight: bold;width: 36%; padding: 3px;'>
+                            <a href="" ng-click="imc.orderByField = 'nombre'; imc.reverseSort = !imc.reverseSort">
+                                NOMBRE
+                                    <span ng-show="imc.orderByField == 'nombre' && imc.productos.length !== 0">
+                                         <span ng-show="!imc.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
+                                         <span ng-show="imc.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
+                                    </span>
+                            </a>
+                        </th>
+                        <th style='vertical-align: middle;font-weight: bold;width: 12%; padding: 3px;'>
+                            <a href="" ng-click="imc.orderByField = 'precio_venta'; imc.reverseSort = !imc.reverseSort">
+                                PRECIO VENTA
+                                    <span ng-show="imc.orderByField == 'precio_venta' && imc.productos.length !== 0">
+                                         <span ng-show="!imc.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
+                                         <span ng-show="imc.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
+                                    </span>
+                            </a>
+                        </th>
+                        <th style='vertical-align: middle;font-weight: bold;width: 5%; padding: 3px;'>
+                            <a href="" ng-click="imc.orderByField = 'ivaNombre'; imc.reverseSort = !imc.reverseSort">
+                                IVA
+                                    <span ng-show="imc.orderByField == 'ivaNombre' && imc.productos.length !== 0">
+                                         <span ng-show="!imc.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
+                                         <span ng-show="imc.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
+                                    </span>
+                            </a>
+                        </th>
+                        <th style='vertical-align: middle;font-weight: bold;width: 15%; padding: 3px;'>
+                            <a href="" ng-click="imc.orderByField = 'estadoNombre'; imc.reverseSort = !imc.reverseSort">
+                                ESTADO
+                                    <span ng-show="imc.orderByField == 'estadoNombre' && imc.productos.length !== 0">
+                                         <span ng-show="!imc.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
+                                         <span ng-show="imc.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
+                                    </span>
+                            </a>
+                        </th>
+                        <th style='vertical-align: middle;font-weight: bold;width: 12%; padding: 3px;'>
+                            <a href="" ng-click="imc.orderByField = 'stock_actual'; imc.reverseSort = !imc.reverseSort">
+                                STOCK ACTUAL
+                                    <span ng-show="imc.orderByField == 'stock_actual' && imc.productos.length !== 0">
+                                         <span ng-show="!imc.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
+                                         <span ng-show="imc.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
+                                    </span>
+                            </a>
+                        </th>
+                        <th style="width: 8%;"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr dir-paginate="item in resultFiltered = (imc.productos | filter:imc.q | itemsPerPage: imc.pageSize | orderBy:imc.orderByField:imc.reverseSort)" current-page="imc.currentPage" total-items="imc.totalRecords" style="text-align: left;">
+                        <td style="vertical-align: middle;">{{item.codigo}}</td>
+                        <td style="vertical-align: middle;">{{item.nombre}}</td>
+                        <td style="vertical-align: middle;">{{item.precio_venta | number : 4}}</td>
+                        <td style="vertical-align: middle;">{{item.ivaNombre}}</td>
+                        <td style="vertical-align: middle;">{{item.estadoNombre}}</td>
+                        <td style="vertical-align: middle;">{{item.stock_actual | number : 2}}</td>
+                        <td style="vertical-align: middle;">
+                            <button type="button" class="btn btn-default btn-xs btn-warning" style="font-size: 12px;" ng-click="imc.editProducto(item)" title="Editar Producto">
+                                <span class="glyphicon glyphicon-edit" aria-hidden="true" style="margin-right: 0"></span>
+                            </button>
+                            <!--<button type="button" class="btn btn-default btn-xs btn-danger" style="font-size: 12px;" ng-click="imc.delProducto(item.numero, item.nombre)" title="Eliminar Producto">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true" style="margin-right: 0"></span>
+                            </button>-->
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
                 <div class="row">
                     <div class="text-left" style="margin: 15px 0 0 15px;">
                         Total de registros: {{imc.totalRecords}}

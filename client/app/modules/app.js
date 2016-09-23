@@ -19,16 +19,28 @@ angular
         'admin',
         'contabilidad',
         'inventario'
-
     ])
 
     .constant('PROPERTIES', {
-      "serverConn" :	{
-        //"server" : "https://u1510desktop64x/smag",
-         "server" : "https://vmu1510.lrconsultor.com/smag",
-        "port"	: ""
-      }
+        "serverConn" :	{
+            //"server" : "https://u1510desktop64x/smag",
+            "server" : "https://vmu1510.lrconsultor.com/smag",
+            "port"	: ""
+        },
+        "maetroTablas" :	{
+            datosGenerales : '01',
+            categoriasProducto : '101',
+            tiposProducto : '102',
+            marcasProducto : '103',
+            modelosProducto : '104',
+            unidadesMedida : '105',
+            ivas : '106',
+            estadosProducto : '107',
+            icesCompra : '108',
+            icesVenta : '109',
+        }
     })
+
 
     .run(function($rootScope, $location, $cookieStore, dialogs){
       var templateUrl = [
@@ -92,7 +104,7 @@ angular
         dialogsProvider.useBackdrop('static');
         dialogsProvider.useEscClose(false);
         dialogsProvider.useCopy(false);
-    //    dialogsProvider.setSize('md');
+        dialogsProvider.setSize('md');
     }])
 
     .config (function ($translateProvider) {
@@ -118,3 +130,5 @@ angular
       redirectTo: '/'
     });
   });
+
+

@@ -57,26 +57,26 @@ myAdmin.controller("tablasCtrl", ['tablasService','$scope','$modal','dialogs','$
         };
 
         tablasCtrl.resetSearch = function(){
-            tablasCtrl.dataRequest = {
-                name : "",
-                num_doc : "",
-                processed : "",
-                state : "",
-                message : "",
-                created : "",
-                modified : "",
-                code : "",
-                client_iden : "",
-                client_lname : "",
-                start : 0,
-                size : tablasCtrl.pageSize
-            }
-            if(tablasCtrl.user.rolCode == 'CL01'){
-                tablasCtrl.dataRequest.user_id = tablasCtrl.user.userId;
-            }
+            tablasCtrl.dataRequest = [
+                {numero : '', like : false},
+                {codigo : '', like : false},
+                {nombre : '', like : false},
+                {dato1 : '', like : false},
+                {dato2 : '', like : false},
+                {dato3 : '', like : false},
+                {dato4 : '', like : false},
+                {dato5 : '', like : false},
+                {dato6 : '', like : false},
+                {dato7 : '', like : false},
+                {dato8 : '', like : false},
+                {dato9 : '', like : false},
+                {dato10 : '', like : false},
+                {start : 0},
+                {size : tablasCtrl.pageSize}
+            ];
             tablasCtrl.advanceSearch = false;
-            tablasCtrl.getBills(tablasCtrl.dataRequest);
-        }
+            tablasCtrl.getTablas();
+        };
 
         tablasCtrl.searchTabla = function(){
             angular.element('#div-loading').show();
@@ -117,7 +117,7 @@ myAdmin.controller("tablasCtrl", ['tablasService','$scope','$modal','dialogs','$
                 if(angular.equals($scope.name,''))
                     $scope.name = 'You did not enter in your name!';
             });
-        }
+        };
 
         tablasCtrl.getTablas = function(){
             angular.element('#div-loading').show();
@@ -148,7 +148,7 @@ myAdmin.controller("tablasCtrl", ['tablasService','$scope','$modal','dialogs','$
         tablasCtrl.addTabla = function(){
             var dlg = dialogs.create('client/app/modules/admin/views/dialog-form/form-tabla.html','tablaDialogCtrl',{
                 userToken : tablasCtrl.user.token, action : -1, user : tablasCtrl.user
-            },'lg');
+            },{size : 'lg'});
             dlg.result.then(function(result){
                 if(result.status == "OK"){
                     tablasCtrl.initCtrl();
@@ -162,7 +162,7 @@ myAdmin.controller("tablasCtrl", ['tablasService','$scope','$modal','dialogs','$
         tablasCtrl.editTabla = function(numero){
             var dlg = dialogs.create('client/app/modules/admin/views/dialog-form/form-tabla.html','tablaDialogCtrl',{
                 userToken : tablasCtrl.user.token, action : numero, dataReq : tablasCtrl.dataRequest, user: tablasCtrl.user
-            },'lg');
+            },{size : 'lg'});
             dlg.result.then(function(result){
                 if(result.status == "OK"){
                     tablasCtrl.resetSearch();
