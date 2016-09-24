@@ -387,65 +387,72 @@ myInventario.controller("productoDialogCtrl", function(invMttoService,$scope,$mo
     };
 
     $scope.setProducto = function(){
-        if(Object.keys($scope.categoriaProductoSelected).length !== 0){
-            $scope.producto.categoria = $scope.categoriaProductoSelected.codigo;
-        }
-        if(Object.keys($scope.tipoProductoSelected).length !== 0){
-            $scope.producto.tipo_producto = $scope.tipoProductoSelected.codigo;
-        }
-        if(Object.keys($scope.marcaProductoSelected).length !== 0){
-            $scope.producto.marca = $scope.marcaProductoSelected.codigo;
-        }
-        if(Object.keys($scope.modeloProductoSelected).length !== 0){
-            $scope.producto.modelo = $scope.modeloProductoSelected.codigo;
-        }
-        if(Object.keys($scope.unidadMedidaSelected).length !== 0){
-            $scope.producto.unidad_medida = $scope.unidadMedidaSelected.codigo;
-        }
-        if(Object.keys($scope.ivaSelected).length !== 0){
-            $scope.producto.iva = $scope.ivaSelected.codigo;
-        }
-        if(Object.keys($scope.estadoSelected).length !== 0){
-            $scope.producto.estado = $scope.estadoSelected.codigo;
-        }
-        if(Object.keys($scope.iceCompraSelected).length !== 0){
-            $scope.producto.ice_compras = $scope.iceCompraSelected.codigo;
-        }
-        if(Object.keys($scope.iceVentaSelected).length !== 0){
-            $scope.producto.ice_ventas = $scope.iceVentaSelected.codigo;
-        }
-        var dataRequest = {
-            action : $scope.action,
-            producto : $scope.producto,
-            userId : $scope.user.userId
-        };
-        angular.element('#div-loading').show();
-        invMttoService.setProducto(dataRequest, $scope.user.token)
-            .then(function(result){
-                angular.element('#div-loading').hide();
-                if(result.status == "OK"){
-                    dialogs.notify(undefined, result.message);
-                    $modalInstance.close(result);
-                } else {
-                    dialogs.error('Error', result.message);
+        if($scope.producto.stock_minimo <= $scope.producto.stock_maximo){
+            if($scope.producto.stock_actual >= $scope.producto.stock_minimo && $scope.producto.stock_actual <= $scope.producto.stock_maximo){
+                if(Object.keys($scope.categoriaProductoSelected).length !== 0){
+                    $scope.producto.categoria = $scope.categoriaProductoSelected.codigo;
                 }
-            }).catch(function(data){
-                angular.element('#div-loading').hide();
-                if(data.status == "OFF"){
-                    $translate('msgSessionExpired').then(function (msg) {
-                        dialogs.error('Error', msg);
+                if(Object.keys($scope.tipoProductoSelected).length !== 0){
+                    $scope.producto.tipo_producto = $scope.tipoProductoSelected.codigo;
+                }
+                if(Object.keys($scope.marcaProductoSelected).length !== 0){
+                    $scope.producto.marca = $scope.marcaProductoSelected.codigo;
+                }
+                if(Object.keys($scope.modeloProductoSelected).length !== 0){
+                    $scope.producto.modelo = $scope.modeloProductoSelected.codigo;
+                }
+                if(Object.keys($scope.unidadMedidaSelected).length !== 0){
+                    $scope.producto.unidad_medida = $scope.unidadMedidaSelected.codigo;
+                }
+                if(Object.keys($scope.ivaSelected).length !== 0){
+                    $scope.producto.iva = $scope.ivaSelected.codigo;
+                }
+                if(Object.keys($scope.estadoSelected).length !== 0){
+                    $scope.producto.estado = $scope.estadoSelected.codigo;
+                }
+                if(Object.keys($scope.iceCompraSelected).length !== 0){
+                    $scope.producto.ice_compras = $scope.iceCompraSelected.codigo;
+                }
+                if(Object.keys($scope.iceVentaSelected).length !== 0){
+                    $scope.producto.ice_ventas = $scope.iceVentaSelected.codigo;
+                }
+                var dataRequest = {
+                    action : $scope.action,
+                    producto : $scope.producto,
+                    userId : $scope.user.userId
+                };
+                angular.element('#div-loading').show();
+                invMttoService.setProducto(dataRequest, $scope.user.token)
+                    .then(function(result){
+                        angular.element('#div-loading').hide();
+                        if(result.status == "OK"){
+                            dialogs.notify(undefined, result.message);
+                            $modalInstance.close(result);
+                        } else {
+                            dialogs.error('Error', result.message);
+                        }
+                    }).catch(function(data){
+                        angular.element('#div-loading').hide();
+                        if(data.status == "OFF"){
+                            $translate('msgSessionExpired').then(function (msg) {
+                                dialogs.error('Error', msg);
+                            });
+                            $scope.$parent.logout(true);
+                        } else {
+                            if(data.status == null){
+                                dialogs.error('Error', "null");
+                            } else {
+                                dialogs.error('Error', data.message);
+                            }
+                        }
                     });
-                    $scope.$parent.logout(true);
-                } else {
-                    if(data.status == null){
-                        dialogs.error('Error', "null");
-                    } else {
-                        dialogs.error('Error', data.message);
-                    }
-                }
-            });
+            } else {
+                dialogs.error('Error', 'El stock actual no se encuentra entre el minimo y maximo.');
+            }
+        } else {
+            dialogs.error('Error', 'El stock minimo es mayor que el maximo.');
+        }
     };
-
 
 
 });
