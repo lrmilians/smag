@@ -24,8 +24,7 @@ class Productos extends REST_Controller {
        // $this->methods['cuentas_post']['limit'] = 100; //500 requests per hour per user/key
         //	$this->methods['user_delete']['limit'] = 50; //50 requests per hour per user/key
 
-        $this->load->model('auth/session_model');
-        $this->load->model(array('producto_model','admin/tabla_model'));
+        $this->load->model(array('auth/session_model','producto_model','admin/tabla_model', 'admin/util_model'));
     }
 
     function producto_post(){
@@ -88,6 +87,7 @@ class Productos extends REST_Controller {
                         'peso' => $producto['peso'],
                         'factor_hora_hombre' => $producto['factor_hora_hombre']
                     );
+                    $data = $this->util_model->set_valor_null($data);
                     if($this->producto_model->update_producto($data, $this->post('action'))){
                         $response['status'] = 'OK';
                         $response['message'] = 'Datos actualizados correctamente.';
@@ -102,6 +102,7 @@ class Productos extends REST_Controller {
                     $data['modificado'] = $fecha_modificado;
                     $data['user_creado'] = $this->post('userId');
                     $data['user_modificado'] = $this->post('userId');
+                    $data = $this->util_model->set_valor_null($data);
                     if($this->producto_model->add_producto($data)){
                         $response['status'] = 'OK';
                         $response['message'] = 'Datos guardados correctamente.';

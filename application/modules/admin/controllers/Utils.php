@@ -37,12 +37,13 @@ class Utils extends REST_Controller {
             if ($session == 0) {
                 $tabla = $this->post('tabla');
                 $campos = $this->post('campos');
+                $labels = $this->post('labels');
                 $result = $this->util_model->existe_campos($tabla, $campos);
                 if(!empty($result)){
                     $response['status'] = '-1';
                     $response['message'] = '<p><strong>Los siguientes datos existen en la base de datos.</strong></p>';
                     foreach($result as $key => $value){
-                        $response['message'] .= '<p><strong>Campo: </strong>'.$key.' <strong>Valor: </strong>'.$value.'</p>';
+                        $response['message'] .= '<p><strong>Campo: </strong>'.$labels[$key].' <strong>Valor: </strong>'.$value.'</p>';
                     }
                 } else {
                     $response['status'] = 'OK';
@@ -57,120 +58,6 @@ class Utils extends REST_Controller {
         }
     }
 
-    function settabla_post(){
-        $token = $this->get('token');
-        $session = $this->_checksession($token);
-        if($session == -1){
-            $this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
-        } else {
-            if ($session == 0) {
-                $del = true;
-                if($this->post('action') !== '-1'){
-                    $del = $this->tabla_model->del_tabla($this->post('action'));
-                }
-                if($del){
-                    $fecha_modificado = date('Y-m-d H:i:s');
-                    $data = array();
-                    foreach($this->post('tablas') as $tabla){
-                        if(!$this->tabla_model->existe_tabla($tabla['numero'], '-')){
-                            $data[]= array (
-                                'numero' => $tabla['numero'],
-                                'codigo' => '-',
-                                'nombre' => $tabla['nombre'],
-                                'dato1' => null,'dato2' => null,'dato3' => null,'dato4' => null,'dato5' => null,'dato6' => null,'dato7' => null,'dato8' => null,'dato9' => null,'dato10' => null,
-                                'fecha_modificado' => $fecha_modificado, 'user_modificado' => $this->post('userId')
-                            );
-                            if(!empty($tabla['subtablas'])){
-                                foreach($tabla['subtablas'] as $subtabla){
-                                    if(!$this->tabla_model->existe_tabla($subtabla['numero'], $subtabla['codigo'])){
-                                        $data[]= array (
-                                            'numero' => $subtabla['numero'],
-                                            'codigo' => $subtabla['codigo'],
-                                            'nombre' => $subtabla['nombre'],
-                                            'dato1' => $subtabla['dato1'],'dato2' => $subtabla['dato2'],'dato3' => $subtabla['dato3'],'dato4' => $subtabla['dato4'],
-                                            'dato5' => $subtabla['dato5'],'dato6' => $subtabla['dato6'],'dato7' => $subtabla['dato7'],'dato8' => $subtabla['dato8'],
-                                            'dato9' => $subtabla['dato9'],'dato10' => $subtabla['dato10'],
-                                            'fecha_modificado' => $fecha_modificado, 'user_modificado' => $this->post('userId')
-                                        );
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    $response['status'] = '-1';
-                    $response['message'] = 'Los datos no fueron guardados.';
-                    if(!empty($data)){
-                        $result = $this->tabla_model->set_tablas($data);
-                        if($result){
-                            $response['status'] = 'OK';
-                            $response['message'] = 'Datos guardados correctamente.';
-                        }
-                    } else {
-                        $response['message'] .= 'Ya existen las tablas.';
-                    }
-                } else {
-                    $response['status'] = '-1';
-                    $response['message'] = 'Los datos no fueron guardados.';
-                }
-
-                $response['data'] = '';
-                $response['total_records'] = '';
-
-                $this->response($response, 200);
-
-            } else {
-                $this->response($this->data_error_response('01', 'Sesion caducada.'), 500);
-            }
-        }
-    }
-
-
-    function deltabla_post(){
-        $token = $this->get('token');
-        $session = $this->_checksession($token);
-        if($session == -1){
-            $this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
-        } else {
-            if ($session == 0) {
-                if($this->tabla_model->del_tabla($this->post('numero'))){
-                    $response['status'] = 'OK';
-                    $response['message'] = 'Datos eliminados correctamente.';
-                } else {
-                    $response['status'] = '-1';
-                    $response['message'] = 'Los datos no fueron guardados.';
-                }
-                $response['data'] = '';
-                $response['total_records'] = '';
-
-                $this->response($response, 200);
-
-            } else {
-                $this->response($this->data_error_response('01', 'Sesion caducada.'), 500);
-            }
-        }
-    }
-
-    function catalogos_post(){
-        $token = $this->get('token');
-        $session = $this->_checksession($token);
-        if($session == -1){
-            $this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
-        } else {
-            if ($session == 0) {
-                $catalogos = $this->tabla_model->get_catalogos($this->post());
-
-                $response['status'] = 'OK';
-                $response['message'] = '';
-                $response['data'] = $catalogos;
-                $response['total_records'] = '';
-
-                $this->response($response, 200);
-
-            } else {
-                $this->response($this->data_error_response('01', 'Sesion caducada.'), 500);
-            }
-        }
-    }
 
 
     private function _checksession($token) {
