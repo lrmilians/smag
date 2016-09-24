@@ -232,7 +232,6 @@ myInventario.controller("invMttoCtrl", ['PROPERTIES','invMttoService','$scope','
 }]);
 
 myInventario.controller("productoDialogCtrl", function(invMttoService,$scope,$modalInstance,data,$translate,dialogs){
-
     $scope.catalogos = data.catalogos;
     $scope.action = data.action;
     $scope.user = data.user;
@@ -447,10 +446,10 @@ myInventario.controller("productoDialogCtrl", function(invMttoService,$scope,$mo
                         }
                     });
             } else {
-                dialogs.error('Error', 'El stock actual no se encuentra entre el minimo y maximo.');
+                dialogs.error('Error', 'El stock actual (' + $scope.producto.stock_actual + ') no se encuentra entre el mínimo y máximo (' + $scope.producto.stock_minimo + ' y ' + $scope.producto.stock_maximo + ').');
             }
         } else {
-            dialogs.error('Error', 'El stock minimo es mayor que el maximo.');
+            dialogs.error('Error', 'El stock mínimo (' + $scope.producto.stock_minimo + ') es mayor que el máximo (' + $scope.producto.stock_maximo + ').');
         }
     };
 
