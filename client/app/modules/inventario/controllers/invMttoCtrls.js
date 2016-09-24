@@ -243,7 +243,7 @@ myInventario.controller("productoDialogCtrl", function(invMttoService,$scope,$mo
     if($scope.action !== -1){
         $scope.color = '#F6CF99';
         $scope.producto = data.producto;
-        if($scope.producto.categoria !== ''){
+        if($scope.producto.categoria !== '' && $scope.producto.categoria !== null){
             for(var i in $scope.catalogos.categoriasProducto){
                 if($scope.catalogos.categoriasProducto[i].codigo == $scope.producto.categoria){
                     $scope.categoriaProductoSelected = $scope.catalogos.categoriasProducto[i];
@@ -252,7 +252,7 @@ myInventario.controller("productoDialogCtrl", function(invMttoService,$scope,$mo
         } else {
             $scope.categoriaProductoSelected = {};
         }
-        if($scope.producto.tipo_producto !== ''){
+        if($scope.producto.tipo_producto !== '' && $scope.producto.tipo_producto !== null){
             for(var i in $scope.catalogos.tiposProducto){
                 if($scope.catalogos.tiposProducto[i].codigo == $scope.producto.tipo_producto){
                     $scope.tipoProductoSelected = $scope.catalogos.tiposProducto[i];
@@ -261,7 +261,7 @@ myInventario.controller("productoDialogCtrl", function(invMttoService,$scope,$mo
         } else {
             $scope.tipoProductoSelected = {};
         }
-        if($scope.producto.marca !== ''){
+        if($scope.producto.marca !== '' && $scope.producto.marca !== null){
             for(var i in $scope.catalogos.marcasProducto){
                 if($scope.catalogos.marcasProducto[i].codigo == $scope.producto.marca){
                     $scope.marcaProductoSelected = $scope.catalogos.marcasProducto[i];
@@ -270,7 +270,7 @@ myInventario.controller("productoDialogCtrl", function(invMttoService,$scope,$mo
         } else {
             $scope.marcaProductoSelected = {};
         }
-        if($scope.producto.modelo !== ''){
+        if($scope.producto.modelo !== '' && $scope.producto.modelo !== null){
             for(var i in $scope.catalogos.modelosProducto){
                 if($scope.catalogos.modelosProducto[i].codigo == $scope.producto.modelo){
                     $scope.modeloProductoSelected = $scope.catalogos.modelosProducto[i];
@@ -279,7 +279,7 @@ myInventario.controller("productoDialogCtrl", function(invMttoService,$scope,$mo
         } else {
             $scope.modeloProductoSelected = {};
         }
-        if($scope.producto.unidad_medida !== ''){
+        if($scope.producto.unidad_medida !== '' && $scope.producto.unidad_medida !== null){
             for(var i in $scope.catalogos.unidadesMedida){
                 if($scope.catalogos.unidadesMedida[i].codigo == $scope.producto.unidad_medida){
                     $scope.unidadMedidaSelected = $scope.catalogos.unidadesMedida[i];
@@ -288,7 +288,7 @@ myInventario.controller("productoDialogCtrl", function(invMttoService,$scope,$mo
         } else {
             $scope.unidadMedidaSelected = {};
         }
-        if($scope.producto.iva !== ''){
+        if($scope.producto.iva !== '' && $scope.producto.iva !== null){
             for(var i in $scope.catalogos.ivas){
                 if($scope.catalogos.ivas[i].codigo == $scope.producto.iva){
                     $scope.ivaSelected = $scope.catalogos.ivas[i];
@@ -297,7 +297,7 @@ myInventario.controller("productoDialogCtrl", function(invMttoService,$scope,$mo
         } else {
             $scope.ivaSelected = {};
         }
-        if($scope.producto.estado !== ''){
+        if($scope.producto.estado !== '' && $scope.producto.estado !== null){
             for(var i in $scope.catalogos.estadosProducto){
                 if($scope.catalogos.estadosProducto[i].codigo == $scope.producto.estado){
                     $scope.estadoSelected = $scope.catalogos.estadosProducto[i];
@@ -306,7 +306,7 @@ myInventario.controller("productoDialogCtrl", function(invMttoService,$scope,$mo
         } else {
             $scope.estadoSelected = {};
         }
-        if($scope.producto.ice_compras !== ''){
+        if($scope.producto.ice_compras !== '' && $scope.producto.ice_compras !== null){
             for(var i in $scope.catalogos.icesCompra){
                 if($scope.catalogos.icesCompra[i].codigo == $scope.producto.ice_compras){
                     $scope.iceCompraSelected = $scope.catalogos.icesCompra[i];
@@ -315,7 +315,7 @@ myInventario.controller("productoDialogCtrl", function(invMttoService,$scope,$mo
         } else {
             $scope.iceCompraSelected = {};
         }
-        if($scope.producto.ice_ventas !== ''){
+        if($scope.producto.ice_ventas !== '' && $scope.producto.ice_ventas !== null){
             for(var i in $scope.catalogos.icesVenta){
                 if($scope.catalogos.icesVenta[i].codigo == $scope.producto.ice_ventas){
                     $scope.iceVentaSelected = $scope.catalogos.icesVenta[i];
@@ -348,92 +348,104 @@ myInventario.controller("productoDialogCtrl", function(invMttoService,$scope,$mo
     };
 
     $scope.submitForm = function(){
-        var dataRequest1 = {
+        var dataRequest = {
             tabla : 'inv_productos',
-            campos : {codigo : $scope.producto.codigo,nombre : $scope.producto.nombre, codigo_barras : $scope.producto.codigo_barras}
+            campos : {codigo : $scope.producto.codigo,nombre : $scope.producto.nombre, codigo_barras : $scope.producto.codigo_barras},
+            labels : {codigo : 'Código', nombre : 'Nombre', codigo_barras : 'Código Barras'}
         };
         if ($scope.productoForm.$valid){
-            invMttoService.existeCampos(dataRequest1, $scope.user.token)
-                .then(function(result){
-                    angular.element('#div-loading').hide();
-                    if(result.status == "OK"){
-                        if(Object.keys($scope.categoriaProductoSelected).length !== 0){
-                            $scope.producto.categoria = $scope.categoriaProductoSelected.codigo;
-                        }
-                        if(Object.keys($scope.tipoProductoSelected).length !== 0){
-                            $scope.producto.tipo_producto = $scope.tipoProductoSelected.codigo;
-                        }
-                        if(Object.keys($scope.marcaProductoSelected).length !== 0){
-                            $scope.producto.marca = $scope.marcaProductoSelected.codigo;
-                        }
-                        if(Object.keys($scope.modeloProductoSelected).length !== 0){
-                            $scope.producto.modelo = $scope.modeloProductoSelected.codigo;
-                        }
-                        if(Object.keys($scope.unidadMedidaSelected).length !== 0){
-                            $scope.producto.unidad_medida = $scope.unidadMedidaSelected.codigo;
-                        }
-                        if(Object.keys($scope.ivaSelected).length !== 0){
-                            $scope.producto.iva = $scope.ivaSelected.codigo;
-                        }
-                        if(Object.keys($scope.estadoSelected).length !== 0){
-                            $scope.producto.estado = $scope.estadoSelected.codigo;
-                        }
-                        if(Object.keys($scope.iceCompraSelected).length !== 0){
-                            $scope.producto.ice_compras = $scope.iceCompraSelected.codigo;
-                        }
-                        if(Object.keys($scope.iceVentaSelected).length !== 0){
-                            $scope.producto.ice_ventas = $scope.iceVentaSelected.codigo;
-                        }
-                        var dataRequest = {
-                            action : $scope.action,
-                            producto : $scope.producto,
-                            userId : $scope.user.userId
-                        };
-                        angular.element('#div-loading').show();
-                        invMttoService.setProducto(dataRequest, $scope.user.token)
-                            .then(function(result){
-                                angular.element('#div-loading').hide();
-                                if(result.status == "OK"){
-                                    dialogs.notify(undefined, result.message);
-                                    $modalInstance.close(result);
-                                } else {
-                                    dialogs.error('Error', result.message);
-                                }
-                            }).catch(function(data){
-                                angular.element('#div-loading').hide();
-                                if(data.status == "OFF"){
-                                    $translate('msgSessionExpired').then(function (msg) {
-                                        dialogs.error('Error', msg);
-                                    });
-                                    $scope.$parent.logout(true);
-                                } else {
-                                    if(data.status == null){
-                                        dialogs.error('Error', "null");
-                                    } else {
-                                        dialogs.error('Error', data.message);
-                                    }
-                                }
-                            });
-                    } else {
-                        dialogs.error('Error', result.message);
-                    }
-                }).catch(function(data){
-                    angular.element('#div-loading').hide();
-                    if(data.status == "OFF"){
-                        $translate('msgSessionExpired').then(function (msg) {
-                            dialogs.error('Error', msg);
-                        });
-                        $scope.$parent.logout(true);
-                    } else {
-                        if(data.status == null){
-                            dialogs.error('Error', "null");
+            if($scope.action === -1){
+                invMttoService.existeCampos(dataRequest, $scope.user.token)
+                    .then(function(result){
+                        angular.element('#div-loading').hide();
+                        if(result.status == "OK"){
+                            $scope.setProducto();
                         } else {
-                            dialogs.error('Error', data.message);
+                            dialogs.error('Error', result.message);
                         }
-                    }
-                });
+                    }).catch(function(data){
+                        angular.element('#div-loading').hide();
+                        if(data.status == "OFF"){
+                            $translate('msgSessionExpired').then(function (msg) {
+                                dialogs.error('Error', msg);
+                            });
+                            $scope.$parent.logout(true);
+                        } else {
+                            if(data.status == null){
+                                dialogs.error('Error', "null");
+                            } else {
+                                dialogs.error('Error', data.message);
+                            }
+                        }
+                    });
+            } else {
+                $scope.setProducto();
+            }
+
 
         }
     };
+
+    $scope.setProducto = function(){
+        if(Object.keys($scope.categoriaProductoSelected).length !== 0){
+            $scope.producto.categoria = $scope.categoriaProductoSelected.codigo;
+        }
+        if(Object.keys($scope.tipoProductoSelected).length !== 0){
+            $scope.producto.tipo_producto = $scope.tipoProductoSelected.codigo;
+        }
+        if(Object.keys($scope.marcaProductoSelected).length !== 0){
+            $scope.producto.marca = $scope.marcaProductoSelected.codigo;
+        }
+        if(Object.keys($scope.modeloProductoSelected).length !== 0){
+            $scope.producto.modelo = $scope.modeloProductoSelected.codigo;
+        }
+        if(Object.keys($scope.unidadMedidaSelected).length !== 0){
+            $scope.producto.unidad_medida = $scope.unidadMedidaSelected.codigo;
+        }
+        if(Object.keys($scope.ivaSelected).length !== 0){
+            $scope.producto.iva = $scope.ivaSelected.codigo;
+        }
+        if(Object.keys($scope.estadoSelected).length !== 0){
+            $scope.producto.estado = $scope.estadoSelected.codigo;
+        }
+        if(Object.keys($scope.iceCompraSelected).length !== 0){
+            $scope.producto.ice_compras = $scope.iceCompraSelected.codigo;
+        }
+        if(Object.keys($scope.iceVentaSelected).length !== 0){
+            $scope.producto.ice_ventas = $scope.iceVentaSelected.codigo;
+        }
+        var dataRequest = {
+            action : $scope.action,
+            producto : $scope.producto,
+            userId : $scope.user.userId
+        };
+        angular.element('#div-loading').show();
+        invMttoService.setProducto(dataRequest, $scope.user.token)
+            .then(function(result){
+                angular.element('#div-loading').hide();
+                if(result.status == "OK"){
+                    dialogs.notify(undefined, result.message);
+                    $modalInstance.close(result);
+                } else {
+                    dialogs.error('Error', result.message);
+                }
+            }).catch(function(data){
+                angular.element('#div-loading').hide();
+                if(data.status == "OFF"){
+                    $translate('msgSessionExpired').then(function (msg) {
+                        dialogs.error('Error', msg);
+                    });
+                    $scope.$parent.logout(true);
+                } else {
+                    if(data.status == null){
+                        dialogs.error('Error', "null");
+                    } else {
+                        dialogs.error('Error', data.message);
+                    }
+                }
+            });
+    };
+
+
 
 });

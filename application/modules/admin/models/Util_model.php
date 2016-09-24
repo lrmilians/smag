@@ -9,9 +9,6 @@ class Util_model extends CI_Model {
 
     public function existe_campos($tabla ,$campos) {
         $result = array();
-        /*echo '<pre>';
-        print_r($campos);
-        echo '<pre>';die();*/
         foreach($campos as $key => $value){
             $this->db->where($key, $value);
             if($this->db->count_all_results($tabla) > 0){
@@ -19,7 +16,20 @@ class Util_model extends CI_Model {
             }
         }
         return $result;
-
     }
+
+    public function set_valor_null($data){
+        if(!empty($data)){
+            foreach($data as $key=>$value){
+                if(empty($value)){
+                    $data[$key] = NULL;
+                }
+            }
+            return $data;
+        }
+        return false;
+    }
+
+
 
 }
