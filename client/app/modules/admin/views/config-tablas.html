@@ -8,10 +8,13 @@
                             <span class="glyphicon glyphicon-repeat" aria-hidden="true" style="margin: 0;"></span>
                         </button><span class="glyphicon glyphicon-lock" aria-hidden="true" style="margin-left: 6px; margin-right: 6px;"></span><label class="text-primary" style="margin-bottom: 0px;">MANTENIMIENTO DE TABLAS</label></h4></td>
                         <td style="width: 40%; text-align: right;">
-                            <button type="button" class="btn btn-primary" style="font-size: 12px;" ng-click="imc.searchBill()" ng-if="imc.bills.length !== 0">
-                                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>Buscar
+                            <button ng-if="tac.advanceSearch" type="button" class="btn btn-default btn-xs btn-danger" ng-click="tac.resetSearch()" title="Limpiar Búsqueda">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Limpiar búsqueda
                             </button>
-                            <button type="button" class="btn btn-success" style="font-size: 12px;" ng-click="tac.addTabla()">
+                            <button type="button" class="btn btn-default btn-xs btn-primary" style="font-size: 12px;" ng-click="tac.searchTabla()" ng-if="tac.tablas.length !== 0" title="Buscar Tabla">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>Buscar
+                            </button>
+                            <button type="button" class="btn btn-default btn-xs btn-success" style="font-size: 12px;" ng-click="tac.addTabla()" title="Adicionar nueva Tabla">
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Adicionar Tabla
                             </button>
                         </td>
@@ -20,13 +23,8 @@
             </div>
             <div class="panel-body" style="padding-top: 0px;">
                 <div class="row" style="margin-top: 10px;">
-                    <div ng-if="tac.tablas.length !== 0 && tac.q !== undefined && resultFiltered.length !== 0" class="col-md-3" style="text-align: left; padding-top: 8px; padding-bottom: 8px;">
+                    <div ng-if="tac.advanceSearch && tac. tac.tablas.length !== 0 && resultFiltered.length !== 0" class="col-md-3" style="text-align: left; padding-top: 8px; padding-bottom: 8px;">
                         <span>{{resultFiltered.length === 1 ? "Un Registro encontrado" : resultFiltered.length + " Registros encontrados"}}</span>
-                    </div>
-                    <div ng-if="tac.advanceSearch" class="col-md-3">
-                        <button type="button" class="btn btn-default btn-xs btn-danger" ng-click="tac.resetSearch()">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Limpiar búsqueda
-                        </button>
                     </div>
                 </div>
 			    <div style="width: 100%; overflow-x: auto; white-space: nowrap;">
@@ -200,7 +198,7 @@
                         </thead>
                         <tbody>
                         <tr ng-if="tac.tablas.length === 0">
-                            <td colspan="15">
+                            <td colspan="20">
                                 <div role="alert" class="alert alert-danger" style="margin-bottom: 0; padding: 5px;">
                                     <span aria-hidden="true" class="glyphicon glyphicon-exclamation-sign"></span>
                                     <span class="sr-only">Error:</span>

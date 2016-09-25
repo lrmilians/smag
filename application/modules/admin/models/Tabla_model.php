@@ -17,7 +17,20 @@ class Tabla_model extends CI_Model {
                 $this->db->where('numero', $data[0]['numero']);
             }
         }
-
+        if(!empty($data[1]['codigo'])){
+            if($data[1]['like']){
+                $this->db->like('codigo', $data[1]['codigo']);
+            } else {
+                $this->db->where('codigo', $data[1]['codigo']);
+            }
+        }
+        if(!empty($data[2]['nombre'])){
+            if($data[2]['like']){
+                $this->db->where("lower(nombre) like concat('%',lower('".$data[2]['nombre']."'),'%')");
+            } else {
+                $this->db->where("lower(nombre) = lower('".$data[2]['nombre']."')");
+            }
+        }
         $this->db->order_by('numero');
         $this->db->order_by('codigo');
 
@@ -30,9 +43,7 @@ class Tabla_model extends CI_Model {
         }
 
         $result['data'] = $this->db->get()->result_array();
-       // var_dump($this->db->last_query());
         return $result;
-
     }
 
     public function get_catalogos($data) {
