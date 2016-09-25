@@ -19,9 +19,9 @@ myInventario.controller("invMttoCtrl", ['PROPERTIES','invMttoService','$scope','
         invMttoCtrl.advanceSearch = false;
 
         invMttoCtrl.dataRequest = {
-            numero: '',
             codigo: '',
             nombre: '',
+            codigo_barras: '',
             start: 0,
             size: invMttoCtrl.pageSize,
             catalogos : [
@@ -59,9 +59,9 @@ myInventario.controller("invMttoCtrl", ['PROPERTIES','invMttoService','$scope','
 
         invMttoCtrl.resetSearch = function(){
             invMttoCtrl.dataRequest = {
-                numero: '',
                 codigo: '',
                 nombre: '',
+                codigo_barras: '',
                 start: 0,
                 size: invMttoCtrl.pageSize,
                 catalogos : [
@@ -83,38 +83,21 @@ myInventario.controller("invMttoCtrl", ['PROPERTIES','invMttoService','$scope','
 
         invMttoCtrl.searchProducto = function(){
             angular.element('#div-loading').show();
-            var dlg = dialogs.create('modules/inventario/views/dialog-form/form-buscar-producto.html','buscarProductoDialogCtrl',{
-                countrys : invMttoCtrl.countrys, searchCriteria : invMttoCtrl.dataRequest
+            var dlg = dialogs.create('client/app/modules/inventario/views/dialog-form/form-buscar-producto.html','buscarProductoDialogCtrl',{
+                searchCriteria : invMttoCtrl.dataRequest
             },'lg');
             dlg.result.then(function(result){
                 invMttoCtrl.currentPage = 1;
                 var indexValue = (invMttoCtrl.currentPage - 1) * invMttoCtrl.pageSize;
-                invMttoCtrl.dataRequest.pid = result.pid;
-                if(result.perfil != ""){
-                    tablasCtrl.dataRequest.perfil = result.perfil.id;
-                } else {
-                    tablasCtrl.dataRequest.perfil = result.perfil;
-                }
-                tablasCtrl.dataRequest.nombre = result.nombre;
-                tablasCtrl.dataRequest.apellido = result.apellido;
-                if(result.paisNacimiento != ""){
-                    tablasCtrl.dataRequest.paisNacimiento = result.paisNacimiento.id;
-                } else {
-                    tablasCtrl.dataRequest.paisNacimiento = result.paisNacimiento;
-                }
-                if(result.paisResidencia != ""){
-                    tablasCtrl.dataRequest.paisResidencia = result.paisResidencia.id;
-                } else {
-                    tablasCtrl.dataRequest.paisResidencia = result.paisResidencia;
-                }
-                tablasCtrl.dataRequest.inicio = indexValue;
+                invMttoCtrl.dataRequest.codigo = result.codigo;
+                invMttoCtrl.dataRequest.nombre = result.nombre;
+                invMttoCtrl.dataRequest.codigo_barras = result.codigo_barras;
+                invMttoCtrl.dataRequest.inicio = indexValue;
 
-                if(tablasCtrl.dataRequest.pid != "" || tablasCtrl.dataRequest.perfil != "" || tablasCtrl.dataRequest.nombre != "" ||
-                    tablasCtrl.dataRequest.apellido != "" || tablasCtrl.dataRequest.paisNacimiento != "" || tablasCtrl.dataRequest.paisResidencia != "" ||
-                    tablasCtrl.dataRequest.proceso != ""){
-                    tablasCtrl.advanceSearch = true;
+                if(invMttoCtrl.dataRequest.codigo != "" || invMttoCtrl.dataRequest.nombre != "" || invMttoCtrl.dataRequest.codigo_barras != ""){
+                    invMttoCtrl.advanceSearch = true;
                 }
-                tablasCtrl.getTablas();
+                invMttoCtrl.getProductos();
 
             },function(){
                 if(angular.equals($scope.name,''))
@@ -456,4 +439,21 @@ myInventario.controller("productoDialogCtrl", function(invMttoService,$scope,$mo
     };
 
 
+});
+
+myInventario.controller("buscarProductoDialogCtrl",function($scope,$modalInstance,data){
+    angular.element('#div-loading').hide();
+    $scope.searchCriteria = {
+        codigo : data.searchCriteria.codigo,
+        nombre : data.searchCriteria.nombre,
+        codigo_barras : data.searchCriteria.codigo_barras
+    };
+
+    $scope.cancel = function(){
+        $modalInstance.dismiss('Canceled');
+    };
+
+    $scope.submitForm = function(){
+        $modalInstance.close($scope.searchCriteria);
+    };
 });

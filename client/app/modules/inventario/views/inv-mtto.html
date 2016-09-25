@@ -8,10 +8,13 @@
                             <span class="glyphicon glyphicon-repeat" aria-hidden="true" style="margin: 0;"></span>
                         </button><span class="glyphicon glyphicon-lock" aria-hidden="true" style="margin-left: 6px; margin-right: 6px;"></span><label class="text-primary" style="margin-bottom: 0px;">MANTENIMIENTO DE PRODUCTOS</label></h4></td>
                         <td style="width: 40%; text-align: right;">
-                            <button type="button" class="btn btn-primary" style="font-size: 12px;" ng-click="imc.searchBill()" ng-if="imc.bills.length !== 0">
+                            <button type="button" class="btn btn-default btn-xs btn-danger" ng-click="imc.resetSearch()" ng-if="imc.advanceSearch">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Limpiar búsqueda
+                            </button>
+                            <button type="button" class="btn btn-default btn-xs btn-primary" style="font-size: 12px;" ng-click="imc.searchProducto()" ng-if="imc.productos.length !== 0">
                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>Buscar
                             </button>
-                            <button type="button" class="btn btn-success" style="font-size: 12px;" ng-click="imc.addProducto()">
+                            <button type="button" class="btn btn-default btn-xs btn-success" style="font-size: 12px;" ng-click="imc.addProducto()">
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Adicionar Producto
                             </button>
                         </td>
@@ -26,14 +29,9 @@
                             <input type="text" ng-model="imc.q" class="form-control" placeholder="Búsqueda rápida" aria-describedby="basic-addon1">
                         </div>
                     </div>
-                    <div ng-if="dic.bills.length !== 0 && imc.q !== undefined && resultFiltered.length !== 0" class="col-md-3" style="text-align: left; padding-top: 8px; padding-bottom: 8px;">
+                   <!-- <div ng-if="imc.productos.length !== 0 && imc.advanceSearch == true && resultFiltered.length !== 0" class="col-md-3" style="text-align: left; padding-top: 8px; padding-bottom: 8px;">
                         <span>{{resultFiltered.length === 1 ? "Un Registro encontrado" : resultFiltered.length + " Registros encontrados"}}</span>
-                    </div>
-                    <div ng-if="imc.advanceSearch" class="col-md-3">
-                        <button type="button" class="btn btn-default btn-xs btn-danger" ng-click="imc.resetSearch()">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Limpiar búsqueda
-                        </button>
-                    </div>
+                    </div>-->
                 </div>
                 <table ng-if="imc.productos.length === 0" class="table table-hover table-striped" style="margin-bottom: 0px;">
                     <tr>
