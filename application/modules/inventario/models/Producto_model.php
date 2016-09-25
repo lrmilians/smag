@@ -12,6 +12,12 @@ class Producto_model extends CI_Model {
         if(!empty($data['codigo'])){
             $this->db->like('codigo', $data['codigo']);
         }
+        if(!empty($data['nombre'])){
+            $this->db->like('nombre', $data['nombre']);
+        }
+        if(!empty($data['codigo_barras'])){
+            $this->db->like('codigo_barras', $data['codigo_barras']);
+        }
         $this->db->order_by('codigo');
 
         $tempdb = clone $this->db;

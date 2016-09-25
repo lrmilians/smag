@@ -1,0 +1,50 @@
+<div class="modal-header" style="background-color: #d9edf7;" xmlns="http://www.w3.org/1999/html">
+    <h4 class="modal-title">
+        <span class="glyphicon glyphicon-search" style="margin-right: 5px"></span>Buscar Tabla
+    </h4>
+</div>
+<form name="buscarProductoForm" novalidate>
+<div class="modal-body" style="padding-top: 10px;">
+    <div class="panel panel-info" style="margin-bottom: 0px;">
+        <div class="panel-body" style="padding-top: 10px; padding-bottom: 5px;">
+            <div class="form-group input-group-xs">
+                <label class="control-label col-xs-4" for="codigo">Código</label>
+                <div class="col-xs-7" style="padding-right: 0px;">
+                    <div class="form-group">
+                        <input type="text" class="form-control"
+                               name="codigo" id="codigo"
+                               placeholder=""
+                               ng-model="searchCriteria.codigo"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group input-group-xs">
+                <label class="control-label col-xs-4" for="nombre">Nombre</label>
+                <div class="col-xs-7" style="padding-right: 0px;">
+                    <div class="form-group">
+                        <input type="text" class="form-control"
+                               name="nombre" id="nombre"
+                               placeholder=""
+                               ng-model="searchCriteria.nombre"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group input-group-xs">
+                <label class="control-label col-xs-4" for="codigoBarras">Código Barras</label>
+                <div class="col-xs-7" style="padding-right: 0px;">
+                    <div class="form-group">
+                        <input type="text" class="form-control"
+                               name="codigoBarras" id="codigoBarras"
+                               placeholder=""
+                               ng-model="searchCriteria.codigo_barras" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer" style="padding-top: 8px; padding-bottom: 8px;">
+    <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+    <button type="submit" class="btn btn-success pull-right" ng-click="submitForm()">Buscar</button>
+</div>
+</form>
