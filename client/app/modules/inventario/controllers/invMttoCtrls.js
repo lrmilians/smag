@@ -19,6 +19,7 @@ myInventario.controller("invMttoCtrl", ['PROPERTIES','invMttoService','$scope','
         invMttoCtrl.advanceSearch = false;
 
         invMttoCtrl.dataRequest = {
+            numero: '',
             codigo: '',
             nombre: '',
             start: 0,
@@ -58,6 +59,7 @@ myInventario.controller("invMttoCtrl", ['PROPERTIES','invMttoService','$scope','
 
         invMttoCtrl.resetSearch = function(){
             invMttoCtrl.dataRequest = {
+                numero: '',
                 codigo: '',
                 nombre: '',
                 start: 0,

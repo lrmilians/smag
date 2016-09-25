@@ -19,24 +19,24 @@ myAdmin.controller("tablasCtrl", ['tablasService','$scope','$modal','dialogs','$
         tablasCtrl.advanceSearch = false;
 
         tablasCtrl.dataRequest = [
-            {numero : '', like : false},
-            {codigo : '', like : false},
-            {nombre : '', like : false},
-            {dato1 : '', like : false},
-            {dato2 : '', like : false},
-            {dato3 : '', like : false},
-            {dato4 : '', like : false},
-            {dato5 : '', like : false},
-            {dato6 : '', like : false},
-            {dato7 : '', like : false},
-            {dato8 : '', like : false},
-            {dato9 : '', like : false},
-            {dato10 : '', like : false},
-            {dato11 : '', like : false},
-            {dato12 : '', like : false},
-            {dato13 : '', like : false},
-            {dato14 : '', like : false},
-            {dato15 : '', like : false},
+            {numero : '', like : true},
+            {codigo : '', like : true},
+            {nombre : '', like : true},
+            {dato1 : '', like : true},
+            {dato2 : '', like : true},
+            {dato3 : '', like : true},
+            {dato4 : '', like : true},
+            {dato5 : '', like : true},
+            {dato6 : '', like : true},
+            {dato7 : '', like : true},
+            {dato8 : '', like : true},
+            {dato9 : '', like : true},
+            {dato10 : '', like : true},
+            {dato11 : '', like : true},
+            {dato12 : '', like : true},
+            {dato13 : '', like : true},
+            {dato14 : '', like : true},
+            {dato15 : '', like : true},
             {start : 0},
             {size : tablasCtrl.pageSize}
         ];
@@ -63,24 +63,24 @@ myAdmin.controller("tablasCtrl", ['tablasService','$scope','$modal','dialogs','$
 
         tablasCtrl.resetSearch = function(){
             tablasCtrl.dataRequest = [
-                {numero : '', like : false},
-                {codigo : '', like : false},
-                {nombre : '', like : false},
-                {dato1 : '', like : false},
-                {dato2 : '', like : false},
-                {dato3 : '', like : false},
-                {dato4 : '', like : false},
-                {dato5 : '', like : false},
-                {dato6 : '', like : false},
-                {dato7 : '', like : false},
-                {dato8 : '', like : false},
-                {dato9 : '', like : false},
-                {dato10 : '', like : false},
-                {dato11 : '', like : false},
-                {dato12 : '', like : false},
-                {dato13 : '', like : false},
-                {dato14 : '', like : false},
-                {dato15 : '', like : false},
+                {numero : '', like : true},
+                {codigo : '', like : true},
+                {nombre : '', like : true},
+                {dato1 : '', like : true},
+                {dato2 : '', like : true},
+                {dato3 : '', like : true},
+                {dato4 : '', like : true},
+                {dato5 : '', like : true},
+                {dato6 : '', like : true},
+                {dato7 : '', like : true},
+                {dato8 : '', like : true},
+                {dato9 : '', like : true},
+                {dato10 : '', like : true},
+                {dato11 : '', like : true},
+                {dato12 : '', like : true},
+                {dato13 : '', like : true},
+                {dato14 : '', like : true},
+                {dato15 : '', like : true},
                 {start : 0},
                 {size : tablasCtrl.pageSize}
             ];
@@ -90,39 +90,21 @@ myAdmin.controller("tablasCtrl", ['tablasService','$scope','$modal','dialogs','$
 
         tablasCtrl.searchTabla = function(){
             angular.element('#div-loading').show();
-            var dlg = dialogs.create('modules/admin/views/dialog-form/form-buscar-tabla.html','buscarTablaDialogCtrl',{
-                countrys : tablasCtrl.countrys, searchCriteria : tablasCtrl.dataRequest
-            },'lg');
+            var dlg = dialogs.create('client/app/modules/admin/views/dialog-form/form-buscar-tabla.html','buscarTablaDialogCtrl',{
+                searchCriteria : tablasCtrl.dataRequest
+            },'md');
             dlg.result.then(function(result){
                 tablasCtrl.currentPage = 1;
                 var indexValue = (tablasCtrl.currentPage - 1) * tablasCtrl.pageSize;
-                tablasCtrl.dataRequest.pid = result.pid;
-                if(result.perfil != ""){
-                    tablasCtrl.dataRequest.perfil = result.perfil.id;
-                } else {
-                    tablasCtrl.dataRequest.perfil = result.perfil;
-                }
-                tablasCtrl.dataRequest.nombre = result.nombre;
-                tablasCtrl.dataRequest.apellido = result.apellido;
-                if(result.paisNacimiento != ""){
-                    tablasCtrl.dataRequest.paisNacimiento = result.paisNacimiento.id;
-                } else {
-                    tablasCtrl.dataRequest.paisNacimiento = result.paisNacimiento;
-                }
-                if(result.paisResidencia != ""){
-                    tablasCtrl.dataRequest.paisResidencia = result.paisResidencia.id;
-                } else {
-                    tablasCtrl.dataRequest.paisResidencia = result.paisResidencia;
-                }
-                tablasCtrl.dataRequest.inicio = indexValue;
+                tablasCtrl.dataRequest[0].numero = result.numero;
+                tablasCtrl.dataRequest[1].codigo = result.codigo;
+                tablasCtrl.dataRequest[2].nombre = result.nombre;
+                tablasCtrl.dataRequest.start = indexValue;
 
-                if(tablasCtrl.dataRequest.pid != "" || tablasCtrl.dataRequest.perfil != "" || tablasCtrl.dataRequest.nombre != "" ||
-                    tablasCtrl.dataRequest.apellido != "" || tablasCtrl.dataRequest.paisNacimiento != "" || tablasCtrl.dataRequest.paisResidencia != "" ||
-                    tablasCtrl.dataRequest.proceso != ""){
+                if(tablasCtrl.dataRequest.numero != "" || tablasCtrl.dataRequest.codigo != "" || tablasCtrl.dataRequest.nombre != ""){
                     tablasCtrl.advanceSearch = true;
                 }
                 tablasCtrl.getTablas();
-
             },function(){
                 if(angular.equals($scope.name,''))
                     $scope.name = 'You did not enter in your name!';
@@ -378,4 +360,21 @@ myAdmin.controller("tablaDialogCtrl", function(tablasService,$scope,$modalInstan
         }
     };
 
+});
+
+myAdmin.controller("buscarTablaDialogCtrl",function($scope,$modalInstance,data){
+    angular.element('#div-loading').hide();
+    $scope.searchCriteria = {
+        numero : data.searchCriteria[0].numero,
+        codigo : data.searchCriteria[1].codigo,
+        nombre : data.searchCriteria[2].nombre
+    };
+
+    $scope.cancel = function(){
+        $modalInstance.dismiss('Canceled');
+    };
+
+    $scope.submitForm = function(){
+        $modalInstance.close($scope.searchCriteria);
+    };
 });
