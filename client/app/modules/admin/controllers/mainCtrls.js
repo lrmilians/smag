@@ -72,7 +72,7 @@ myAdmin.controller("mainCtrl", ['PROPERTIES','PROPERTIES_ADMIN','userAdminServic
                 .then(function(result){
                     angular.element('#div-loading').hide();
                     if(result.code == '0505'){
-                        dialogs.notify(undefined, result.message);
+                        //dialogs.notify(undefined, result.message);
                         $scope.cleanDataUser(true);
                         $location.path('/');
                     }
