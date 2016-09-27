@@ -196,50 +196,72 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>
-                        <tr ng-if="tac.tablas.length === 0">
-                            <td colspan="20">
-                                <div role="alert" class="alert alert-danger" style="margin-bottom: 0; padding: 5px;">
-                                    <span aria-hidden="true" class="glyphicon glyphicon-exclamation-sign"></span>
-                                    <span class="sr-only">Error:</span>
-                                    {{'No existen registros'}}
-                                </div>
-                            </td>
-                        </tr>
-                        <tr ng-show="tac.tablas.length !== 0" dir-paginate="item in resultFiltered = (tac.tablas | itemsPerPage: tac.pageSize | orderBy:tac.orderByField:tac.reverseSort)" current-page="tac.currentPage" total-items="tac.totalRecords" style="text-align: left;">
-                            <td style="vertical-align: middle;text-align: center;max-width: 10%">
-                                <button ng-if="item.codigo == '-'" type="button" class="btn btn-default btn-xs btn-warning" style="font-size: 12px;" ng-click="tac.editTabla(item.numero)" title="Editar Tabla">
-                                    <span class="glyphicon glyphicon-edit" aria-hidden="true" style="margin-right: 0"></span>
-                                </button>
-                                <button ng-if="item.codigo == '-'" type="button" class="btn btn-default btn-xs btn-danger" style="font-size: 12px;" ng-click="tac.delTabla(item.numero, item.nombre)" title="Eliminar Tabla">
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true" style="margin-right: 0"></span>
-                                </button>
-                            </td>
-                            <td style="vertical-align: middle;">{{item.numero}}</td>
-                            <td style="vertical-align: middle;">{{item.codigo}}</td>
-                            <td style="vertical-align: middle;">{{item.nombre}}</td>
-                            <td style="vertical-align: middle;">{{item.dato1}}</td>
-                            <td style="vertical-align: middle;">{{item.dato2}}</td>
-                            <td style="vertical-align: middle;">{{item.dato3}}</td>
-                            <td style="vertical-align: middle;">{{item.dato4}}</td>
-                            <td style="vertical-align: middle;">{{item.dato5}}</td>
-                            <td style="vertical-align: middle;">{{item.dato6}}</td>
-                            <td style="vertical-align: middle;">{{item.dato7}}</td>
-                            <td style="vertical-align: middle;">{{item.dato8}}</td>
-                            <td style="vertical-align: middle;">{{item.dato9}}</td>
-                            <td style="vertical-align: middle;">{{item.dato10}}</td>
-                            <td style="vertical-align: middle;">{{item.dato11}}</td>
-                            <td style="vertical-align: middle;">{{item.dato12}}</td>
-                            <td style="vertical-align: middle;">{{item.dato13}}</td>
-                            <td style="vertical-align: middle;">{{item.dato14}}</td>
-                            <td style="vertical-align: middle;">{{item.dato15}}</td>
-                        </tr>
+                        <tbody dir-paginate="item in resultFiltered = (tac.tablas | itemsPerPage: tac.pageSize | orderBy:tac.orderByField:tac.reverseSort)" current-page="tac.currentPage" total-items="tac.totalRecords" data-ng-switch on="dayDataCollapse[$index]">
+                            <!--<tr ng-if="tac.tablas.length === 0">
+                                <td colspan="20">
+                                    <div role="alert" class="alert alert-danger" style="margin-bottom: 0; padding: 5px;">
+                                        <span aria-hidden="true" class="glyphicon glyphicon-exclamation-sign"></span>
+                                        <span class="sr-only">Error:</span>
+                                        {{'No existen registros'}}
+                                    </div>
+                                </td>
+                            </tr>-->
+                            <!--<tr data-ng-repeat="item in tac.tablas" data-ng-switch on="dayDataCollapse[$index]" data-ng-click="selectTableRow($index, storedata.store.storeId)" ng-show="tac.tablas.length !== 0" style="text-align: left;">-->
+                            <tr data-ng-click="selectTableRow($index, storedata.store.storeId)" ng-if="tac.tablas.length !== 0" style="text-align: left;">
+                                <td style="vertical-align: middle;text-align: center;max-width: 10%">
+                                    <button ng-if="item.codigo == '-'" type="button" class="btn btn-default btn-xs btn-warning" style="font-size: 12px;" ng-click="tac.editTabla(item.numero)" title="Editar Tabla">
+                                        <span class="glyphicon glyphicon-edit" aria-hidden="true" style="margin-right: 0"></span>
+                                    </button>
+                                    <button ng-if="item.codigo == '-'" type="button" class="btn btn-default btn-xs btn-danger" style="font-size: 12px;" ng-click="tac.delTabla(item.numero, item.nombre)" title="Eliminar Tabla">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true" style="margin-right: 0"></span>
+                                    </button>
+                                </td>
+                                <td style="vertical-align: middle;">{{item.numero}}</td>
+                                <td style="vertical-align: middle;">{{item.codigo}}</td>
+                                <td style="vertical-align: middle;">{{item.nombre}}</td>
+                                <td style="vertical-align: middle;">{{item.dato1}}</td>
+                                <td style="vertical-align: middle;">{{item.dato2}}</td>
+                                <td style="vertical-align: middle;">{{item.dato3}}</td>
+                                <td style="vertical-align: middle;">{{item.dato4}}</td>
+                                <td style="vertical-align: middle;">{{item.dato5}}</td>
+                                <td style="vertical-align: middle;">{{item.dato6}}</td>
+                                <td style="vertical-align: middle;">{{item.dato7}}</td>
+                                <td style="vertical-align: middle;">{{item.dato8}}</td>
+                                <td style="vertical-align: middle;">{{item.dato9}}</td>
+                                <td style="vertical-align: middle;">{{item.dato10}}</td>
+                                <td style="vertical-align: middle;">{{item.dato11}}</td>
+                                <td style="vertical-align: middle;">{{item.dato12}}</td>
+                                <td style="vertical-align: middle;">{{item.dato13}}</td>
+                                <td style="vertical-align: middle;">{{item.dato14}}</td>
+                                <td style="vertical-align: middle;">{{item.dato15}}</td>
+                            </tr>
+                            <tr data-ng-repeat="subtabla in item.subtablas" data-ng-switch-when="true" style="text-align: left;">
+                                <td style="vertical-align: middle;text-align: center;max-width: 10%"></td>
+                                <td style="vertical-align: middle;">{{subtabla.numero}}</td>
+                                <td style="vertical-align: middle;">{{subtabla.codigo}}</td>
+                                <td style="vertical-align: middle;">{{subtabla.nombre}}</td>
+                                <td style="vertical-align: middle;">{{subtabla.dato1}}</td>
+                                <td style="vertical-align: middle;">{{subtabla.dato2}}</td>
+                                <td style="vertical-align: middle;">{{subtabla.dato3}}</td>
+                                <td style="vertical-align: middle;">{{subtabla.dato4}}</td>
+                                <td style="vertical-align: middle;">{{subtabla.dato5}}</td>
+                                <td style="vertical-align: middle;">{{subtabla.dato6}}</td>
+                                <td style="vertical-align: middle;">{{subtabla.dato7}}</td>
+                                <td style="vertical-align: middle;">{{subtabla.dato8}}</td>
+                                <td style="vertical-align: middle;">{{subtabla.dato9}}</td>
+                                <td style="vertical-align: middle;">{{subtabla.dato10}}</td>
+                                <td style="vertical-align: middle;">{{subtabla.dato11}}</td>
+                                <td style="vertical-align: middle;">{{subtabla.dato12}}</td>
+                                <td style="vertical-align: middle;">{{subtabla.dato13}}</td>
+                                <td style="vertical-align: middle;">{{subtabla.dato14}}</td>
+                                <td style="vertical-align: middle;">{{subtabla.dato15}}</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="row">
                     <div class="text-left" style="margin: 15px 0 0 15px;">
-                        Total de registros: {{tac.totalRecords}}
+                        Total de tablas: {{tac.totalRecords}}
                     </div>
                 </div>
                 <div class="row">

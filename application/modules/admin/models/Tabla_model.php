@@ -23,11 +23,12 @@ class Tabla_model extends CI_Model {
         $this->db->order_by('codigo');
 
         $tempdb = clone $this->db;
+        $tempdb->where('codigo', '-');
+
         $result['total_records'] = $tempdb->count_all_results();
 
         if(!empty($data['start']) && !empty($data['size'])){
             $this->db->limit($data['start'],$data['size']);
-
         }
 
         $result['data'] = $this->db->get()->result_array();
