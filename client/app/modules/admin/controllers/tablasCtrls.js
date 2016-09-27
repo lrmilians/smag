@@ -14,7 +14,7 @@ myAdmin.controller("tablasCtrl", ['tablasService','$scope','$modal','dialogs','$
         var tablasCtrl = this;
 
         tablasCtrl.currentPage = 1;
-        tablasCtrl.pageSize = 50;
+        tablasCtrl.pageSize = 500;
         tablasCtrl.totalRecords = 0;
         tablasCtrl.advanceSearch = false;
 
@@ -82,7 +82,24 @@ myAdmin.controller("tablasCtrl", ['tablasService','$scope','$modal','dialogs','$
                 .then(function(result){
                     angular.element('#div-loading').hide();
                     if(result.status == "OK"){
-                        tablasCtrl.tablas = result.data;
+                        tablasCtrl.tablas = [];
+                        for(var i in result.data){
+                            //result.data[i].subtablas = [];
+                           // result.data[i].dato1 = parseInt(result.data[i].dato1);
+                            if(result.data[i].codigo == '-'){
+                                tablasCtrl.tablas.push(result.data[i]);
+                            }
+                        }
+                        for(var i in tablasCtrl.tablas){
+                            tablasCtrl.tablas[i].subtablas = [];
+                            for(var j in result.data){
+                                if(tablasCtrl.tablas[i].numero == result.data[j].numero && result.data[j].codigo !== '-'){
+                                    tablasCtrl.tablas[i].subtablas.push(result.data[j]);
+                                }
+                            }
+                        }
+                        //console.log(tablasCtrl.tablas);
+                      //  tablasCtrl.tablas = result.data;
                         tablasCtrl.totalRecords = result.total_records;
                     }
                 }).catch(function(data){
@@ -157,6 +174,50 @@ myAdmin.controller("tablasCtrl", ['tablasService','$scope','$modal','dialogs','$
             },function(btn){
 
             });
+        };
+
+        $scope.tableRowExpanded = false;
+        $scope.tableRowIndexExpandedCurr = "";
+        $scope.tableRowIndexExpandedPrev = "";
+        $scope.storeIdExpanded = "";
+        $scope.styleRowSelected = {
+            'font-weight' : 'bold'
+        };
+
+        $scope.dayDataCollapseFn = function () {
+            $scope.dayDataCollapse = [];
+            for (var i = 0; i < tablasCtrl.tablas.length; i += 1) {
+                $scope.dayDataCollapse.push(false);
+            }
+        };
+
+        $scope.selectTableRow = function (index, storeId) {
+            console.log(index);
+            console.log(storeId);
+            if (typeof $scope.dayDataCollapse === 'undefined') {
+                $scope.dayDataCollapseFn();
+            }
+
+            if ($scope.tableRowExpanded === false && $scope.tableRowIndexExpandedCurr === "" && $scope.storeIdExpanded === "") {
+                $scope.tableRowIndexExpandedPrev = "";
+                $scope.tableRowExpanded = true;
+                $scope.tableRowIndexExpandedCurr = index;
+                $scope.storeIdExpanded = storeId;
+                $scope.dayDataCollapse[index] = true;
+            } else if ($scope.tableRowExpanded === true) {
+                if ($scope.tableRowIndexExpandedCurr === index && $scope.storeIdExpanded === storeId) {
+                    $scope.tableRowExpanded = false;
+                    $scope.tableRowIndexExpandedCurr = "";
+                    $scope.storeIdExpanded = "";
+                    $scope.dayDataCollapse[index] = false;
+                } else {
+                    $scope.tableRowIndexExpandedPrev = $scope.tableRowIndexExpandedCurr;
+                    $scope.tableRowIndexExpandedCurr = index;
+                    $scope.storeIdExpanded = storeId;
+                    $scope.dayDataCollapse[$scope.tableRowIndexExpandedPrev] = false;
+                    $scope.dayDataCollapse[$scope.tableRowIndexExpandedCurr] = true;
+                }
+            }
         };
 
 
