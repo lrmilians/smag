@@ -51,6 +51,29 @@ class Tablas extends REST_Controller {
         }
     }
 
+    function gettabla_post(){
+        $token = $this->get('token');
+        $session = $this->_checksession($token);
+        if($session == -1){
+            $this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
+        } else {
+            if ($session == 0) {
+                $data = $this->post();
+                $tablas = $this->tabla_model->get_tabla($data);
+
+                $response['status'] = 'OK';
+                $response['message'] = '';
+                $response['data'] = $tablas['data'];
+                $response['total_records'] = '';
+
+                $this->response($response, 200);
+
+            } else {
+                $this->response($this->data_error_response('01', 'Sesion caducada.'), 500);
+            }
+        }
+    }
+
     function settabla_post(){
         $token = $this->get('token');
         $session = $this->_checksession($token);
