@@ -134,7 +134,7 @@ class Auth extends REST_Controller {
 			$identity['field'] = $this->config->item('identity', 'ion_auth');
 			$identity['value'] = $identity_value;
 			$identity['select'] = array('identification','username','users.id as iduser','email','first_name','last_name','company','token','description','code');
-			$vresult = $this->session_model->update($token, true, $identity);
+			$vresult = $this->session_model->update($token, true, $identity, $this->post('ipaddress'));
 			if($vresult['result']){
 				$response['code'] = $messages_array[0]['code'];
 				$response['message'] = $messages_array[0]['msg'];

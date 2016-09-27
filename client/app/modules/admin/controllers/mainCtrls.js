@@ -93,7 +93,7 @@ myAdmin.controller("mainCtrl", ['PROPERTIES','PROPERTIES_ADMIN','userAdminServic
                     }
                 });
         }
-    }
+    };
 
 
                 /*mainCtrl.confirm = function(){
