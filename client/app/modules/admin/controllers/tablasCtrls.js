@@ -18,28 +18,10 @@ myAdmin.controller("tablasCtrl", ['tablasService','$scope','$modal','dialogs','$
         tablasCtrl.totalRecords = 0;
         tablasCtrl.advanceSearch = false;
 
-        tablasCtrl.dataRequest = [
-            {numero : '', like : true},
-            {codigo : '', like : true},
-            {nombre : '', like : true},
-            {dato1 : '', like : true},
-            {dato2 : '', like : true},
-            {dato3 : '', like : true},
-            {dato4 : '', like : true},
-            {dato5 : '', like : true},
-            {dato6 : '', like : true},
-            {dato7 : '', like : true},
-            {dato8 : '', like : true},
-            {dato9 : '', like : true},
-            {dato10 : '', like : true},
-            {dato11 : '', like : true},
-            {dato12 : '', like : true},
-            {dato13 : '', like : true},
-            {dato14 : '', like : true},
-            {dato15 : '', like : true},
-            {start : 0},
-            {size : tablasCtrl.pageSize}
-        ];
+        tablasCtrl.dataRequest = {
+                numero : '', codigo : '', nombre : '', dato1 : '', dato2 : '', dato3 : '', dato4 : '', dato5 : '', dato6 : '', dato7 : '', dato8 : '',
+                dato9 : '', dato10 : '', dato11 : '', dato12 : '', dato13 : '', dato14 : '', dato15 : '', start : 0, size : tablasCtrl.pageSize
+        };
 
         tablasCtrl.orderByField = 'numero';
         tablasCtrl.reverseSort = false;
@@ -57,33 +39,16 @@ myAdmin.controller("tablasCtrl", ['tablasService','$scope','$modal','dialogs','$
         tablasCtrl.pageChangeHandler = function(newPageNumber){
             tablasCtrl.currentPage = newPageNumber;
             var indexValue = (tablasCtrl.currentPage - 1) * tablasCtrl.pageSize;
-            tablasCtrl.dataRequest[18].start =  indexValue;
+            tablasCtrl.dataRequest.start =  indexValue;
             tablasCtrl.getTablas();
         };
 
         tablasCtrl.resetSearch = function(){
-            tablasCtrl.dataRequest = [
-                {numero : '', like : true},
-                {codigo : '', like : true},
-                {nombre : '', like : true},
-                {dato1 : '', like : true},
-                {dato2 : '', like : true},
-                {dato3 : '', like : true},
-                {dato4 : '', like : true},
-                {dato5 : '', like : true},
-                {dato6 : '', like : true},
-                {dato7 : '', like : true},
-                {dato8 : '', like : true},
-                {dato9 : '', like : true},
-                {dato10 : '', like : true},
-                {dato11 : '', like : true},
-                {dato12 : '', like : true},
-                {dato13 : '', like : true},
-                {dato14 : '', like : true},
-                {dato15 : '', like : true},
-                {start : 0},
-                {size : tablasCtrl.pageSize}
-            ];
+            tablasCtrl.dataRequest = {
+                numero : '', codigo : '', nombre : '', dato1 : '', dato2 : '', dato3 : '', dato4 : '', dato5 : '', dato6 : '', dato7 : '', dato8 : '',
+                dato9 : '', dato10 : '', dato11 : '', dato12 : '', dato13 : '', dato14 : '', dato15 : '', start : 0, size : tablasCtrl.pageSize
+            };
+
             tablasCtrl.advanceSearch = false;
             tablasCtrl.getTablas();
         };
@@ -96,9 +61,9 @@ myAdmin.controller("tablasCtrl", ['tablasService','$scope','$modal','dialogs','$
             dlg.result.then(function(result){
                 tablasCtrl.currentPage = 1;
                 var indexValue = (tablasCtrl.currentPage - 1) * tablasCtrl.pageSize;
-                tablasCtrl.dataRequest[0].numero = result.numero;
-                tablasCtrl.dataRequest[1].codigo = result.codigo;
-                tablasCtrl.dataRequest[2].nombre = result.nombre;
+                tablasCtrl.dataRequest.numero = result.numero;
+                tablasCtrl.dataRequest.codigo = result.codigo;
+                tablasCtrl.dataRequest.nombre = result.nombre;
                 tablasCtrl.dataRequest.start = indexValue;
 
                 if(tablasCtrl.dataRequest.numero != "" || tablasCtrl.dataRequest.codigo != "" || tablasCtrl.dataRequest.nombre != ""){
@@ -209,10 +174,7 @@ myAdmin.controller("tablaDialogCtrl", function(tablasService,$scope,$modalInstan
 
     if($scope.action !== -1){
         angular.element('#div-loading').show();
-        dataReq1[0].numero = $scope.action;
-        dataReq1[18].start = '';
-        dataReq1[19].size = '';
-        tablasService.getTablas(dataReq1, $scope.userToken)
+        tablasService.getTabla({numero : $scope.action}, $scope.userToken)
             .then(function(result){
                 angular.element('#div-loading').hide();
                 if(result.status == 'OK'){
@@ -365,9 +327,9 @@ myAdmin.controller("tablaDialogCtrl", function(tablasService,$scope,$modalInstan
 myAdmin.controller("buscarTablaDialogCtrl",function($scope,$modalInstance,data){
     angular.element('#div-loading').hide();
     $scope.searchCriteria = {
-        numero : data.searchCriteria[0].numero,
-        codigo : data.searchCriteria[1].codigo,
-        nombre : data.searchCriteria[2].nombre
+        numero : data.searchCriteria.numero,
+        codigo : data.searchCriteria.codigo,
+        nombre : data.searchCriteria.nombre
     };
 
     $scope.cancel = function(){

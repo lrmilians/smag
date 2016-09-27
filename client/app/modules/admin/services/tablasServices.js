@@ -2,6 +2,7 @@ myAdmin.factory('tablasService', ['$http','$q','PROPERTIES','PROPERTIES_ADMIN', 
 
     var tablasService = {
         getTablas : getTablas,
+        getTabla : getTabla,
         setTablas : setTablas,
         delTabla : delTabla
     };
@@ -11,6 +12,21 @@ myAdmin.factory('tablasService', ['$http','$q','PROPERTIES','PROPERTIES_ADMIN', 
         var wsGetTablas =  PROPERTIES.serverConn.server + "/" + PROPERTIES_ADMIN.services.uriWebServiceGetTablas + '/token/' + token;
 
         $http.post(wsGetTablas, dataRequest)
+            .success(function(data, status, headers, config) {
+                deferred.resolve(data);
+            })
+            .error(function (data, status, headers, config)	{
+                deferred.reject(data);
+            });
+
+        return deferred.promise;
+    }
+
+    function getTabla(dataRequest, token){
+        var deferred = $q.defer();
+        var wsGetTabla =  PROPERTIES.serverConn.server + "/" + PROPERTIES_ADMIN.services.uriWebServiceGetTabla + '/token/' + token;
+
+        $http.post(wsGetTabla, dataRequest)
             .success(function(data, status, headers, config) {
                 deferred.resolve(data);
             })

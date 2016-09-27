@@ -52,6 +52,7 @@ myAdmin.constant('PROPERTIES_ADMIN', {
         "uriWebServiceUser" : "auth/user/user",
 
         "uriWebServiceGetTablas" : "admin/tablas/tabla",
+        "uriWebServiceGetTabla" : "admin/tablas/gettabla",
         "uriWebServiceSetTablas" : "admin/tablas/settabla",
         "uriWebServiceDelTabla" : "admin/tablas/deltabla",
     },

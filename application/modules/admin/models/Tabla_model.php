@@ -8,28 +8,16 @@ class Tabla_model extends CI_Model {
     }
 
     public function get_tablas($data) {
-        //$this->db->limit($data['inicio'], $data['fin']);
         $this->db->from('config_tablas');
-        if(!empty($data[0]['numero'])){
-            if($data[0]['like']){
-                $this->db->like('numero', $data[0]['numero']);
-            } else {
-                $this->db->where('numero', $data[0]['numero']);
-            }
+        if(!empty($data['numero'])){
+            $this->db->where('numero', $data['numero']);
         }
-        if(!empty($data[1]['codigo'])){
-            if($data[1]['like']){
-                $this->db->like('codigo', $data[1]['codigo']);
-            } else {
-                $this->db->where('codigo', $data[1]['codigo']);
-            }
+        if(!empty($data['codigo'])){
+            $this->db->where('codigo', $data['codigo']);
+
         }
-        if(!empty($data[2]['nombre'])){
-            if($data[2]['like']){
-                $this->db->where("lower(nombre) like concat('%',lower('".$data[2]['nombre']."'),'%')");
-            } else {
-                $this->db->where("lower(nombre) = lower('".$data[2]['nombre']."')");
-            }
+        if(!empty($data['nombre'])){
+            $this->db->where("lower(nombre) like concat('%',lower('".$data['nombre']."'),'%')");
         }
         $this->db->order_by('numero');
         $this->db->order_by('codigo');
@@ -37,10 +25,23 @@ class Tabla_model extends CI_Model {
         $tempdb = clone $this->db;
         $result['total_records'] = $tempdb->count_all_results();
 
-        if(!empty($data[18]['start']) && !empty($data[19]['size'])){
-            $this->db->limit($data[18]['start'],$data[19]['size']);
+        if(!empty($data['start']) && !empty($data['size'])){
+            $this->db->limit($data['start'],$data['size']);
 
         }
+
+        $result['data'] = $this->db->get()->result_array();
+        return $result;
+    }
+
+    public function get_tabla($data) {
+        $this->db->from('config_tablas');
+        if(!empty($data['numero'])){
+            $this->db->where('numero', $data['numero']);
+        }
+
+        $this->db->order_by('numero');
+        $this->db->order_by('codigo');
 
         $result['data'] = $this->db->get()->result_array();
         return $result;
