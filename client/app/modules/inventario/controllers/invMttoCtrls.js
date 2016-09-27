@@ -176,11 +176,7 @@ myInventario.controller("invMttoCtrl", ['PROPERTIES','invMttoService','$scope','
                         });
                         $scope.$parent.logout(true);
                     } else {
-                        if(data.status == null){
-                            dialogs.error('Error', "null");
-                        } else {
-                            dialogs.error('Error', data.message);
-                        }
+                        dialogs.error('Error', data.message);
                     }
                 });
         };
@@ -192,6 +188,13 @@ myInventario.controller("invMttoCtrl", ['PROPERTIES','invMttoService','$scope','
             dlg.result.then(function(result){
                 if(result.status == "OK"){
                     invMttoCtrl.initCtrl();
+                } else {
+                    if(result.status == 'OFF'){
+                        $translate('msgSessionExpired').then(function (msg) {
+                            dialogs.error('Error', msg);
+                        });
+                        $scope.$parent.logout(true);
+                    }
                 }
             },function(){
                 if(angular.equals($scope.name,''))
@@ -205,14 +208,20 @@ myInventario.controller("invMttoCtrl", ['PROPERTIES','invMttoService','$scope','
             },{size : 'md'});
             dlg.result.then(function(result){
                 if(result.status == "OK"){
-                    invMttoCtrl.resetSearch();
+                    invMttoCtrl.initCtrl();
+                } else {
+                    if(result.status == 'OFF'){
+                        $translate('msgSessionExpired').then(function (msg) {
+                            dialogs.error('Error', msg);
+                        });
+                        $scope.$parent.logout(true);
+                    }
                 }
             },function(){
                 if(angular.equals($scope.name,''))
                     $scope.name = 'You did not enter in your name!';
             });
         };
-
 
 }]);
 
@@ -350,23 +359,14 @@ myInventario.controller("productoDialogCtrl", function(invMttoService,$scope,$mo
                     }).catch(function(data){
                         angular.element('#div-loading').hide();
                         if(data.status == "OFF"){
-                            $translate('msgSessionExpired').then(function (msg) {
-                                dialogs.error('Error', msg);
-                            });
-                            $scope.$parent.logout(true);
+                            $modalInstance.close(data);
                         } else {
-                            if(data.status == null){
-                                dialogs.error('Error', "null");
-                            } else {
-                                dialogs.error('Error', data.message);
-                            }
+                            dialogs.error('Error', data.message);
                         }
                     });
             } else {
                 $scope.setProducto();
             }
-
-
         }
     };
 
@@ -418,16 +418,9 @@ myInventario.controller("productoDialogCtrl", function(invMttoService,$scope,$mo
                     }).catch(function(data){
                         angular.element('#div-loading').hide();
                         if(data.status == "OFF"){
-                            $translate('msgSessionExpired').then(function (msg) {
-                                dialogs.error('Error', msg);
-                            });
-                            $scope.$parent.logout(true);
+                            $modalInstance.close(data);
                         } else {
-                            if(data.status == null){
-                                dialogs.error('Error', "null");
-                            } else {
-                                dialogs.error('Error', data.message);
-                            }
+                            dialogs.error('Error', data.message);
                         }
                     });
             } else {
