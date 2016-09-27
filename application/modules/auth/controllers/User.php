@@ -37,7 +37,8 @@ class User extends REST_Controller {
 		$token = $this->get('token');
 		$session = $this->_checksession($token);
 		if($session == -1){
-			$this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
+			//$this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
+			$this->response($this->data_error_response('01', 'Sesion caducada.'), 500);
 		} else {
 			if($session == 0){
 				$data = array('select' => array('users.id','username', 'email', 'first_name', 'last_name', 'last_login', 'active', 'company','description', 'login', 'rol_id', 'identification'));
@@ -72,7 +73,8 @@ class User extends REST_Controller {
 		$token = $this->get('token');
 		$session = $this->_checksession($token);
 		if($session == -1){
-			$this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
+			//$this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
+			$this->response($this->data_error_response('01', 'Sesion caducada.'), 500);
 		} else {
 			if($session == 0){
 				$data = array(
@@ -105,7 +107,8 @@ class User extends REST_Controller {
 		$token = $this->get('token');
 		$session = $this->_checksession($token);
 		if($session == -1){
-			$this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
+			//$this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
+			$this->response($this->data_error_response('01', 'Sesion caducada.'), 500);
 		} else {
 			if($session == 0){
 				$identity = array(
@@ -136,7 +139,8 @@ class User extends REST_Controller {
 		$token = $this->get('token');
 		$session = $this->_checksession($token);
 		if($session == -1){
-			$this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
+			//$this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
+			$this->response($this->data_error_response('01', 'Sesion caducada.'), 500);
 		} else {
 			if($session == 0){
 				if($this->post('action') == -1){
