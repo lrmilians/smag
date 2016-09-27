@@ -71,8 +71,8 @@ myAdmin.constant('PROPERTIES_ADMIN', {
              /*   {href : '#/status-application', clic : '', title : 'menuStatusApp', activetab : 'status-application'},
                 {href : '#/notifications', clic : '', title : 'menuNotifications', activetab : 'notifications'},
                 {href : '#/bases-application', clic : '', title : 'menuHelp', activetab : 'help'},*/
-             /*   {href : '#/user-profile', clic : '', title : 'Perfil usuario', activetab : 'user-profile'},
-                {href : '#/keys', clic : '', title : 'Llaves', activetab : 'key'},
+                {href : '#/user-profile', clic : '', title : 'Perfil usuario', activetab : 'user-profile'},
+              /*  {href : '#/keys', clic : '', title : 'Llaves', activetab : 'key'},
                 {href : '#/bills', clic : '', title : 'Facturas', activetab : 'bill'},
                 {href : '#/contabilidad', clic : '', title : 'Contabilidad', activetab : 'contabilidad', glyphicon : 'glyphicon-dashboard',
                     submenu : [
