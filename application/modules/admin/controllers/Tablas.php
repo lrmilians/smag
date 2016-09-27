@@ -32,7 +32,8 @@ class Tablas extends REST_Controller {
         $token = $this->get('token');
         $session = $this->_checksession($token);
         if($session == -1){
-            $this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
+            //$this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
+            $this->response($this->data_error_response('01', 'Sesion caducada.'), 500);
         } else {
             if ($session == 0) {
                 $data = $this->post();
@@ -55,7 +56,8 @@ class Tablas extends REST_Controller {
         $token = $this->get('token');
         $session = $this->_checksession($token);
         if($session == -1){
-            $this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
+            //$this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
+            $this->response($this->data_error_response('01', 'Sesion caducada.'), 500);
         } else {
             if ($session == 0) {
                 $data = $this->post();
@@ -78,7 +80,8 @@ class Tablas extends REST_Controller {
         $token = $this->get('token');
         $session = $this->_checksession($token);
         if($session == -1){
-            $this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
+            //$this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
+            $this->response($this->data_error_response('01', 'Sesion caducada.'), 500);
         } else {
             if ($session == 0) {
                 $del = true;
@@ -147,7 +150,8 @@ class Tablas extends REST_Controller {
         $token = $this->get('token');
         $session = $this->_checksession($token);
         if($session == -1){
-            $this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
+            //$this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
+            $this->response($this->data_error_response('01', 'Sesion caducada.'), 500);
         } else {
             if ($session == 0) {
                 if($this->tabla_model->del_tabla($this->post('numero'))){
@@ -172,7 +176,8 @@ class Tablas extends REST_Controller {
         $token = $this->get('token');
         $session = $this->_checksession($token);
         if($session == -1){
-            $this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
+            //$this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
+            $this->response($this->data_error_response('01', 'Sesion caducada.'), 500);
         } else {
             if ($session == 0) {
                 $catalogos = $this->tabla_model->get_catalogos($this->post());

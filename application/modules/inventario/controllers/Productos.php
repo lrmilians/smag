@@ -31,7 +31,8 @@ class Productos extends REST_Controller {
         $token = $this->get('token');
         $session = $this->_checksession($token);
         if($session == -1){
-            $this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
+            //$this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
+            $this->response($this->data_error_response('01', 'Sesion caducada.'), 500);
         } else {
             if ($session == 0) {
                 $data = $this->post();
@@ -55,7 +56,8 @@ class Productos extends REST_Controller {
         $token = $this->get('token');
         $session = $this->_checksession($token);
         if($session == -1){
-            $this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
+            //$this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
+            $this->response($this->data_error_response('01', 'Sesion caducada.'), 500);
         } else {
             if ($session == 0) {
                 if($this->post('action') !== '-1'){
