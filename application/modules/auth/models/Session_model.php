@@ -38,13 +38,14 @@ class Session_model extends CI_Model {
         return false;
     }
 
-    public function update($token, $login, $identity) {
+    public function update($token, $login, $identity, $ip_address = '') {
         if($login){
             $date = date('Y-m-d H:i:s');
             $data1 = array (
                 'token' => $token,
                 'login' => $login,
-                'time_session' => strtotime('+ 15 minute', strtotime($date))
+                'time_session' => strtotime('+ 15 minute', strtotime($date)),
+                'ip_address' => $ip_address
             );
             if($this->_update_user($identity, $data1)){
                 return array(
@@ -56,7 +57,8 @@ class Session_model extends CI_Model {
             $data1 = array (
                 'token' => '',
                 'login' => $login,
-                'time_session' => 0
+                'time_session' => 0,
+                'ip_address' => ''
             );
             if($this->_update_user($identity, $data1)){
                 return true;
@@ -90,7 +92,8 @@ class Session_model extends CI_Model {
                 $data1 = array (
                     'token' => '',
                     'login' => false,
-                    'time_session' => 0
+                    'time_session' => 0,
+                    'ip_address' => ''
                 );
                 if($this->_update_user($data, $data1)){
                     return 1;

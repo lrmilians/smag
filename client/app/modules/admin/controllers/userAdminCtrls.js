@@ -18,66 +18,71 @@ myAdmin.controller("userLoginCtrl", ['PROPERTIES_ADMIN','userAdminService','$sco
 
     userLoginCtrl.login = function(){
       if ($scope.loginForm.$valid){
-          var dataRequest = {
-              username : userLoginCtrl.userId,
-              pwd : userLoginCtrl.userPassword,
-              remember : userLoginCtrl.remember
-          };
-          angular.element('#div-loading').show();
-          userAdminService.getUserLogin(dataRequest)
-            .then(function(result){
-                  angular.element('#div-loading').hide();
-                  switch (result.code) {
-                      case '0501': //Login exitoso.
-                          var user = {
-                              active : result.data.active ? true : false,
-                              token : result.data.token,
-                              username : result.data.username,
-                              userId : result.data.user_id,
-                              identification : result.data.identification,
-                              email : result.data.email,
-                              firstName : result.data.first_name,
-                              lastName : result.data.last_name,
-                              rolName : result.data.rol_name,
-                              rolCode : result.data.rol_code,
-                              isConnected : true,
-                              urlStart : 'dashboard'};
-                          $scope.connectedUser = user;
-                          $cookieStore.put('user', user);
-                          $cookieStore.put('login', true);
-                          switch (user.rolCode){
-                              case 'AD01':
-                                  userLoginCtrl.mainMenu = PROPERTIES_ADMIN.mainMenu[1].data;
-                                  break;
-                              case 'CL01':
-                                  userLoginCtrl.mainMenu = PROPERTIES_ADMIN.mainMenu[2].data;
-                                  break;
-                          }
-                          $cookieStore.put('mainMenu', userLoginCtrl.mainMenu);
-                          $scope.$parent.initCtrl();
-                          $location.path('/dashboard');
-                         // dialogs.notify(undefined, result.message);
-                          break;
-                      case '0502': //Contraseña incorrecta.
-                          dialogs.error(undefined, result.message);
-                          break;
-                      case '0503': //Cuenta inactiva.
-                          dialogs.error(undefined, result.message);
-                          break;
-                      case '0504': //Cuenta bloqueda.
-                          dialogs.error(undefined, result.message);
-                          break;
-                      case '0305': //Contraseña incorrecta.
-                      case '0505': //Contraseña incorrecta.
-                          //dialogs.error(undefined, result.message);
-                          dialogs.error(undefined, 'Contraseña incorrecta');
-                          break;
-                  }
-            }).catch(function(data){
-                  angular.element('#div-loading').hide();
-                  dialogs.error('Error', data.message);
 
-            });
+          $.getJSON('//freegeoip.net/json/?callback=?', function(data) {
+              var dataRequest = {
+                  username : userLoginCtrl.userId,
+                  pwd : userLoginCtrl.userPassword,
+                  remember : userLoginCtrl.remember,
+                  ipaddress : data.ip
+              };
+              angular.element('#div-loading').show();
+              userAdminService.getUserLogin(dataRequest)
+                  .then(function(result){
+                      angular.element('#div-loading').hide();
+                      switch (result.code) {
+                          case '0501': //Login exitoso.
+                              var user = {
+                                  active : result.data.active ? true : false,
+                                  token : result.data.token,
+                                  username : result.data.username,
+                                  userId : result.data.user_id,
+                                  identification : result.data.identification,
+                                  email : result.data.email,
+                                  firstName : result.data.first_name,
+                                  lastName : result.data.last_name,
+                                  rolName : result.data.rol_name,
+                                  rolCode : result.data.rol_code,
+                                  isConnected : true,
+                                  urlStart : 'dashboard'};
+                              $scope.connectedUser = user;
+                              $cookieStore.put('user', user);
+                              $cookieStore.put('login', true);
+                              switch (user.rolCode){
+                                  case 'AD01':
+                                      userLoginCtrl.mainMenu = PROPERTIES_ADMIN.mainMenu[1].data;
+                                      break;
+                                  case 'CL01':
+                                      userLoginCtrl.mainMenu = PROPERTIES_ADMIN.mainMenu[2].data;
+                                      break;
+                              }
+                              $cookieStore.put('mainMenu', userLoginCtrl.mainMenu);
+                              $scope.$parent.initCtrl();
+                              $location.path('/dashboard');
+                              // dialogs.notify(undefined, result.message);
+                              break;
+                          case '0502': //Contraseña incorrecta.
+                              dialogs.error(undefined, result.message);
+                              break;
+                          case '0503': //Cuenta inactiva.
+                              dialogs.error(undefined, result.message);
+                              break;
+                          case '0504': //Cuenta bloqueda.
+                              dialogs.error(undefined, result.message);
+                              break;
+                          case '0305': //Contraseña incorrecta.
+                          case '0505': //Contraseña incorrecta.
+                              //dialogs.error(undefined, result.message);
+                              dialogs.error(undefined, 'Contraseña incorrecta');
+                              break;
+                      }
+                  }).catch(function(data){
+                      angular.element('#div-loading').hide();
+                      dialogs.error('Error', data.message);
+
+                  });
+          });
+
       }
     }
 
