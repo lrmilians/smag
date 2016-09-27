@@ -98,8 +98,6 @@ myAdmin.controller("tablasCtrl", ['tablasService','$scope','$modal','dialogs','$
                                 }
                             }
                         }
-                        //console.log(tablasCtrl.tablas);
-                      //  tablasCtrl.tablas = result.data;
                         tablasCtrl.totalRecords = result.total_records;
                     }
                 }).catch(function(data){
@@ -110,11 +108,7 @@ myAdmin.controller("tablasCtrl", ['tablasService','$scope','$modal','dialogs','$
                         });
                         $scope.$parent.logout(true);
                     } else {
-                        if(data.status == null){
-                            dialogs.error('Error', "null");
-                        } else {
-                            dialogs.error('Error', data.message);
-                        }
+                        dialogs.error('Error', data.message);
                     }
                 });
         };
@@ -126,6 +120,13 @@ myAdmin.controller("tablasCtrl", ['tablasService','$scope','$modal','dialogs','$
             dlg.result.then(function(result){
                 if(result.status == "OK"){
                     tablasCtrl.initCtrl();
+                } else {
+                    if(result.status == 'OFF'){
+                        $translate('msgSessionExpired').then(function (msg) {
+                            dialogs.error('Error', msg);
+                        });
+                        $scope.$parent.logout(true);
+                    }
                 }
             },function(){
                 if(angular.equals($scope.name,''))
@@ -135,11 +136,18 @@ myAdmin.controller("tablasCtrl", ['tablasService','$scope','$modal','dialogs','$
 
         tablasCtrl.editTabla = function(numero){
             var dlg = dialogs.create('client/app/modules/admin/views/dialog-form/form-tabla.html','tablaDialogCtrl',{
-                userToken : tablasCtrl.user.token, action : numero, dataReq : tablasCtrl.dataRequest, user: tablasCtrl.user
+                userToken : tablasCtrl.user.token, action : numero, user: tablasCtrl.user
             },{size : 'lg'});
             dlg.result.then(function(result){
                 if(result.status == "OK"){
-                    tablasCtrl.resetSearch();
+                    tablasCtrl.initCtrl();
+                } else {
+                    if(result.status == 'OFF'){
+                        $translate('msgSessionExpired').then(function (msg) {
+                            dialogs.error('Error', msg);
+                        });
+                        $scope.$parent.logout(true);
+                    }
                 }
             },function(){
                 if(angular.equals($scope.name,''))
@@ -164,11 +172,7 @@ myAdmin.controller("tablasCtrl", ['tablasService','$scope','$modal','dialogs','$
                             });
                             $scope.$parent.logout(true);
                         } else {
-                            if(data.status == null){
-                                dialogs.error('Error', "null");
-                            } else {
-                                dialogs.error('Error', data.message);
-                            }
+                            dialogs.error('Error', data.message);
                         }
                     });
             },function(btn){
@@ -192,8 +196,6 @@ myAdmin.controller("tablasCtrl", ['tablasService','$scope','$modal','dialogs','$
         };
 
         $scope.selectTableRow = function (index, storeId) {
-            console.log(index);
-            console.log(storeId);
             if (typeof $scope.dayDataCollapse === 'undefined') {
                 $scope.dayDataCollapseFn();
             }
@@ -220,7 +222,6 @@ myAdmin.controller("tablasCtrl", ['tablasService','$scope','$modal','dialogs','$
             }
         };
 
-
 }]);
 
 myAdmin.controller("tablaDialogCtrl", function(tablasService,$scope,$modalInstance,data,$translate,dialogs){
@@ -228,7 +229,6 @@ myAdmin.controller("tablaDialogCtrl", function(tablasService,$scope,$modalInstan
     $scope.userToken = data.userToken;
     $scope.action = data.action;
     $scope.user = data.user;
-    var dataReq1 = data.dataReq;
 
     $scope.glyphicon = "glyphicon-lock";
     $scope.tablas = [];
@@ -255,16 +255,9 @@ myAdmin.controller("tablaDialogCtrl", function(tablasService,$scope,$modalInstan
             }).catch(function(data){
                 angular.element('#div-loading').hide();
                 if(data.status == "OFF"){
-                    $translate('msgSessionExpired').then(function (msg) {
-                        dialogs.error('Error', msg);
-                    });
-                    $scope.$parent.logout(true);
+                    $modalInstance.close(data);
                 } else {
-                    if(data.status == null){
-                        dialogs.error('Error', "null");
-                    } else {
-                        dialogs.error('Error', data.message);
-                    }
+                    dialogs.error('Error', data.message);
                 }
             });
     }
@@ -368,16 +361,9 @@ myAdmin.controller("tablaDialogCtrl", function(tablasService,$scope,$modalInstan
                 }).catch(function(data){
                     angular.element('#div-loading').hide();
                     if(data.status == "OFF"){
-                        $translate('msgSessionExpired').then(function (msg) {
-                            dialogs.error('Error', msg);
-                        });
-                        $scope.$parent.logout(true);
+                        $modalInstance.close(data);
                     } else {
-                        if(data.status == null){
-                            dialogs.error('Error', "null");
-                        } else {
-                            dialogs.error('Error', data.message);
-                        }
+                        dialogs.error('Error', data.message);
                     }
                 });
         }

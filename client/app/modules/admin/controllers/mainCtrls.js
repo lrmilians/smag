@@ -37,7 +37,7 @@ myAdmin.controller("mainCtrl", ['PROPERTIES','PROPERTIES_ADMIN','userAdminServic
             $cookieStore.remove('user');
         }
         $cookieStore.put('login', false);
-    }
+    };
 
     if ($cookieStore.get('user') != undefined) {
         $scope.connectedUser = $cookieStore.get('user');
@@ -59,7 +59,7 @@ myAdmin.controller("mainCtrl", ['PROPERTIES','PROPERTIES_ADMIN','userAdminServic
             $scope.mainMenu = [];
             $scope.mainMenu = $cookieStore.get('mainMenu');
         }
-    }
+    };
 
     $scope.logout = function(sessionExpired){
         $scope.mainMenu = PROPERTIES_ADMIN.mainMenu[0].data;
@@ -72,7 +72,7 @@ myAdmin.controller("mainCtrl", ['PROPERTIES','PROPERTIES_ADMIN','userAdminServic
                 .then(function(result){
                     angular.element('#div-loading').hide();
                     if(result.code == '0505'){
-                        dialogs.notify(undefined, result.message);
+                        //dialogs.notify(undefined, result.message);
                         $scope.cleanDataUser(true);
                         $location.path('/');
                     }
