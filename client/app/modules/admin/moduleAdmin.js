@@ -84,12 +84,12 @@ myAdmin.constant('PROPERTIES_ADMIN', {
                 },*/
                 {href : '', clic : '', title : 'Configuracion', activetab : 'configuracion', glyphicon : 'glyphicon-cog',
                     submenu : [
-                        {href : '#/config-tablas', title : 'Tablas', glyphicon : 'glyphicon-folder-open'},
+                        {href : '#/config-tablas', title : 'Tablas', glyphicon : 'tablas/tablas01.png'},
                     ]
                 },
                 {href : '#/inventario', clic : '', title : 'Inventario', activetab : 'inventario', glyphicon : 'glyphicon-dashboard',
                     submenu : [
-                        {href : '#/inv-mtto', title : 'Mantenimiento', glyphicon : 'glyphicon-folder-open'},
+                        {href : '#/inv-mtto', title : 'Mantenimiento', glyphicon : 'inventario/inventario02.png'},
                     ]
                 },
             ]

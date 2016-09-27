@@ -52,7 +52,7 @@
             <a ng-if="menu.submenu === undefined" href="{{menu.href}}" style="padding-left: 8px; padding-right: 8px;"><span ng-if="menu.glyphicon !== undefined" class="glyphicon" ng-class="menu.glyphicon" aria-hidden="true"></span>{{menu.title | translate}}</a>
             <ul ng-if="menu.submenu !== undefined" class="dropdown-menu">
               <li ng-repeat="submen in menu.submenu">
-                <a href="{{submen.href}}"><span ng-if="submen.glyphicon !== undefined" class="glyphicon" ng-class="submen.glyphicon" aria-hidden="true"></span>{{submen.title}}</a></li>
+                <a href="{{submen.href}}"><img ng-if="submen.glyphicon !== undefined" src="client/app/images/iconos/{{submen.glyphicon}}" width="20" style="margin: 0 5px 0 0">{{submen.title}}</a></li>
             </ul>
           </li>
           <li ng-if="connectedUser.isConnected">
