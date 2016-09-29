@@ -52,6 +52,14 @@ class Tabla_model extends CI_Model {
         $result = array();
         if(!empty($data)){
             foreach($data as $dat){
+                switch($dat){
+                    case '09':
+                        $this->db->select("numero,codigo,nombre,'('||dato5||') '||substring(nombre from 1 for 60)||'...' as nombrecodigo,dato1,dato2,dato3,dato4,dato5,dato6,dato7,dato8,dato9,dato10,dato11,dato12,dato13,dato14,dato15", true);
+                        break;
+                    default:
+                        $this->db->select("numero,codigo,nombre,'('||dato4||') '||substring(nombre from 1 for 60)||'...' as nombrecodigo,dato1,dato2,dato3,dato4,dato5,dato6,dato7,dato8,dato9,dato10,dato11,dato12,dato13,dato14,dato15", true);
+                        break;
+                }
                 $this->db->where('numero', $dat);
                 $this->db->where('codigo <>', '-');
                 if($dat == '106'){

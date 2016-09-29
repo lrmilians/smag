@@ -41,13 +41,16 @@ myInventario.controller("invMttoCtrl", ['PROPERTIES','invMttoService','$scope','
         invMttoCtrl.reverseSort = false;
 
         if($cookieStore.get('user') == undefined){
+            $scope.$parent.logout(true);
             $location.path("/");
         } else {
             invMttoCtrl.user = $cookieStore.get('user');
         }
 
         invMttoCtrl.initCtrl = function(){
-            invMttoCtrl.getProductos();
+            if(invMttoCtrl.user !== undefined){
+                invMttoCtrl.getProductos();
+            }
         };
 
         invMttoCtrl.pageChangeHandler = function(newPageNumber){
@@ -119,7 +122,7 @@ myInventario.controller("invMttoCtrl", ['PROPERTIES','invMttoService','$scope','
                         };
                         for(var i in result.catalogos){
                             for(var j in invMttoCtrl.dataRequest.catalogos){
-                                if(invMttoCtrl.dataRequest.catalogos[j] ==  result.catalogos[i][0].numero){
+                                if(i == invMttoCtrl.dataRequest.catalogos[j]){
                                     switch(j){
                                         case '0':
                                             invMttoCtrl.catalogos.categoriasProducto = result.catalogos[i];
@@ -151,6 +154,7 @@ myInventario.controller("invMttoCtrl", ['PROPERTIES','invMttoService','$scope','
                                     }
                                 }
                             }
+
                         }
                         for(var i in invMttoCtrl.productos){
                             for(var j in invMttoCtrl.catalogos.estadosProducto){
@@ -164,7 +168,6 @@ myInventario.controller("invMttoCtrl", ['PROPERTIES','invMttoService','$scope','
                                 }
                             }
                         }
-
                     } else {
                         dialogs.error('Error', result.message);
                     }

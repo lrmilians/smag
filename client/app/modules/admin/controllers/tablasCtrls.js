@@ -27,13 +27,16 @@ myAdmin.controller("tablasCtrl", ['tablasService','$scope','$modal','dialogs','$
         tablasCtrl.reverseSort = false;
 
         if($cookieStore.get('user') == undefined){
+            $scope.$parent.logout(true);
             $location.path("/");
         } else {
             tablasCtrl.user = $cookieStore.get('user');
         }
 
         tablasCtrl.initCtrl = function(){
-            tablasCtrl.getTablas();
+            if(tablasCtrl.user !== undefined){
+                tablasCtrl.getTablas();
+            }
         };
 
         tablasCtrl.pageChangeHandler = function(newPageNumber){
