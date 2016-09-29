@@ -8,8 +8,8 @@
  * Controller of the esignatureApp
  */
 
-myInventario.controller("invMttoCtrl", ['PROPERTIES','invMttoService','$scope','$modal','dialogs','$location','$log','$cookieStore',
-    function(PROPERTIES,invMttoService,$scope,$modal,dialogs,$location,$log,$cookieStore) {
+myInventario.controller("invMttoCtrl", ['PROPERTIES','invMttoService','$scope','$modal','dialogs','$location','$log','$cookieStore','$translate',
+    function(PROPERTIES,invMttoService,$scope,$modal,dialogs,$location,$log,$cookieStore,$translate) {
 
         var invMttoCtrl = this;
 
