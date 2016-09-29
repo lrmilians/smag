@@ -90,7 +90,7 @@ class Productos extends REST_Controller {
                         'factor_hora_hombre' => $producto['factor_hora_hombre'],
                         'altura' => $producto['altura'],
                         'longitud' => $producto['longitud'],
-                        'profundidad' => $producto['profundidad'],
+                        'profundidad' => $producto['profundidad']
                     );
                     $data = $this->util_model->set_valor_null($data);
                     if($this->producto_model->update_producto($data, $this->post('action'))){
