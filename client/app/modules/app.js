@@ -33,11 +33,11 @@ angular
             tiposProducto : '101',
             marcasProducto : '102',
             modelosProducto : '103',
-            unidadesMedida : '106',
-            ivas : '106',
+            unidadesMedida : '104',
+            ivas : '08',
             estadosProducto : '107',
-            icesCompra : '108',
-            icesVenta : '109',
+            icesCompra : '09',
+            icesVenta : '09',
         }
     })
 
