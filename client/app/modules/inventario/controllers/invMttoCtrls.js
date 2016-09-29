@@ -374,8 +374,8 @@ myInventario.controller("productoDialogCtrl", function(invMttoService,$scope,$mo
     };
 
     $scope.setProducto = function(){
-        if($scope.producto.stock_minimo <= $scope.producto.stock_maximo){
-            if($scope.producto.stock_actual >= $scope.producto.stock_minimo && $scope.producto.stock_actual <= $scope.producto.stock_maximo){
+        if(parseFloat($scope.producto.stock_minimo) <= parseFloat($scope.producto.stock_maximo)){
+            if(parseFloat($scope.producto.stock_actual) >= parseFloat($scope.producto.stock_minimo) && parseFloat($scope.producto.stock_actual) <= parseFloat($scope.producto.stock_maximo)){
                 if(Object.keys($scope.categoriaProductoSelected).length !== 0){
                     $scope.producto.categoria = $scope.categoriaProductoSelected.codigo;
                 }
