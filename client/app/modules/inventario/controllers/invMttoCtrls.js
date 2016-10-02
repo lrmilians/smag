@@ -228,13 +228,26 @@ myInventario.controller("invMttoCtrl", ['PROPERTIES','invMttoService','$scope','
 
 }]);
 
-myInventario.controller("productoDialogCtrl", function(invMttoService,$scope,$modalInstance,data,$translate,dialogs){
+myInventario.controller("productoDialogCtrl", function(PROPERTIES,invMttoService,$scope,$modalInstance,data,$translate,dialogs){
     $scope.catalogos = data.catalogos;
     $scope.action = data.action;
     $scope.user = data.user;
 
     $scope.glyphicon = "glyphicon-lock";
     $scope.tablas = [];
+
+    $scope.patternCodigo = PROPERTIES.expresionesRegulares.codigoProducto;
+    $scope.patternCodigoBarras = PROPERTIES.expresionesRegulares.codigoBarrasProducto;
+    $scope.patternNombre = PROPERTIES.expresionesRegulares.nombreProducto;
+    $scope.patternPrecioVenta = PROPERTIES.expresionesRegulares.decimal186;
+    $scope.patternReferencia = PROPERTIES.expresionesRegulares.referenciaProducto;
+    $scope.patternDescripcion = PROPERTIES.expresionesRegulares.descripcionProducto;
+    $scope.patternStockActual = $scope.patternStockMinimo = $scope.patternStockMaximo = PROPERTIES.expresionesRegulares.decimal126;
+    $scope.patternUbicacion = PROPERTIES.expresionesRegulares.texto;
+    $scope.patternCostoUltimaCompra = $scope.patternCostoPrimeraCompra = PROPERTIES.expresionesRegulares.decimal186;
+    $scope.patternAltura = $scope.patternLongitud = $scope.patternProfundidad = PROPERTIES.expresionesRegulares.decimal102;
+    $scope.patternPeso = PROPERTIES.expresionesRegulares.decimal166;
+    $scope.patternFactorHoraHombre = PROPERTIES.expresionesRegulares.decimal62;
 
     if($scope.action !== -1){
         $scope.color = '#F6CF99';

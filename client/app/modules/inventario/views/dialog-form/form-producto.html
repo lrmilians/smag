@@ -19,10 +19,11 @@
                                 <input type="text" class="form-control"
                                        name="nombre" id="nombre"
                                        placeholder="" required="required"
-                                       ng-model="producto.nombre" ng-pattern="">
+                                       ng-model="producto.nombre" ng-pattern="patternNombre">
                             </div>
                         </div>
                         <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.nombre.$touched" style="margin: -15px 0 10px 0">
+                            <span ng-show="productoForm.nombre.$error.pattern">Valor incorrecto</span>
                             <span ng-show="productoForm.nombre.$error.required">Campo obligatorio</span>
                         </span>
                     </div>
@@ -33,10 +34,11 @@
                                 <input type="text" class="form-control"
                                        name="codigo" id="codigo"
                                        placeholder="" required="required"
-                                       ng-model="producto.codigo" ng-pattern="">
+                                       ng-model="producto.codigo" ng-pattern="patternCodigo">
                             </div>
                         </div>
                         <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.codigo.$touched" style="margin: -15px 0 10px 0">
+                            <span ng-show="productoForm.codigo.$error.pattern">Valor incorrecto</span>
                             <span ng-show="productoForm.codigo.$error.required">Campo obligatorio</span>
                         </span>
                     </div>
@@ -47,10 +49,11 @@
                                 <input type="text" class="form-control"
                                        name="codigoBarras" id="codigoBarras"
                                        placeholder="" required="required"
-                                       ng-model="producto.codigo_barras" ng-pattern="">
+                                       ng-model="producto.codigo_barras" ng-pattern="patternCodigoBarras">
                             </div>
                         </div>
                         <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.codigoBarras.$touched" style="margin: -15px 0 10px 0">
+                            <span ng-show="productoForm.codigoBarras.$error.pattern">Valor incorrecto</span>
                             <span ng-show="productoForm.codigoBarras.$error.required">Campo obligatorio</span>
                         </span>
                     </div>
@@ -122,10 +125,11 @@
                                 <input type="text" class="form-control"
                                        name="precioVenta" id="precioVenta"
                                        placeholder="" required="required"
-                                       ng-model="producto.precio_venta" ng-pattern="">
+                                       ng-model="producto.precio_venta" ng-pattern="patternPrecioVenta">
                             </div>
                         </div>
-                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.precioVenta.$touched" style="margin: -15px 0 10px 0">
+                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.precioVenta.$touched" style="margin: -8px 0 10px 0">
+                            <span ng-show="productoForm.precioVenta.$error.pattern">Valor incorrecto</span>
                             <span ng-show="productoForm.precioVenta.$error.required">Campo obligatorio</span>
                         </span>
                     </div>
@@ -204,9 +208,12 @@
                                 <input type="text" class="form-control"
                                        name="referencia" id="referencia"
                                        placeholder=""
-                                       ng-model="producto.referencia" ng-pattern="">
+                                       ng-model="producto.referencia" ng-pattern="patternReferencia">
                             </div>
                         </div>
+                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.referencia.$touched" style="margin: -10px 0 10px 0">
+                            <span ng-show="productoForm.referencia.$error.pattern">Valor incorrecto</span>
+                        </span>
                     </div>
                     <div class="form-group input-group-xs">
                         <label class="control-label col-xs-4" for="descripcion">Descripci&oacute;n Alterna</label>
@@ -218,6 +225,9 @@
                                   ng-model="producto.descripcion" ng-pattern="patternDescripcion"></textarea>
                             </div>
                         </div>
+                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.descripcion.$touched" style="margin: -10px 0 10px 0">
+                            <span ng-show="productoForm.descripcion.$error.pattern">Valor incorrecto</span>
+                        </span>
                     </div>
                     <div class="form-group input-group-xs">
                         <label class="control-label col-xs-7" for="stockActual">Stock Actual *</label>
@@ -226,11 +236,12 @@
                                 <input type="text" class="form-control"
                                        name="stockActual" id="stockActual"
                                        placeholder="" required="required"
-                                       ng-model="producto.stock_actual" ng-pattern="">
+                                       ng-model="producto.stock_actual" ng-pattern="patternStockActual">
                             </div>
                         </div>
-                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.stockActual.$touched" style="margin: -15px 0 10px 0">
+                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.stockActual.$touched" style="margin: -10px 0 10px 0">
                             <span ng-show="productoForm.stockActual.$error.required">Campo obligatorio</span>
+                            <span ng-show="productoForm.stockActual.$error.pattern">Valor incorrecto</span>
                         </span>
                     </div>
                     <div class="form-group input-group-xs">
@@ -240,11 +251,12 @@
                                 <input type="text" class="form-control"
                                        name="stockMinimo" id="stockMinimo"
                                        placeholder="" required="required"
-                                       ng-model="producto.stock_minimo" ng-pattern="">
+                                       ng-model="producto.stock_minimo" ng-pattern="patternStockMinimo">
                             </div>
                         </div>
-                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.stockMinimo.$touched" style="margin: -15px 0 10px 0">
+                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.stockMinimo.$touched" style="margin: -10px 0 10px 0">
                             <span ng-show="productoForm.stockMinimo.$error.required">Campo obligatorio</span>
+                            <span ng-show="productoForm.stockMinimo.$error.pattern">Valor incorrecto</span>
                         </span>
                     </div>
                     <div class="form-group input-group-xs">
@@ -254,23 +266,27 @@
                                 <input type="text" class="form-control"
                                        name="stockMaximo" id="stockMaximo"
                                        placeholder="" required="required"
-                                       ng-model="producto.stock_maximo" ng-pattern="">
+                                       ng-model="producto.stock_maximo" ng-pattern="patternStockMaximo">
                             </div>
                         </div>
-                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.stockMaximo.$touched" style="margin: -15px 0 10px 0">
+                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.stockMaximo.$touched" style="margin: -10px 0 10px 0">
                             <span ng-show="productoForm.stockMaximo.$error.required">Campo obligatorio</span>
+                            <span ng-show="productoForm.stockMaximo.$error.pattern">Valor incorrecto</span>
                         </span>
                     </div>
                     <div class="form-group input-group-xs">
                         <label class="control-label col-xs-4" for="ubicacion">Ubicaci&oacute;n</label>
                         <div class="col-xs-8" style="padding-right: 0px;">
                             <div class="form-group">
-                        <textarea class="form-control" id="ubicacion" rows="2"
-                                  name="ubicacion"
-                                  placeholder=""
-                                  ng-model="producto.ubicacion" ng-pattern="patternUbicacion"></textarea>
+                                <textarea class="form-control" id="ubicacion" rows="2"
+                                      name="ubicacion"
+                                      placeholder=""
+                                      ng-model="producto.ubicacion" ng-pattern="patternUbicacion"></textarea>
                             </div>
                         </div>
+                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.ubicacion.$touched" style="margin: -10px 0 10px 0">
+                            <span ng-show="productoForm.ubicacion.$error.pattern">Valor incorrecto</span>
+                        </span>
                     </div>
                     <div class="form-group input-group-xs">
                         <label class="control-label col-xs-7" for="costoUltimaCompra">Costo &Uacute;ltima Compra *</label>
@@ -280,11 +296,12 @@
                                 <input type="text" class="form-control"
                                        name="costoUltimaCompra" id="costoUltimaCompra"
                                        placeholder="" required="required"
-                                       ng-model="producto.costo_ultima_compra" ng-pattern="">
+                                       ng-model="producto.costo_ultima_compra" ng-pattern="patternCostoUltimaCompra">
                             </div>
                         </div>
                         <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.costoUltimaCompra.$touched" style="margin: -15px 0 10px 0">
                             <span ng-show="productoForm.costoUltimaCompra.$error.required">Campo obligatorio</span>
+                            <span ng-show="productoForm.costoUltimaCompra.$error.pattern">Valor incorrecto</span>
                         </span>
                     </div>
                     <div class="form-group input-group-xs">
@@ -295,11 +312,12 @@
                                 <input type="text" class="form-control"
                                        name="costoPrimeraCompra" id="costoPrimeraCompra"
                                        placeholder="" required="required"
-                                       ng-model="producto.costo_primera_compra" ng-pattern="">
+                                       ng-model="producto.costo_primera_compra" ng-pattern="patternCostoPrimeraCompra">
                             </div>
                         </div>
-                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.costoPrimeraCompra.$touched" style="margin: -15px 0 10px 0">
+                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.costoPrimeraCompra.$touched" style="margin: -10px 0 10px 0">
                             <span ng-show="productoForm.costoPrimeraCompra.$error.required">Campo obligatorio</span>
+                            <span ng-show="productoForm.costoPrimeraCompra.$error.pattern">Valor incorrecto</span>
                         </span>
                     </div>
                 </div>
@@ -317,23 +335,32 @@
                             <div class="form-group">
                                 <input type="text" class="form-control"
                                        name="altura" id="altura"
-                                       placeholder="Altura" ng-model="producto.altura" ng-pattern="">
+                                       placeholder="Altura" ng-model="producto.altura" ng-pattern="patternAltura">
                             </div>
                         </div>
                         <div class="col-xs-3" style="padding-right: 0px;">
                             <div class="form-group">
                                 <input type="text" class="form-control"
                                        name="longitud" id="longitud"
-                                       placeholder="Longitud" ng-model="producto.longitud" ng-pattern="">
+                                       placeholder="Longitud" ng-model="producto.longitud" ng-pattern="patternLongitud">
                             </div>
                         </div>
                         <div class="col-xs-3" style="padding-right: 0px;">
                             <div class="form-group">
                                 <input type="text" class="form-control"
                                        name="profundidad" id="profundidad"
-                                       placeholder="Profundidad" ng-model="producto.profundidad" ng-pattern="">
+                                       placeholder="Profundidad" ng-model="producto.profundidad" ng-pattern="patternProfundidad">
                             </div>
                         </div>
+                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.altura.$touched" style="margin: -10px 0 10px 0">
+                            <span ng-show="productoForm.altura.$error.pattern">Valor de la Altura incorrecto</span>
+                        </span>
+                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.longitud.$touched" style="margin: -10px 0 10px 0">
+                            <span ng-show="productoForm.longitud.$error.pattern">Valor de la Longitud incorrecto</span>
+                        </span>
+                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.profundidad.$touched" style="margin: -10px 0 10px 0">
+                            <span ng-show="productoForm.profundidad.$error.pattern">Valor de la Profundidad incorrecto</span>
+                        </span>
                     </div>
                     <div class="form-group input-group-xs">
                         <label class="control-label col-xs-4" for="iceCompra">ICE de Compra *</label>
@@ -372,9 +399,12 @@
                                 <input type="text" class="form-control"
                                        name="peso" id="peso"
                                        placeholder=""
-                                       ng-model="producto.peso" ng-pattern="">
+                                       ng-model="producto.peso" ng-pattern="patternPeso">
                             </div>
                         </div>
+                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.peso.$touched" style="margin: -10px 0 10px 0">
+                            <span ng-show="productoForm.peso.$error.pattern">Valor incorrecto</span>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -392,11 +422,12 @@
                                 <input type="text" class="form-control"
                                        name="factorHoraHombre" id="factorHoraHombre"
                                        placeholder="" required="required"
-                                       ng-model="producto.factor_hora_hombre" ng-pattern="">
+                                       ng-model="producto.factor_hora_hombre" ng-pattern="patternFactorHoraHombre">
                             </div>
                         </div>
                         <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.factorHoraHombre.$touched" style="margin: -15px 0 10px 0">
                             <span ng-show="productoForm.factorHoraHombre.$error.required">Campo obligatorio</span>
+                            <span ng-show="productoForm.factorHoraHombre.$error.pattern">Valor incorrecto</span>
                         </span>
                     </div>
                 </div>
