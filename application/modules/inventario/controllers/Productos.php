@@ -15,8 +15,8 @@ class Productos extends REST_Controller {
             die();
         }
         parent::__construct();
-        //$this->load->library(array('ion_auth','form_validation'));
         $this->load->helper(array('url','language'));
+        $this->load->config('myconfig', TRUE);
 
         // Configure limits on our controller methods. Ensure
         // you have created the 'limits' table and enabled 'limits'
@@ -31,7 +31,6 @@ class Productos extends REST_Controller {
         $token = $this->get('token');
         $session = $this->_checksession($token);
         if($session == -1){
-            //$this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
             $this->response($this->data_error_response('01', 'Sesion caducada.'), 500);
         } else {
             if ($session == 0) {
@@ -56,8 +55,7 @@ class Productos extends REST_Controller {
         $token = $this->get('token');
         $session = $this->_checksession($token);
         if($session == -1){
-            //$this->response($this->data_error_response('00', 'Error chequeando sesion.'), 500);
-            $this->response($this->data_error_response('01', 'Sesion caducada.'), 500);
+           $this->response($this->data_error_response('01', 'Sesion caducada.'), 500);
         } else {
             if ($session == 0) {
                 if($this->post('action') !== '-1'){
@@ -92,13 +90,22 @@ class Productos extends REST_Controller {
                         'longitud' => $producto['longitud'],
                         'profundidad' => $producto['profundidad']
                     );
-                    $data = $this->util_model->set_valor_null($data);
-                    if($this->producto_model->update_producto($data, $this->post('action'))){
-                        $response['status'] = 'OK';
-                        $response['message'] = 'Datos actualizados correctamente.';
+                    $valida_campos = $this->validar_campos($data);
+                    if($valida_campos === true){
+                        $data = $this->util_model->set_valor_null($data);
+                        if($this->producto_model->update_producto($data, $this->post('action'))){
+                            $response['status'] = 'OK';
+                            $response['message'] = 'Datos actualizados correctamente.';
+                        } else {
+                            $response['status'] = '-1';
+                            $response['message'] = 'Los datos no fueron actualizados.';
+                        }
                     } else {
                         $response['status'] = '-1';
-                        $response['message'] = 'Los datos no fueron actualizados.';
+                        $response['message'] = '<p>Valores de campos no validos.</p>';
+                        foreach($valida_campos as $campo){
+                            $response['message'] .= '<p><strong>Campo: </strong>' . $campo .'<p/>';
+                        }
                     }
                 } else {
                     $fecha_creado = $fecha_modificado = date('Y-m-d H:i:s');
@@ -108,19 +115,26 @@ class Productos extends REST_Controller {
                     $data['user_creado'] = $this->post('userId');
                     $data['user_modificado'] = $this->post('userId');
                     $data = $this->util_model->set_valor_null($data);
-                    if($this->producto_model->add_producto($data)){
-                        $response['status'] = 'OK';
-                        $response['message'] = 'Datos guardados correctamente.';
+                    $valida_campos = $this->validar_campos($data);
+                    if($valida_campos === true){
+                        if($this->producto_model->add_producto($data)){
+                            $response['status'] = 'OK';
+                            $response['message'] = 'Datos guardados correctamente.';
+                        } else {
+                            $response['status'] = '-1';
+                            $response['message'] = 'Los datos no fueron guardados.';
+                        }
                     } else {
                         $response['status'] = '-1';
-                        $response['message'] = 'Los datos no fueron guardados.';
+                        $response['message'] = '<p>Valores de campos no validos.</p>';
+                        foreach($valida_campos as $campo){
+                            $response['message'] .= '<p><strong>Campo: </strong>' . $campo .'<p/>';
+                        }
                     }
                 }
                 $response['data'] = '';
                 $response['total_records'] = '';
-
                 $this->response($response, 200);
-
             } else {
                 $this->response($this->data_error_response('01', 'Sesion caducada.'), 500);
             }
@@ -128,7 +142,68 @@ class Productos extends REST_Controller {
     }
 
 
+    private function validar_campos($data){
+        if(!empty($data)){
+            $expresiones_regulares = $this->config->item('expresiones_regulares', 'myconfig');
+            $result = array();
 
+            if(!preg_match($expresiones_regulares['nombreProducto'], $data['nombre']) && !empty($data['nombre'])){
+                $result[] = 'Nombre';
+            }
+            if(!preg_match($expresiones_regulares['codigoProducto'], $data['codigo']) && !empty($data['codigo'])){
+                $result[] = 'Codigo';
+            }
+            if(!preg_match($expresiones_regulares['codigoBarrasProducto'], $data['codigo_barras']) && !empty($data['codigo_barras'])){
+                $result[] = 'Codigo Barras';
+            }
+            if(!preg_match($expresiones_regulares['referenciaProducto'], $data['referencia']) && !empty($data['referencia'])){
+                $result[] = 'Referencia';
+            }
+            if(!preg_match($expresiones_regulares['descripcionProducto'], $data['descripcion']) && !empty($data['descripcion'])){
+                $result[] = 'Descripcion';
+            }
+            if(!preg_match($expresiones_regulares['decimal186'], $data['precio_venta']) && !empty($data['precio_venta'])){
+                $result[] = 'Precio Venta';
+            }
+            if(!preg_match($expresiones_regulares['decimal126'], $data['stock_actual']) && !empty($data['stock_actual'])){
+                $result[] = 'Stock Actual';
+            }
+            if(!preg_match($expresiones_regulares['decimal126'], $data['stock_minimo']) && !empty($data['stock_minimo'])){
+                $result[] = 'Stock Minimo';
+            }
+            if(!preg_match($expresiones_regulares['decimal126'], $data['stock_maximo']) && !empty($data['stock_maximo'])){
+                $result[] = 'Stock Maximo';
+            }
+            if(!preg_match($expresiones_regulares['texto'], $data['ubicacion']) && !empty($data['ubicacion'])){
+                $result[] = 'Ubicacion';
+            }
+            if(!preg_match($expresiones_regulares['decimal186'], $data['costo_ultima_compra']) && !empty($data['costo_ultima_compra'])){
+                $result[] = 'Costo Ultima Compra';
+            }
+            if(!preg_match($expresiones_regulares['decimal186'], $data['costo_primera_compra']) && !empty($data['costo_primera_compra'])){
+                $result[] = 'Costo Primera Compra';
+            }
+            if(!preg_match($expresiones_regulares['decimal102'], $data['altura']) && !empty($data['altura'])){
+                $result[] = 'Altura';
+            }
+            if(!preg_match($expresiones_regulares['decimal102'], $data['longitud']) && !empty($data['longitud'])){
+                $result[] = 'Longitud';
+            }
+            if(!preg_match($expresiones_regulares['decimal102'], $data['profundidad']) && !empty($data['profundidad'])){
+                $result[] = 'Profundidad';
+            }
+            if(!preg_match($expresiones_regulares['decimal166'], $data['peso']) && !empty($data['peso'])){
+                $result[] = 'Peso';
+            }
+            if(!preg_match($expresiones_regulares['decimal62'], $data['factor_hora_hombre']) && !empty($data['factor_hora_hombre'])){
+                $result[] = 'Factor hora hombre';
+            }
+            if(!empty($result)){
+                return $result;
+            }
+        }
+        return true;
+    }
 
     private function _checksession($token) {
         //result = 0  Session actived

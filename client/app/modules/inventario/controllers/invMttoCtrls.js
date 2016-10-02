@@ -338,7 +338,8 @@ myInventario.controller("productoDialogCtrl", function(PROPERTIES,invMttoService
         $scope.producto = {
             nombre : '', codigo : '', codigo_barras: '', categoria : '', tipo_producto : '', marca : '', modelo : '', unidad_medida : '',
             precio_venta: '', iva : '', estado : '', referencia : '', descripcion : '', stock_actual : '', stock_minimo : '', stock_maximo : '', ubicacion : '',
-            costo_ultima_compra : '', costo_primera_compra : '', ice_compras : '', ice_ventas : '', peso : '', factor_hora_hombre : ''
+            costo_ultima_compra : '', costo_primera_compra : '', ice_compras : '', ice_ventas : '', peso : '', factor_hora_hombre : '', altura : '',
+            longitud : '', profundidad : ''
         };
         $scope.categoriaProductoSelected = {};
         $scope.tipoProductoSelected = {};

@@ -43,7 +43,6 @@ angular
              "codigoProducto" : /^[a-zA-Z0-9\.\_\-\s]{1,100}$/,
              "codigoBarrasProducto" : /^[a-zA-Z0-9\.\_\-\s]{1,100}$/,
              "nombreProducto" : /^[a-zA-Z0-9\.\_\-\s]{1,250}$/,
-
              "referenciaProducto" : /^[a-zA-Z0-9\.\_\-\s]{0,200}$/,
              "descripcionProducto" : /^[a-zA-Z0-9\(\)\#\@\!\<\>\?\-\$\%\_\,\;\.\s]{0,10000}$/,
 
