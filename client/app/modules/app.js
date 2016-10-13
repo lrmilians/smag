@@ -18,7 +18,8 @@ angular
         'esignature',
         'admin',
         'contabilidad',
-        'inventario'
+        'inventario',
+        'clientes'
     ])
 
     .constant('PROPERTIES', {
@@ -38,6 +39,8 @@ angular
             estadosProducto : '107',
             icesCompra : '09',
             icesVenta : '09',
+            tiposIdentificacion : '302',
+            condicionesPago: '306',
         },
          "expresionesRegulares" : {
              "codigoProducto" : /^[a-zA-Z0-9\.\_\-\s]{1,100}$/,
@@ -64,6 +67,11 @@ angular
             "siglas" : /^[a-zA-Z0-9_-]{3,25}$/,
             "universidad" : /^[a-zA-Z0-9\á\é\í\ó\ú\Á\É\Í\Ó\Ú\ñ\Ñ\â\ê\î\ô\û\-\_\,\;\.\s]{2,60}$/,
         },
+        "services": {
+            "uriWebServiceGetCatalogos": "admin/tablas/catalogos",
+            "uriWebServiceExisteCampos": "admin/utils/existecampos",
+
+        }
     })
 
 
