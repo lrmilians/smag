@@ -44,26 +44,33 @@
     </div>
     <!-- Add your site or application content here -->
     <div ng-controller="mainCtrl as mc" ng-init="initCtrl()">
-      <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li ng-repeat="menu in mainMenu" ng-class="{active: $route.current.activetab == menu.activetab}" ng-class="menu.submenu !== undefined ? 'dropdown' : ''">
+      <div class="header" style="height: 100px;margin-bottom: 5px">
+        <div style="width: 30%;float: left">
+          <img src="client/app/images/logo-smag.png" width="200" style="margin: 0 0 0 20px">
+        </div>
+        <div style="width: 70%;float: left">
+          <ul class="nav nav-pills pull-right" style="margin-bottom: 30px;">
+            <li ng-repeat="menu in mainMenu" ng-class="{active: $route.current.activetab == menu.activetab}" ng-class="menu.submenu !== undefined ? 'dropdown' : ''">
 
-            <a ng-if="menu.submenu !== undefined" class="dropdown-toggle" data-toggle="dropdown" href="" style="padding-left: 8px; padding-right: 8px;"><span ng-if="menu.glyphicon !== undefined" class="glyphicon" ng-class="menu.glyphicon" aria-hidden="true"></span>{{menu.title | translate}}<span style="margin-left: 7px;" class="caret"></span></a>
-            <a ng-if="menu.submenu === undefined" href="{{menu.href}}" style="padding-left: 8px; padding-right: 8px;"><span ng-if="menu.glyphicon !== undefined" class="glyphicon" ng-class="menu.glyphicon" aria-hidden="true"></span>{{menu.title | translate}}</a>
-            <ul ng-if="menu.submenu !== undefined" class="dropdown-menu">
-              <li ng-repeat="submen in menu.submenu">
-                <a href="{{submen.href}}"><img ng-if="submen.glyphicon !== undefined" src="client/app/images/iconos/{{submen.glyphicon}}" width="20" style="margin: 0 5px 0 0">{{submen.title}}</a></li>
-            </ul>
-          </li>
-          <li ng-if="connectedUser.isConnected">
-            <a href="" ng-click="logout(false)" style="padding-left: 8px; padding-right: 8px;"><span class="glyphicon glyphicon-off" aria-hidden="true"></span>Salir</a>
-          </li>
-        </ul>
-        <h3 class="text-muted">SMAG</h3>
+              <a ng-if="menu.submenu !== undefined" class="dropdown-toggle" data-toggle="dropdown" href="" style="padding-left: 8px; padding-right: 8px;"><span ng-if="menu.glyphicon !== undefined" class="glyphicon" ng-class="menu.glyphicon" aria-hidden="true"></span>{{menu.title | translate}}<span style="margin-left: 7px;" class="caret"></span></a>
+              <a ng-if="menu.submenu === undefined" href="{{menu.href}}" style="padding-left: 8px; padding-right: 8px;"><span ng-if="menu.glyphicon !== undefined" class="glyphicon" ng-class="menu.glyphicon" aria-hidden="true"></span>{{menu.title | translate}}</a>
+              <ul ng-if="menu.submenu !== undefined" class="dropdown-menu">
+                <li ng-repeat="submen in menu.submenu">
+                  <a href="{{submen.href}}"><img ng-if="submen.glyphicon !== undefined" src="client/app/images/iconos/{{submen.glyphicon}}" width="20" style="margin: 0 5px 0 0">{{submen.title}}</a></li>
+              </ul>
+            </li>
+            <li ng-if="connectedUser.isConnected">
+              <a href="" ng-click="logout(false)" style="padding-left: 8px; padding-right: 8px;"><span class="glyphicon glyphicon-off" aria-hidden="true"></span>Salir</a>
+            </li>
+          </ul>
+          <div style="text-align: right; padding: 0 15px;">
+            <label ng-show="connectedUser.isConnected" class="text-primary">Bienvenido:  {{connectedUser.rolName}}, {{connectedUser.firstName}} {{connectedUser.lastName}}</label>
+          </div>
+        </div>
+
+         <!--<h3 class="text-muted">SMAG</h3>-->
       </div>
-      <div style="text-align: right; padding: 0 15px;">
-        <label ng-show="connectedUser.isConnected" class="text-primary">Bienvenido:  {{connectedUser.rolName}}, {{connectedUser.firstName}} {{connectedUser.lastName}}</label>
-      </div>
+
       <div class="" style="margin: 0 10px">
         <div ng-view></div>
       </div>
