@@ -46,34 +46,34 @@
                     <tr>
                         <th style='vertical-align: middle;font-weight: bold;width: 12%; padding: 3px;'>
                             <a href="" ng-click="clc.orderByField = 'codigo'; clc.reverseSort = !clc.reverseSort">
-                                CODIGO
+                                C&Oacute;DIGO
                                     <span ng-show="clc.orderByField == 'codigo' && clc.clientes.length !== 0">
                                          <span ng-show="!clc.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
                                          <span ng-show="clc.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
                                     </span>
                             </a>
                         </th>
-                        <th style='vertical-align: middle;font-weight: bold;width: 36%; padding: 3px;'>
-                            <a href="" ng-click="clc.orderByField = 'nombre'; clc.reverseSort = !clc.reverseSort">
-                                NOMBRE
+                        <th style='vertical-align: middle;font-weight: bold;width: 12%; padding: 3px;'>
+                            <a href="" ng-click="clc.orderByField = 'identificacion'; clc.reverseSort = !clc.reverseSort">
+                                IDENTIFICACI&Oacute;N
                                     <span ng-show="clc.orderByField == 'nombre' && clc.clientes.length !== 0">
                                          <span ng-show="!clc.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
                                          <span ng-show="clc.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
                                     </span>
                             </a>
                         </th>
-                        <th style='vertical-align: middle;font-weight: bold;width: 12%; padding: 3px;'>
-                            <a href="" ng-click="clc.orderByField = 'precio_venta'; clc.reverseSort = !clc.reverseSort">
-                                PRECIO VENTA
+                        <th style='vertical-align: middle;font-weight: bold;width: 40%; padding: 3px;'>
+                            <a href="" ng-click="clc.orderByField = 'razon_social'; clc.reverseSort = !clc.reverseSort">
+                                NOMBRE
                                     <span ng-show="clc.orderByField == 'precio_venta' && clc.clientes.length !== 0">
                                          <span ng-show="!clc.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
                                          <span ng-show="clc.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
                                     </span>
                             </a>
                         </th>
-                        <th style='vertical-align: middle;font-weight: bold;width: 5%; padding: 3px;'>
-                            <a href="" ng-click="clc.orderByField = 'ivaNombre'; clc.reverseSort = !clc.reverseSort">
-                                IVA
+                        <th style='vertical-align: middle;font-weight: bold;width: 13%; padding: 3px;'>
+                            <a href="" ng-click="clc.orderByField = 'email'; clc.reverseSort = !clc.reverseSort">
+                                EMAIL
                                     <span ng-show="clc.orderByField == 'ivaNombre' && clc.clientes.length !== 0">
                                          <span ng-show="!clc.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
                                          <span ng-show="clc.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
@@ -81,18 +81,9 @@
                             </a>
                         </th>
                         <th style='vertical-align: middle;font-weight: bold;width: 15%; padding: 3px;'>
-                            <a href="" ng-click="clc.orderByField = 'estadoNombre'; clc.reverseSort = !clc.reverseSort">
-                                ESTADO
+                            <a href="" ng-click="clc.orderByField = 'telefono'; clc.reverseSort = !clc.reverseSort">
+                                TEL&Eacute;FONO
                                     <span ng-show="clc.orderByField == 'estadoNombre' && clc.clientes.length !== 0">
-                                         <span ng-show="!clc.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
-                                         <span ng-show="clc.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
-                                    </span>
-                            </a>
-                        </th>
-                        <th style='vertical-align: middle;font-weight: bold;width: 12%; padding: 3px;'>
-                            <a href="" ng-click="clc.orderByField = 'stock_actual'; clc.reverseSort = !clc.reverseSort">
-                                STOCK ACTUAL
-                                    <span ng-show="clc.orderByField == 'stock_actual' && clc.clientes.length !== 0">
                                          <span ng-show="!clc.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
                                          <span ng-show="clc.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
                                     </span>
@@ -104,13 +95,12 @@
                     <tbody>
                     <tr dir-paginate="item in resultFiltered = (clc.clientes | filter:clc.q | itemsPerPage: clc.pageSize | orderBy:clc.orderByField:clc.reverseSort)" current-page="clc.currentPage" total-items="clc.totalRecords" style="text-align: left;">
                         <td style="vertical-align: middle;">{{item.codigo}}</td>
-                        <td style="vertical-align: middle;">{{item.nombre}}</td>
-                        <td style="vertical-align: middle;">{{item.precio_venta | number : 4}}</td>
-                        <td style="vertical-align: middle;">{{item.ivaNombre}}</td>
-                        <td style="vertical-align: middle;">{{item.estadoNombre}}</td>
-                        <td style="vertical-align: middle;">{{item.stock_actual | number : 2}}</td>
+                        <td style="vertical-align: middle;">{{item.identificacion}}</td>
+                        <td style="vertical-align: middle;">{{item.razon_social}}</td>
+                        <td style="vertical-align: middle;">{{item.email}}</td>
+                        <td style="vertical-align: middle;">{{item.telefono}}</td>
                         <td style="vertical-align: middle;">
-                            <button type="button" class="btn btn-default btn-xs btn-warning" style="font-size: 12px;" ng-click="clc.editCliente(item)" title="Editar Producto">
+                            <button type="button" class="btn btn-default btn-xs btn-warning" style="font-size: 12px;" ng-click="clc.editCliente(item)" title="Editar Cliente">
                                 <span class="glyphicon glyphicon-edit" aria-hidden="true" style="margin-right: 0"></span>
                             </button>
                             <!--<button type="button" class="btn btn-default btn-xs btn-danger" style="font-size: 12px;" ng-click="clc.delProducto(item.numero, item.nombre)" title="Eliminar Producto">

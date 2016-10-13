@@ -46,13 +46,16 @@
                         <label class="control-label col-xs-4" for="tipoIdentificacion">Tipo Identificaci&oacute;n *</label>
                         <div class="col-xs-8" style="padding-right: 0px;">
                             <div class="form-group">
-                                <select class="form-control" name="tipoIdentificacion" id="tipoIdentificacion"
+                                <select class="form-control" name="tipoIdentificacion" id="tipoIdentificacion" required="required"
                                         ng-options="item as item.nombre  for item in catalogos.tiposIdentificacion track by item.codigo"
                                         ng-model="tipoIdentificacionSelected">
                                     <option value="">--Seleccione--</option>
                                 </select>
                             </div>
                         </div>
+                        <span class="text-danger text-right col-xs-12" ng-show="clienteForm.$submitted || clienteForm.tipoIdentificacion.$touched" style="margin: -15px 0 10px 0">
+                            <span ng-show="clienteForm.tipoIdentificacion.$error.required">Campo obligatorio</span>
+                        </span>
                     </div>
                     <div class="form-group input-group-sm">
                         <label class="control-label col-xs-3" for="razonSocial">Raz&oacute;n social *</label>
@@ -112,6 +115,34 @@
                             <span ng-show="clienteForm.email.$error.pattern">Valor incorrecto</span>
                             <span ng-show="clienteForm.email.$error.required">Campo obligatorio</span>
                         </span>
+                    </div>
+                    <div class="form-group input-group-xs">
+                        <label class="control-label col-xs-4" for="condicionPago">Condici&oacute;n Pago *</label>
+                        <div class="col-xs-8" style="padding-right: 0px;">
+                            <div class="form-group">
+                                <select class="form-control" name="condicionPago" id="condicionPago" required="required"
+                                        ng-options="item as item.nombre  for item in catalogos.condicionesPago track by item.codigo"
+                                        ng-model="condicionPagoSelected">
+                                    <option value="">--Seleccione--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <span class="text-danger text-right col-xs-12" ng-show="clienteForm.$submitted || clienteForm.condicionPago.$touched" style="margin: -15px 0 10px 0">
+                            <span ng-show="clienteForm.condicionPago.$error.required">Campo obligatorio</span>
+                        </span>
+                    </div>
+                    <div class="form-group input-group-xs">
+                        <label class="control-label col-xs-4" for="condicionPago">Parte Relacionada *</label>
+                        <div class="col-xs-8" style="padding-right: 0px;">
+                            <div class="radio radio-info radio-inline">
+                                <input id="parteRelacionadaY" type="radio" name="parteRelacionadaY" ng-value="true" ng-model="cliente.parte_relacionada" ng-required="!cliente.parte_relacionada">
+                                <label for="parteRelacionadaY">SI</label>
+                            </div>
+                            <div class="radio radio-inline">
+                                <input id="parteRelacionadaN" type="radio" name="parteRelacionadaN" ng-value="false" ng-model="cliente.parte_relacionada" ng-required="!cliente.parte_relacionada">
+                                <label for="parteRelacionadaN">NO</label>
+                            </div>
+                        </div>
                     </div>
 
                 </div>

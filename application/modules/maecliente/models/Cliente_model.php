@@ -41,18 +41,28 @@ class Cliente_model extends CI_Model {
 
     }
 
-    public function add_producto($data) {
-        $this->db->insert('inv_productos', $data);
+    public function add_cliente($data) {
+        $this->db->insert('personas', $data['persona']);
         if($this->db->affected_rows() > 0){
-            return true;
+            $data['cliente']['id'] = $this->db->insert_id();
+            $this->db->insert('cli_clientes', $data['cliente']);
+            if($this->db->affected_rows() > 0){
+
+                return true;
+            }
         }
         return false;
     }
 
-    public function update_producto($data, $id) {
+    public function update_cliente($data, $id) {
+        /*echo '<pre>';
+        print_r($data);
+        echo '<pre>';die();*/
         $this->db->where('id', $id);
-        $this->db->update('inv_productos', $data);
-        if($this->db->affected_rows() > 0){
+        $this->db->update('personas', $data['persona']);
+        $this->db->where('id', $id);
+        $this->db->update('cli_clientes', $data['cliente']);
+        if($this->db->affected_rows() >= 0){
             return true;
         }
         return false;

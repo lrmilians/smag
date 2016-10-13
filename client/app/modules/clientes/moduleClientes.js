@@ -16,7 +16,7 @@ myInventario.constant('PROPERTIES_CLIENTES', {
     "services": {
         //CRUD CLIENTES
         "uriWebServiceGetClientes": "maecliente/clientes/cliente",
-        "uriWebServiceSetCliente": "maecliente/clientes/setproducto",
+        "uriWebServiceSetCliente": "maecliente/clientes/setcliente",
         "uriWebServiceDelCliente": "maecliente/clientes/delcliente",
 
     }

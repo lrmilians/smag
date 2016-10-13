@@ -39,6 +39,8 @@ angular
             estadosProducto : '107',
             icesCompra : '09',
             icesVenta : '09',
+            tiposIdentificacion : '302',
+            condicionesPago: '306',
         },
          "expresionesRegulares" : {
              "codigoProducto" : /^[a-zA-Z0-9\.\_\-\s]{1,100}$/,

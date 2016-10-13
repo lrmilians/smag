@@ -59,40 +59,29 @@ class Clientes extends REST_Controller {
         } else {
             if ($session == 0) {
                 if($this->post('action') !== '-1'){
-                    $producto = $this->post('producto');
-                    $data = array(
-                        'nombre' => $producto['nombre'],
-                        'codigo' => $producto['codigo'],
-                        'codigo_barras' => $producto['codigo_barras'],
-                        'categoria' => $producto['categoria'],
-                        'tipo_producto' => $producto['tipo_producto'],
-                        'marca' => $producto['marca'],
-                        'modelo' => $producto['modelo'],
-                        'unidad_medida' => $producto['unidad_medida'],
-                        'precio_venta' => $producto['precio_venta'],
-                        'iva' => $producto['iva'],
-                        'estado' => $producto['estado'],
-                        'modificado' => date('Y-m-d H:i:s'),
-                        'user_modificado' => $this->post('userId'),
-                        'referencia' => $producto['referencia'],
-                        'descripcion' => $producto['descripcion'],
-                        'stock_actual' => $producto['stock_actual'],
-                        'stock_minimo' => $producto['stock_minimo'],
-                        'stock_maximo' => $producto['stock_maximo'],
-                        'ubicacion' => $producto['ubicacion'],
-                        'costo_ultima_compra' => $producto['costo_ultima_compra'],
-                        'costo_primera_compra' => $producto['costo_primera_compra'],
-                        'ice_compras' => $producto['ice_compras'],
-                        'ice_ventas' => $producto['ice_ventas'],
-                        'peso' => $producto['peso'],
-                        'factor_hora_hombre' => $producto['factor_hora_hombre'],
-                        'altura' => $producto['altura'],
-                        'longitud' => $producto['longitud'],
-                        'profundidad' => $producto['profundidad']
-                    );
-                    $valida_campos = $this->validar_campos($data);
+                    $post_data = $this->post('cliente');
+                   // echo '<pre>';
+        //print_r($post_data);
+        /*var_dump($post_data);
+        echo '<pre>';die();*/
+                    $data['persona']['codigo'] = $post_data['codigo'];
+                    $data['persona']['direccion'] = $post_data['direccion'];
+                    $data['persona']['email'] = $post_data['email'];
+                    $data['persona']['identificacion'] = $post_data['identificacion'];
+                    $data['persona']['telefono'] = $post_data['telefono'];
+                    $data['persona']['tipo_identificacion'] = $post_data['tipo_identificacion'];
+                    $data['persona']['razon_social'] = $post_data['razon_social'];
+                    $data['persona']['modificado'] = date('Y-m-d H:i:s');
+                    $data['persona']['user_modificado'] = $this->post('userId');
+
+                    $data['cliente']['parte_relacionada'] = $post_data['parte_relacionada'];
+                    $data['cliente']['condicion_pago'] = $post_data['condicion_pago'];
+
+                    $valida_campos = true;
+                    //$valida_campos = $this->validar_campos($data);
                     if($valida_campos === true){
-                        $data = $this->util_model->set_valor_null($data);
+                        $data['persona'] = $this->util_model->set_valor_null($data['persona']);
+                        $data['cliente'] = $this->util_model->set_valor_null($data['cliente']);
                         if($this->cliente_model->update_cliente($data, $this->post('action'))){
                             $response['status'] = 'OK';
                             $response['message'] = 'Datos actualizados correctamente.';
@@ -109,15 +98,28 @@ class Clientes extends REST_Controller {
                     }
                 } else {
                     $fecha_creado = $fecha_modificado = date('Y-m-d H:i:s');
-                    $data = $this->post('producto');
-                    $data['creado'] = $fecha_creado;
-                    $data['modificado'] = $fecha_modificado;
-                    $data['user_creado'] = $this->post('userId');
-                    $data['user_modificado'] = $this->post('userId');
-                    $data = $this->util_model->set_valor_null($data);
-                    $valida_campos = $this->validar_campos($data);
+                    $post_data = $this->post('cliente');
+                    $data['persona']['codigo'] = $post_data['codigo'];
+                    $data['persona']['direccion'] = $post_data['direccion'];
+                    $data['persona']['email'] = $post_data['email'];
+                    $data['persona']['identificacion'] = $post_data['identificacion'];
+                    $data['persona']['telefono'] = $post_data['telefono'];
+                    $data['persona']['tipo_identificacion'] = $post_data['tipo_identificacion'];
+                    $data['persona']['razon_social'] = $post_data['razon_social'];
+                    $data['persona']['creado'] = $fecha_creado;
+                    $data['persona']['modificado'] = $fecha_modificado;
+                    $data['persona']['user_creado'] = $this->post('userId');
+                    $data['persona']['user_modificado'] = $this->post('userId');
+
+                    $data['cliente']['parte_relacionada'] = $post_data['parte_relacionada'];
+                    $data['cliente']['condicion_pago'] = $post_data['condicion_pago'];
+
+                    $data['persona'] = $this->util_model->set_valor_null($data['persona']);
+                    $data['cliente'] = $this->util_model->set_valor_null($data['cliente']);
+                    $valida_campos = true;
+                    //$valida_campos = $this->validar_campos($data['persona']);
                     if($valida_campos === true){
-                        if($this->producto_model->add_producto($data)){
+                        if($this->cliente_model->add_cliente($data)){
                             $response['status'] = 'OK';
                             $response['message'] = 'Datos guardados correctamente.';
                         } else {
