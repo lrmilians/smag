@@ -39,7 +39,7 @@ angular
             estadosProducto : '107',
             icesCompra : '09',
             icesVenta : '09',
-            tiposIdentificacion : '302',
+            tiposIdentificacion : '301',
             condicionesPago: '306',
         },
          "expresionesRegulares" : {
