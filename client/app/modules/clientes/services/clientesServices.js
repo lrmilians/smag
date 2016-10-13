@@ -1,17 +1,17 @@
-myInventario.factory('invMttoService', ['$http','$q','PROPERTIES','PROPERTIES_INVENTARIO', '$upload', function ($http, $q, PROPERTIES, PROPERTIES_INVENTARIO) {
+myClientes.factory('clientesService', ['$http','$q','PROPERTIES','PROPERTIES_CLIENTES', function ($http, $q, PROPERTIES, PROPERTIES_CLIENTES) {
 
-    var invMttoService = {
-        getProductos : getProductos,
-        setProducto : setProducto,
+    var clientesService = {
+        getClientes : getClientes,
+        setCliente : setCliente,
         existeCampos : existeCampos,
         getCatalogos : getCatalogos
     };
 
-    function getProductos(dataRequest, token){
+    function getClientes(dataRequest, token){
         var deferred = $q.defer();
-        var wsGetProductos =  PROPERTIES.serverConn.server + "/" + PROPERTIES_INVENTARIO.services.uriWebServiceGetProductos + '/token/' + token;
+        var wsGetClientes =  PROPERTIES.serverConn.server + "/" + PROPERTIES_CLIENTES.services.uriWebServiceGetClientes + '/token/' + token;
 
-        $http.post(wsGetProductos, dataRequest)
+        $http.post(wsGetClientes, dataRequest)
             .success(function(data, status, headers, config) {
                 deferred.resolve(data);
             })
@@ -22,11 +22,11 @@ myInventario.factory('invMttoService', ['$http','$q','PROPERTIES','PROPERTIES_IN
         return deferred.promise;
     }
 
-    function setProducto(dataRequest, token){
+    function setCliente(dataRequest, token){
         var deferred = $q.defer();
-        var wsSetProducto =  PROPERTIES.serverConn.server + "/" + PROPERTIES_INVENTARIO.services.uriWebServiceSetProducto + '/token/' + token;
+        var wsSetCliente =  PROPERTIES.serverConn.server + "/" + PROPERTIES_CLIENTES.services.uriWebServiceSetCliente + '/token/' + token;
 
-        $http.post(wsSetProducto, dataRequest)
+        $http.post(wsSetCliente, dataRequest)
             .success(function(data, status, headers, config) {
                 deferred.resolve(data);
             })
@@ -68,5 +68,5 @@ myInventario.factory('invMttoService', ['$http','$q','PROPERTIES','PROPERTIES_IN
     }
 
 
-    return invMttoService;
+    return clientesService;
 }]);

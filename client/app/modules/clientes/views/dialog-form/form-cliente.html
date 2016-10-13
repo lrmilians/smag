@@ -1,0 +1,374 @@
+<div class="modal-header" ng-style="{'background-color' : color }" xmlns="http://www.w3.org/1999/html">
+    <h4 class="modal-title">
+        <img src="client/app/images/iconos/clientes/clientes01.png" width="30" style="margin-right: 10px">{{action == -1 ? "ADICIONAR" : "ACTUALIZAR"}} CLIENTE
+    </h4>
+</div>
+<form name="clienteForm" novalidate>
+<div class="modal-body" >
+    <div style="padding: 0px 5px; height : 350px; overflow-y : scroll; ">
+        <div class="panel {{action === -1 ? 'panel-success' : 'panel-warning'}}" style="margin: 5px 0px;">
+            <div class="panel-heading">
+                <h4 style="margin: 0"><span class="">DATOS GENERALES</span></h4>
+            </div>
+            <div class="panel-body">
+                <div class="row" style="margin-right: 0">
+                    <div class="form-group input-group-xs">
+                        <label class="control-label col-xs-4" for="codigo">C&oacute;digo *</label>
+                        <div class="col-xs-8" style="padding-right: 0px;">
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                       name="codigo" id="codigo"
+                                       placeholder="" required="required"
+                                       ng-model="cliente.codigo" ng-pattern="patternCodigo">
+                            </div>
+                        </div>
+                        <span class="text-danger text-right col-xs-12" ng-show="clienteForm.$submitted || clienteForm.codigo.$touched" style="margin: -15px 0 10px 0">
+                            <span ng-show="clienteForm.codigo.$error.pattern">Valor incorrecto</span>
+                            <span ng-show="clienteForm.codigo.$error.required">Campo obligatorio</span>
+                        </span>
+                    </div>
+                    <div class="form-group input-group-xs">
+                        <label class="control-label col-xs-4" for="identificacion">Identificaci&oacute;n *</label>
+                        <div class="col-xs-8" style="padding-right: 0px;">
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                       name="identificacion" id="identificacion"
+                                       placeholder="" required="required"
+                                       ng-model="cliente.identificacion" ng-pattern="patternIdentificacion">
+                            </div>
+                        </div>
+                        <span class="text-danger text-right col-xs-12" ng-show="clienteForm.$submitted || clienteForm.identificacion.$touched" style="margin: -15px 0 10px 0">
+                            <span ng-show="clienteForm.identificacion.$error.pattern">Valor incorrecto</span>
+                            <span ng-show="clienteForm.identificacion.$error.required">Campo obligatorio</span>
+                        </span>
+                    </div>
+                    <div class="form-group input-group-xs">
+                        <label class="control-label col-xs-4" for="tipoIdentificacion">Tipo Identificaci&oacute;n *</label>
+                        <div class="col-xs-8" style="padding-right: 0px;">
+                            <div class="form-group">
+                                <select class="form-control" name="tipoIdentificacion" id="tipoIdentificacion"
+                                        ng-options="item as item.nombre  for item in catalogos.tiposIdentificacion track by item.codigo"
+                                        ng-model="tipoIdentificacionSelected">
+                                    <option value="">--Seleccione--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group input-group-sm">
+                        <label class="control-label col-xs-3" for="razonSocial">Raz&oacute;n social *</label>
+                        <div class="col-xs-9" style="padding-right: 0px;">
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                       name="razonSocial" id="razonSocial"
+                                       placeholder="" required="required"
+                                       ng-model="cliente.razon_social" ng-pattern="patternRazonSocial">
+                            </div>
+                        </div>
+                        <span class="text-danger text-right col-xs-12" ng-show="clienteForm.$submitted || clienteForm.razonSocial.$touched" style="margin: -15px 0 10px 0">
+                            <span ng-show="clienteForm.razonSocial.$error.pattern">Valor incorrecto</span>
+                            <span ng-show="clienteForm.razonSocial.$error.required">Campo obligatorio</span>
+                        </span>
+                    </div>
+                    <div class="form-group input-group-xs">
+                        <label class="control-label col-xs-3" for="direccion">Direcci&oacute;n *</label>
+                        <div class="col-xs-9" style="padding-right: 0px;">
+                            <div class="form-group">
+                        <textarea class="form-control" id="direccion" rows="2"
+                                  name="direccion"
+                                  placeholder=""
+                                  ng-model="cliente.direccion" ng-pattern="patternDireccion"></textarea>
+                            </div>
+                        </div>
+                        <span class="text-danger text-right col-xs-12" ng-show="clienteForm.$submitted || clienteForm.direccion.$touched" style="margin: -10px 0 10px 0">
+                            <span ng-show="clienteForm.direccion.$error.pattern">Valor incorrecto</span>
+                            <span ng-show="clienteForm.direccion.$error.required">Campo obligatorio</span>
+                        </span>
+                    </div>
+                    <div class="form-group input-group-sm">
+                        <label class="control-label col-xs-7" for="telefono">Tel&eacute;fono</label>
+                        <div class="col-xs-5" style="padding-right: 0px;">
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                       name="telefono" id="telefono"
+                                       placeholder=""
+                                       ng-model="cliente.telefono" ng-pattern="patternTelefono">
+                            </div>
+                        </div>
+                        <span class="text-danger text-right col-xs-12" ng-show="clienteForm.$submitted || clienteForm.telefono.$touched" style="margin: -15px 0 10px 0">
+                            <span ng-show="clienteForm.telefono.$error.pattern">Valor incorrecto</span>
+                        </span>
+                    </div>
+                    <div class="form-group input-group-sm">
+                        <label class="control-label col-xs-3" for="email">Email *</label>
+                        <div class="col-xs-9" style="padding-right: 0px;">
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                       name="email" id="email"
+                                       placeholder="" required="required"
+                                       ng-model="cliente.email" ng-pattern="patternEmail">
+                            </div>
+                        </div>
+                        <span class="text-danger text-right col-xs-12" ng-show="clienteForm.$submitted || clienteForm.email.$touched" style="margin: -15px 0 10px 0">
+                            <span ng-show="clienteForm.email.$error.pattern">Valor incorrecto</span>
+                            <span ng-show="clienteForm.email.$error.required">Campo obligatorio</span>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--<div class="panel {{action === -1 ? 'panel-success' : 'panel-warning'}}" style="margin: 5px 0px;">
+            <div class="panel-heading">
+                <h4 style="margin: 0"><span class="">DATOS REFERENCIALES (STOCK)</span></h4>
+            </div>
+            <div class="panel-body">
+                <div class="row" style="margin-right: 0">
+                    <div class="form-group input-group-xs">
+                        <label class="control-label col-xs-3" for="referencia">Referencia</label>
+                        <div class="col-xs-9" style="padding-right: 0px;">
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                       name="referencia" id="referencia"
+                                       placeholder=""
+                                       ng-model="producto.referencia" ng-pattern="patternReferencia">
+                            </div>
+                        </div>
+                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.referencia.$touched" style="margin: -10px 0 10px 0">
+                            <span ng-show="productoForm.referencia.$error.pattern">Valor incorrecto</span>
+                        </span>
+                    </div>
+                    <div class="form-group input-group-xs">
+                        <label class="control-label col-xs-4" for="descripcion">Descripci&oacute;n Alterna</label>
+                        <div class="col-xs-8" style="padding-right: 0px;">
+                            <div class="form-group">
+                        <textarea class="form-control" id="descripcion" rows="2"
+                                  name="descripcion"
+                                  placeholder=""
+                                  ng-model="producto.descripcion" ng-pattern="patternDescripcion"></textarea>
+                            </div>
+                        </div>
+                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.descripcion.$touched" style="margin: -10px 0 10px 0">
+                            <span ng-show="productoForm.descripcion.$error.pattern">Valor incorrecto</span>
+                        </span>
+                    </div>
+                    <div class="form-group input-group-xs">
+                        <label class="control-label col-xs-7" for="stockActual">Stock Actual *</label>
+                        <div class="col-xs-5" style="padding-right: 0px;">
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                       name="stockActual" id="stockActual"
+                                       placeholder="" required="required"
+                                       ng-model="producto.stock_actual" ng-pattern="patternStockActual">
+                            </div>
+                        </div>
+                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.stockActual.$touched" style="margin: -10px 0 10px 0">
+                            <span ng-show="productoForm.stockActual.$error.required">Campo obligatorio</span>
+                            <span ng-show="productoForm.stockActual.$error.pattern">Valor incorrecto</span>
+                        </span>
+                    </div>
+                    <div class="form-group input-group-xs">
+                        <label class="control-label col-xs-7" for="stockMinimo">Stock M&iacute;nimo *</label>
+                        <div class="col-xs-5" style="padding-right: 0px;">
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                       name="stockMinimo" id="stockMinimo"
+                                       placeholder="" required="required"
+                                       ng-model="producto.stock_minimo" ng-pattern="patternStockMinimo">
+                            </div>
+                        </div>
+                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.stockMinimo.$touched" style="margin: -10px 0 10px 0">
+                            <span ng-show="productoForm.stockMinimo.$error.required">Campo obligatorio</span>
+                            <span ng-show="productoForm.stockMinimo.$error.pattern">Valor incorrecto</span>
+                        </span>
+                    </div>
+                    <div class="form-group input-group-xs">
+                        <label class="control-label col-xs-7" for="stockMaximo">Stock M&aacute;ximo *</label>
+                        <div class="col-xs-5" style="padding-right: 0px;">
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                       name="stockMaximo" id="stockMaximo"
+                                       placeholder="" required="required"
+                                       ng-model="producto.stock_maximo" ng-pattern="patternStockMaximo">
+                            </div>
+                        </div>
+                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.stockMaximo.$touched" style="margin: -10px 0 10px 0">
+                            <span ng-show="productoForm.stockMaximo.$error.required">Campo obligatorio</span>
+                            <span ng-show="productoForm.stockMaximo.$error.pattern">Valor incorrecto</span>
+                        </span>
+                    </div>
+                    <div class="form-group input-group-xs">
+                        <label class="control-label col-xs-4" for="ubicacion">Ubicaci&oacute;n</label>
+                        <div class="col-xs-8" style="padding-right: 0px;">
+                            <div class="form-group">
+                                <textarea class="form-control" id="ubicacion" rows="2"
+                                      name="ubicacion"
+                                      placeholder=""
+                                      ng-model="producto.ubicacion" ng-pattern="patternUbicacion"></textarea>
+                            </div>
+                        </div>
+                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.ubicacion.$touched" style="margin: -10px 0 10px 0">
+                            <span ng-show="productoForm.ubicacion.$error.pattern">Valor incorrecto</span>
+                        </span>
+                    </div>
+                    <div class="form-group input-group-xs">
+                        <label class="control-label col-xs-7" for="costoUltimaCompra">Costo &Uacute;ltima Compra *</label>
+                        <div class="col-xs-5" style="padding-right: 0px;">
+                            <div class="input-group" style="margin-bottom: 10px">
+                                <span class="input-group-addon">$</span>
+                                <input type="text" class="form-control"
+                                       name="costoUltimaCompra" id="costoUltimaCompra"
+                                       placeholder="" required="required"
+                                       ng-model="producto.costo_ultima_compra" ng-pattern="patternCostoUltimaCompra">
+                            </div>
+                        </div>
+                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.costoUltimaCompra.$touched" style="margin: -15px 0 10px 0">
+                            <span ng-show="productoForm.costoUltimaCompra.$error.required">Campo obligatorio</span>
+                            <span ng-show="productoForm.costoUltimaCompra.$error.pattern">Valor incorrecto</span>
+                        </span>
+                    </div>
+                    <div class="form-group input-group-xs">
+                        <label class="control-label col-xs-7" for="costoPrimeraCompra">Costo Primera Compra *</label>
+                        <div class="col-xs-5" style="padding-right: 0px;">
+                            <div class="input-group" style="margin-bottom: 10px">
+                                <span class="input-group-addon">$</span>
+                                <input type="text" class="form-control"
+                                       name="costoPrimeraCompra" id="costoPrimeraCompra"
+                                       placeholder="" required="required"
+                                       ng-model="producto.costo_primera_compra" ng-pattern="patternCostoPrimeraCompra">
+                            </div>
+                        </div>
+                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.costoPrimeraCompra.$touched" style="margin: -10px 0 10px 0">
+                            <span ng-show="productoForm.costoPrimeraCompra.$error.required">Campo obligatorio</span>
+                            <span ng-show="productoForm.costoPrimeraCompra.$error.pattern">Valor incorrecto</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel {{action === -1 ? 'panel-success' : 'panel-warning'}}" style="margin: 5px 0px;">
+            <div class="panel-heading">
+                <h4 style="margin: 0"><span class="">DATOS PARA IMPORTACI&Oacute;N</span></h4>
+            </div>
+            <div class="panel-body">
+                <div class="row" style="margin-right: 0">
+                    <div class="form-group input-group-xs">
+                        <label class="control-label col-xs-3" for="altura">Dimensiones (cm)</label>
+                        <div class="col-xs-3" style="padding-right: 0px;">
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                       name="altura" id="altura"
+                                       placeholder="Altura" ng-model="producto.altura" ng-pattern="patternAltura">
+                            </div>
+                        </div>
+                        <div class="col-xs-3" style="padding-right: 0px;">
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                       name="longitud" id="longitud"
+                                       placeholder="Longitud" ng-model="producto.longitud" ng-pattern="patternLongitud">
+                            </div>
+                        </div>
+                        <div class="col-xs-3" style="padding-right: 0px;">
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                       name="profundidad" id="profundidad"
+                                       placeholder="Profundidad" ng-model="producto.profundidad" ng-pattern="patternProfundidad">
+                            </div>
+                        </div>
+                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.altura.$touched" style="margin: -10px 0 10px 0">
+                            <span ng-show="productoForm.altura.$error.pattern">Valor de la Altura incorrecto</span>
+                        </span>
+                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.longitud.$touched" style="margin: -10px 0 10px 0">
+                            <span ng-show="productoForm.longitud.$error.pattern">Valor de la Longitud incorrecto</span>
+                        </span>
+                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.profundidad.$touched" style="margin: -10px 0 10px 0">
+                            <span ng-show="productoForm.profundidad.$error.pattern">Valor de la Profundidad incorrecto</span>
+                        </span>
+                    </div>
+                    <div class="form-group input-group-xs">
+                        <label class="control-label col-xs-4" for="iceCompra">ICE de Compra *</label>
+                        <div class="col-xs-8" style="padding-right: 0px;">
+                            <div class="form-group">
+                                <select class="form-control" name="iceCompra" id="iceCompra" required="required"
+                                        ng-options="item as item.nombrecodigo  for item in catalogos.icesCompra track by item.codigo"
+                                        ng-model="iceCompraSelected">
+                                    <option value="">--Seleccione--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.iceCompra.$touched" style="margin: -15px 0 10px 0">
+                            <span ng-show="productoForm.iceCompra.$error.required">Campo obligatorio</span>
+                        </span>
+                    </div>
+                    <div class="form-group input-group-xs">
+                        <label class="control-label col-xs-4" for="iceVenta">ICE de Venta *</label>
+                        <div class="col-xs-8" style="padding-right: 0px;">
+                            <div class="form-group">
+                                <select class="form-control" name="iceVenta" id="iceVenta" required="required"
+                                        ng-options="item as item.nombrecodigo  for item in catalogos.icesVenta track by item.codigo"
+                                        ng-model="iceVentaSelected">
+                                    <option value="">--Seleccione--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.iceVenta.$touched" style="margin: -15px 0 10px 0">
+                            <span ng-show="productoForm.iceVenta.$error.required">Campo obligatorio</span>
+                        </span>
+                    </div>
+                    <div class="form-group input-group-xs">
+                        <label class="control-label col-xs-7" for="peso">Peso</label>
+                        <div class="col-xs-5" style="padding-right: 0px;">
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                       name="peso" id="peso"
+                                       placeholder=""
+                                       ng-model="producto.peso" ng-pattern="patternPeso">
+                            </div>
+                        </div>
+                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.peso.$touched" style="margin: -10px 0 10px 0">
+                            <span ng-show="productoForm.peso.$error.pattern">Valor incorrecto</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel {{action === -1 ? 'panel-success' : 'panel-warning'}}" style="margin: 5px 0px;">
+            <div class="panel-heading">
+                <h4 style="margin: 0"><span class="">DATOS PARA PRODUCCI&Oacute;N</span></h4>
+            </div>
+            <div class="panel-body">
+                <div class="row" style="margin-right: 0">
+                    <div class="form-group input-group-xs">
+                        <label class="control-label col-xs-7" for="factorHoraHombre">Factor Hora hombre *</label>
+                        <div class="col-xs-5" style="padding-right: 0px;">
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                       name="factorHoraHombre" id="factorHoraHombre"
+                                       placeholder="" required="required"
+                                       ng-model="producto.factor_hora_hombre" ng-pattern="patternFactorHoraHombre">
+                            </div>
+                        </div>
+                        <span class="text-danger text-right col-xs-12" ng-show="productoForm.$submitted || productoForm.factorHoraHombre.$touched" style="margin: -10px 0 10px 0">
+                            <span ng-show="productoForm.factorHoraHombre.$error.required">Campo obligatorio</span>
+                            <span ng-show="productoForm.factorHoraHombre.$error.pattern">Valor incorrecto</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel {{action === -1 ? 'panel-success' : 'panel-warning'}}" style="margin: 5px 0px;">
+            <div class="panel-heading">
+                <h4 style="margin: 0"><span class="">DATOS CONTABLES</span></h4>
+            </div>
+            <div class="panel-body">
+                <div class="row" style="margin-right: 0">
+
+                </div>
+            </div>
+        </div>-->
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
+    <button type="submit" class="btn {{action === -1 ? 'btn-success' : 'btn-warning'}} pull-right" ng-click="submitForm()">{{action === -1 ? 'Agregar' : 'Actualizar'}}</button>
+</div>
+</form>

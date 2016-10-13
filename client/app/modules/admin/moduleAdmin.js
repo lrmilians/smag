@@ -82,14 +82,19 @@ myAdmin.constant('PROPERTIES_ADMIN', {
                         {href : '#/balance-situacion', title : 'Balances Situación', glyphicon : 'glyphicon-folder-open'},
                     ]
                 },*/
-                {href : '', clic : '', title : 'Configuracion', activetab : 'configuracion', glyphicon : 'glyphicon-cog',
+                {href : '', clic : '', title : 'Configuracion', activetab : 'configuracion', glyphicon : '',
                     submenu : [
                         {href : '#/config-tablas', title : 'Tablas', glyphicon : 'tablas/tablas01.png'},
                     ]
                 },
-                {href : '#/inventario', clic : '', title : 'Inventario', activetab : 'inventario', glyphicon : 'glyphicon-dashboard',
+                {href : '#/inventario', clic : '', title : 'Inventario', activetab : 'inventario', glyphicon : '',
                     submenu : [
                         {href : '#/inv-mtto', title : 'Mantenimiento', glyphicon : 'inventario/inventario02.png'},
+                    ]
+                },
+                {href : '', clic : '', title : 'Clientes', activetab : 'clientes', glyphicon : '',
+                    submenu : [
+                        {href : '#/clientes-mtto', title : 'Mantenimiento', glyphicon : 'clientes/clientes01.png'},
                     ]
                 },
             ]

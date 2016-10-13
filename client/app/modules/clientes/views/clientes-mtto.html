@@ -1,0 +1,136 @@
+<div class="jumbotron" style="padding: 5px 5px;border-radius: 5px">
+    <div ng-controller="clientesCtrl as clc" ng-init="clc.initCtrl()">
+        <div class="panel panel-info" style="margin: 5px 0px 15px 0px;">
+            <div class="panel-heading" style="padding: 0px 10px;">
+                <table width="100%">
+                    <tr>
+                        <td style="width: 60%; text-align: left;"><h4><button type="button" class="btn btn-default btn-success btn-xs" ng-click="clc.initCtrl()" style="font-size: 12px;" title="Actualizar">
+                            <span class="glyphicon glyphicon-repeat" aria-hidden="true" style="margin: 0;"></span>
+                        </button><img src="client/app/images/iconos/clientes/clientes01.png" width="30" style="margin: 0 10px"><label class="text-primary" style="margin-bottom: 0px;">MANTENIMIENTO DE CLIENTES</label></h4></td>
+                        <td style="width: 40%; text-align: right;">
+                            <button type="button" class="btn btn-default btn-xs btn-danger" ng-click="clc.resetSearch()" ng-if="clc.advanceSearch">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Limpiar búsqueda
+                            </button>
+                            <button type="button" class="btn btn-default btn-xs btn-primary" style="font-size: 12px;" ng-click="clc.searchProducto()" ng-if="clc.clientes.length !== 0">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>Buscar
+                            </button>
+                            <button type="button" class="btn btn-default btn-xs btn-success" style="font-size: 12px;" ng-click="clc.addCliente()">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Adicionar Cliente
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel-body" style="padding-top: 0px;">
+                <div class="row" style="margin-top: 10px;">
+                    <div ng-if="clc.clientes.length !== 0" class="col-md-3">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1"><span aria-hidden="true" class="glyphicon glyphicon-search"></span></span>
+                            <input type="text" ng-model="clc.q" class="form-control" placeholder="Búsqueda rápida" aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                </div>
+                <table ng-if="clc.clientes.length === 0" class="table table-hover table-striped" style="margin-bottom: 0px;">
+                    <tr>
+                        <td>
+                            <div role="alert" class="alert alert-danger" style="margin-bottom: 0; padding: 5px;">
+                                <span aria-hidden="true" class="glyphicon glyphicon-exclamation-sign"></span>
+                                <span class="sr-only">Error:</span>
+                                {{'No existen registros'}}
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <table ng-if="clc.clientes.length !== 0" class="table table-hover table-striped" style="margin-bottom: 0px;">
+                    <thead>
+                    <tr>
+                        <th style='vertical-align: middle;font-weight: bold;width: 12%; padding: 3px;'>
+                            <a href="" ng-click="clc.orderByField = 'codigo'; clc.reverseSort = !clc.reverseSort">
+                                CODIGO
+                                    <span ng-show="clc.orderByField == 'codigo' && clc.clientes.length !== 0">
+                                         <span ng-show="!clc.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
+                                         <span ng-show="clc.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
+                                    </span>
+                            </a>
+                        </th>
+                        <th style='vertical-align: middle;font-weight: bold;width: 36%; padding: 3px;'>
+                            <a href="" ng-click="clc.orderByField = 'nombre'; clc.reverseSort = !clc.reverseSort">
+                                NOMBRE
+                                    <span ng-show="clc.orderByField == 'nombre' && clc.clientes.length !== 0">
+                                         <span ng-show="!clc.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
+                                         <span ng-show="clc.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
+                                    </span>
+                            </a>
+                        </th>
+                        <th style='vertical-align: middle;font-weight: bold;width: 12%; padding: 3px;'>
+                            <a href="" ng-click="clc.orderByField = 'precio_venta'; clc.reverseSort = !clc.reverseSort">
+                                PRECIO VENTA
+                                    <span ng-show="clc.orderByField == 'precio_venta' && clc.clientes.length !== 0">
+                                         <span ng-show="!clc.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
+                                         <span ng-show="clc.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
+                                    </span>
+                            </a>
+                        </th>
+                        <th style='vertical-align: middle;font-weight: bold;width: 5%; padding: 3px;'>
+                            <a href="" ng-click="clc.orderByField = 'ivaNombre'; clc.reverseSort = !clc.reverseSort">
+                                IVA
+                                    <span ng-show="clc.orderByField == 'ivaNombre' && clc.clientes.length !== 0">
+                                         <span ng-show="!clc.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
+                                         <span ng-show="clc.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
+                                    </span>
+                            </a>
+                        </th>
+                        <th style='vertical-align: middle;font-weight: bold;width: 15%; padding: 3px;'>
+                            <a href="" ng-click="clc.orderByField = 'estadoNombre'; clc.reverseSort = !clc.reverseSort">
+                                ESTADO
+                                    <span ng-show="clc.orderByField == 'estadoNombre' && clc.clientes.length !== 0">
+                                         <span ng-show="!clc.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
+                                         <span ng-show="clc.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
+                                    </span>
+                            </a>
+                        </th>
+                        <th style='vertical-align: middle;font-weight: bold;width: 12%; padding: 3px;'>
+                            <a href="" ng-click="clc.orderByField = 'stock_actual'; clc.reverseSort = !clc.reverseSort">
+                                STOCK ACTUAL
+                                    <span ng-show="clc.orderByField == 'stock_actual' && clc.clientes.length !== 0">
+                                         <span ng-show="!clc.reverseSort" class="glyphicon glyphicon-chevron-up" aria-hidden="true" style="margin: 0;"></span>
+                                         <span ng-show="clc.reverseSort" class="glyphicon glyphicon-chevron-down" aria-hidden="true" style="margin: 0;"></span>
+                                    </span>
+                            </a>
+                        </th>
+                        <th style="width: 8%;"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr dir-paginate="item in resultFiltered = (clc.clientes | filter:clc.q | itemsPerPage: clc.pageSize | orderBy:clc.orderByField:clc.reverseSort)" current-page="clc.currentPage" total-items="clc.totalRecords" style="text-align: left;">
+                        <td style="vertical-align: middle;">{{item.codigo}}</td>
+                        <td style="vertical-align: middle;">{{item.nombre}}</td>
+                        <td style="vertical-align: middle;">{{item.precio_venta | number : 4}}</td>
+                        <td style="vertical-align: middle;">{{item.ivaNombre}}</td>
+                        <td style="vertical-align: middle;">{{item.estadoNombre}}</td>
+                        <td style="vertical-align: middle;">{{item.stock_actual | number : 2}}</td>
+                        <td style="vertical-align: middle;">
+                            <button type="button" class="btn btn-default btn-xs btn-warning" style="font-size: 12px;" ng-click="clc.editCliente(item)" title="Editar Producto">
+                                <span class="glyphicon glyphicon-edit" aria-hidden="true" style="margin-right: 0"></span>
+                            </button>
+                            <!--<button type="button" class="btn btn-default btn-xs btn-danger" style="font-size: 12px;" ng-click="clc.delProducto(item.numero, item.nombre)" title="Eliminar Producto">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true" style="margin-right: 0"></span>
+                            </button>-->
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="text-left" style="margin: 15px 0 0 15px;">
+                        Total de registros: {{clc.totalRecords}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="text-center">
+                        <dir-pagination-controls boundary-links="true" on-page-change="clc.pageChangeHandler(newPageNumber)" template-url="client/app/bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -18,9 +18,6 @@ myInventario.constant('PROPERTIES_INVENTARIO', {
         "uriWebServiceGetProductos": "inventario/productos/producto",
         "uriWebServiceSetProducto": "inventario/productos/setproducto",
         "uriWebServiceDelProducto": "inventario/productos/delproducto",
-        "uriWebServiceGetCatalogos": "admin/tablas/catalogos",
-        "uriWebServiceExisteCampos": "admin/utils/existecampos",
-
 
     },
     "regularExpression" : {
