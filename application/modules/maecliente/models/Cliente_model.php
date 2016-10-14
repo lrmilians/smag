@@ -17,9 +17,6 @@ class Cliente_model extends CI_Model {
         if(!empty($data['identificacion'])){
             $this->db->like('identificacion', $data['identificacion']);
         }
-        if(!empty($data['tipo_identificacion'])){
-            $this->db->where('tipo_identificacion', $data['tipo_identificacion']);
-        }
         if(!empty($data['razon_social'])){
             $this->db->like('razon_social', $data['razon_social']);
         }
@@ -55,9 +52,6 @@ class Cliente_model extends CI_Model {
     }
 
     public function update_cliente($data, $id) {
-        /*echo '<pre>';
-        print_r($data);
-        echo '<pre>';die();*/
         $this->db->where('id', $id);
         $this->db->update('personas', $data['persona']);
         $this->db->where('id', $id);
