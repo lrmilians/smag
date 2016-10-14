@@ -203,9 +203,9 @@ myInventario.controller("clienteDialogCtrl", function(PROPERTIES,clientesService
     $scope.glyphicon = "glyphicon-lock";
     $scope.tablas = [];
 
-    $scope.patternCodigo = PROPERTIES.expresionesRegulares.codigoProducto;
-    $scope.patternCodigoBarras = PROPERTIES.expresionesRegulares.codigoBarrasProducto;
-    $scope.patternNombre = PROPERTIES.expresionesRegulares.nombreProducto;
+    $scope.patternCodigo = PROPERTIES.expresionesRegulares.codigoCliente;
+    $scope.patternRazonSocial = PROPERTIES.expresionesRegulares.razonSocialCliente;
+
     $scope.patternPrecioVenta = PROPERTIES.expresionesRegulares.decimal186;
     $scope.patternReferencia = PROPERTIES.expresionesRegulares.referenciaProducto;
     $scope.patternDescripcion = PROPERTIES.expresionesRegulares.descripcionProducto;
