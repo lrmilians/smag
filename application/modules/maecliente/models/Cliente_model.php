@@ -12,16 +12,16 @@ class Cliente_model extends CI_Model {
         $this->db->join('cli_clientes', 'personas.id = cli_clientes.id');
 
         if(!empty($data['codigo'])){
-            $this->db->like('codigo', $data['codigo']);
+            $this->db->where("lower(codigo) like concat('%',lower('".$data['codigo']."'),'%')");
         }
         if(!empty($data['identificacion'])){
-            $this->db->like('identificacion', $data['identificacion']);
+            $this->db->where("lower(identificacion) like concat('%',lower('".$data['identificacion']."'),'%')");
         }
         if(!empty($data['razon_social'])){
-            $this->db->like('razon_social', $data['razon_social']);
+            $this->db->where("lower(razon_social) like concat('%',lower('".$data['razon_social']."'),'%')");
         }
         if(!empty($data['email'])){
-            $this->db->like('email', $data['email']);
+            $this->db->where("lower(email) like concat('%',lower('".$data['razon_social']."'),'%')");
         }
         $this->db->order_by('razon_social');
 
