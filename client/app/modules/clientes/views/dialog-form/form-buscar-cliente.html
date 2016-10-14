@@ -1,14 +1,14 @@
 <div class="modal-header" style="background-color: #d9edf7;" xmlns="http://www.w3.org/1999/html">
     <h4 class="modal-title">
-        <span class="glyphicon glyphicon-search" style="margin-right: 5px"></span>Buscar Tabla
+        <span class="glyphicon glyphicon-search" style="margin-right: 5px"></span>Buscar Cliente
     </h4>
 </div>
-<form name="buscarProductoForm" novalidate>
+<form name="buscarClienteForm" novalidate>
 <div class="modal-body" style="padding-top: 10px;">
     <div class="panel panel-info" style="margin-bottom: 0px;">
         <div class="panel-body" style="padding-top: 10px; padding-bottom: 5px;">
             <div class="form-group input-group-xs">
-                <label class="control-label col-xs-4" for="codigo">Código</label>
+                <label class="control-label col-xs-4" for="codigo">C&oacute;digo</label>
                 <div class="col-xs-7" style="padding-right: 0px;">
                     <div class="form-group">
                         <input type="text" class="form-control"
@@ -19,24 +19,35 @@
                 </div>
             </div>
             <div class="form-group input-group-xs">
-                <label class="control-label col-xs-4" for="nombre">Nombre</label>
+                <label class="control-label col-xs-4" for="identificacion">Identificaci&oacute;n</label>
                 <div class="col-xs-7" style="padding-right: 0px;">
                     <div class="form-group">
                         <input type="text" class="form-control"
-                               name="nombre" id="nombre"
+                               name="identificacion" id="identificacion"
                                placeholder=""
-                               ng-model="searchCriteria.nombre"/>
+                               ng-model="searchCriteria.identificacion" />
                     </div>
                 </div>
             </div>
             <div class="form-group input-group-xs">
-                <label class="control-label col-xs-4" for="codigoBarras">Código Barras</label>
+                <label class="control-label col-xs-4" for="razonSocial">Nombre</label>
                 <div class="col-xs-7" style="padding-right: 0px;">
                     <div class="form-group">
                         <input type="text" class="form-control"
-                               name="codigoBarras" id="codigoBarras"
+                               name="razonSocial" id="razonSocial"
                                placeholder=""
-                               ng-model="searchCriteria.codigo_barras" />
+                               ng-model="searchCriteria.razon_social"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group input-group-xs">
+                <label class="control-label col-xs-4" for="email">Email</label>
+                <div class="col-xs-7" style="padding-right: 0px;">
+                    <div class="form-group">
+                        <input type="text" class="form-control"
+                               name="email" id="email"
+                               placeholder=""
+                               ng-model="searchCriteria.email" />
                     </div>
                 </div>
             </div>
