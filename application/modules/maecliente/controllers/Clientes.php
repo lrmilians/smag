@@ -60,10 +60,6 @@ class Clientes extends REST_Controller {
             if ($session == 0) {
                 if($this->post('action') !== '-1'){
                     $post_data = $this->post('cliente');
-                   // echo '<pre>';
-        //print_r($post_data);
-        /*var_dump($post_data);
-        echo '<pre>';die();*/
                     $data['persona']['codigo'] = $post_data['codigo'];
                     $data['persona']['direccion'] = $post_data['direccion'];
                     $data['persona']['email'] = $post_data['email'];

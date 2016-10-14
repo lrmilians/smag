@@ -20,8 +20,9 @@ myClientes.controller("clientesCtrl", ['PROPERTIES','clientesService','$scope','
 
         clientesCtrl.dataRequest = {
             codigo: '',
-            nombre: '',
-            codigo_barras: '',
+            identificacion: '',
+            razon_social: '',
+            email: '',
             start: 0,
             size: clientesCtrl.pageSize,
             catalogos : [
@@ -56,8 +57,9 @@ myClientes.controller("clientesCtrl", ['PROPERTIES','clientesService','$scope','
         clientesCtrl.resetSearch = function(){
             clientesCtrl.dataRequest = {
                 codigo: '',
-                nombre: '',
-                codigo_barras: '',
+                identificacion: '',
+                razon_social: '',
+                email: '',
                 start: 0,
                 size: clientesCtrl.pageSize,
                 catalogos : [
@@ -72,18 +74,20 @@ myClientes.controller("clientesCtrl", ['PROPERTIES','clientesService','$scope','
 
         clientesCtrl.searchCliente = function(){
             angular.element('#div-loading').show();
-            var dlg = dialogs.create('client/app/modules/inventario/views/dialog-form/form-buscar-producto.html','buscarProductoDialogCtrl',{
+            var dlg = dialogs.create('client/app/modules/clientes/views/dialog-form/form-buscar-cliente.html','buscarClienteDialogCtrl',{
                 searchCriteria : clientesCtrl.dataRequest
             },'lg');
             dlg.result.then(function(result){
                 clientesCtrl.currentPage = 1;
                 var indexValue = (clientesCtrl.currentPage - 1) * clientesCtrl.pageSize;
                 clientesCtrl.dataRequest.codigo = result.codigo;
-                clientesCtrl.dataRequest.nombre = result.nombre;
-                clientesCtrl.dataRequest.codigo_barras = result.codigo_barras;
+                clientesCtrl.dataRequest.identificacion = result.identificacion;
+                clientesCtrl.dataRequest.razon_social = result.razon_social;
+                clientesCtrl.dataRequest.email = result.email;
                 clientesCtrl.dataRequest.inicio = indexValue;
 
-                if(clientesCtrl.dataRequest.codigo != "" || clientesCtrl.dataRequest.nombre != "" || clientesCtrl.dataRequest.codigo_barras != ""){
+                if(clientesCtrl.dataRequest.codigo != "" || clientesCtrl.dataRequest.identificacion != "" || clientesCtrl.dataRequest.razon_social != ""
+                    || clientesCtrl.dataRequest.email != ""){
                     clientesCtrl.advanceSearch = true;
                 }
                 clientesCtrl.getClientes();
@@ -199,9 +203,9 @@ myInventario.controller("clienteDialogCtrl", function(PROPERTIES,clientesService
     $scope.glyphicon = "glyphicon-lock";
     $scope.tablas = [];
 
-    $scope.patternCodigo = PROPERTIES.expresionesRegulares.codigoProducto;
-    $scope.patternCodigoBarras = PROPERTIES.expresionesRegulares.codigoBarrasProducto;
-    $scope.patternNombre = PROPERTIES.expresionesRegulares.nombreProducto;
+    $scope.patternCodigo = PROPERTIES.expresionesRegulares.codigoCliente;
+    $scope.patternRazonSocial = PROPERTIES.expresionesRegulares.razonSocialCliente;
+
     $scope.patternPrecioVenta = PROPERTIES.expresionesRegulares.decimal186;
     $scope.patternReferencia = PROPERTIES.expresionesRegulares.referenciaProducto;
     $scope.patternDescripcion = PROPERTIES.expresionesRegulares.descripcionProducto;
@@ -320,12 +324,13 @@ myInventario.controller("clienteDialogCtrl", function(PROPERTIES,clientesService
 
 });
 
-myInventario.controller("buscarProductoDialogCtrl",function($scope,$modalInstance,data){
+myInventario.controller("buscarClienteDialogCtrl",function($scope,$modalInstance,data){
     angular.element('#div-loading').hide();
     $scope.searchCriteria = {
         codigo : data.searchCriteria.codigo,
-        nombre : data.searchCriteria.nombre,
-        codigo_barras : data.searchCriteria.codigo_barras
+        identificacion : data.searchCriteria.identificacion,
+        razon_social : data.searchCriteria.razon_social,
+        email : data.searchCriteria.email
     };
 
     $scope.cancel = function(){
