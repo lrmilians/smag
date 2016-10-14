@@ -10,13 +10,13 @@ class Producto_model extends CI_Model {
     public function get_productos($data) {
         $this->db->from('inv_productos');
         if(!empty($data['codigo'])){
-            $this->db->like('codigo', $data['codigo']);
+            $this->db->where("lower(codigo) like concat('%',lower('".$data['codigo']."'),'%')");
         }
         if(!empty($data['nombre'])){
-            $this->db->like('nombre', $data['nombre']);
+            $this->db->where("lower(nombre) like concat('%',lower('".$data['nombre']."'),'%')");
         }
         if(!empty($data['codigo_barras'])){
-            $this->db->like('codigo_barras', $data['codigo_barras']);
+            $this->db->like("lower(codigo_barras) like concat('%',lower('".$data['codigo_barras']."'),'%')");
         }
         $this->db->order_by('codigo');
 
@@ -29,9 +29,7 @@ class Producto_model extends CI_Model {
         }
 
         $result['data'] = $this->db->get()->result_array();
-       // var_dump($this->db->last_query());
         return $result;
-
     }
 
     public function add_producto($data) {
